@@ -13,6 +13,8 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-pattern": "url('/assets/images/hero-image.jpeg')",
+        "dark-linear":
+          "linear-gradient(0.51deg, #0D0C0F -6.13%, #292D45 115.01%)",
       },
       screens: {
         sm: "480px",
@@ -20,6 +22,7 @@ const config: Config = {
         lg: "976px",
         xl: "1440px",
       },
+
       content: {
         navItem:
           'content: "", height: "2px", width: "100%", background-color: "black"',
