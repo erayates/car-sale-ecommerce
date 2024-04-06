@@ -17,6 +17,10 @@ const config: Config = {
           "linear-gradient(0.51deg, #0D0C0F -6.13%, #292D45 115.01%)",
         "page-hero-linear":
           "linear-gradient(180deg, rgba(26, 0, 0, 0.0659965) -124.09%, #01000A 149.23%)",
+        "promo-dark-linear":
+          "linear-gradient(180deg, #979797 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, rgba(26, 0, 0, 0.0659965) 0%, #01000A 98.01%)",
+        "promo-light-linear":
+          "linear-gradient(180deg, #979797 0%, rgba(255, 255, 255, 0) 100%)",
       },
       screens: {
         sm: "480px",

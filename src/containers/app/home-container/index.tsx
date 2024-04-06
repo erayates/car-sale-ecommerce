@@ -11,7 +11,7 @@ export default function HomeContainer() {
       <Hero />
       <HeroSearch />
       <FeaturedVehicles />
-      <WhyUs />
+      <WhyUs color="dark"/>
       <Testimonial />
     </main>
   );

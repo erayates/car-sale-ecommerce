@@ -42,23 +42,28 @@ const items = [
   },
 ];
 
-export default function WhyUs() {
+export default function WhyUs({ color }: { color: string }) {
+  const containerClasses =
+    color === "dark"
+      ? "bg-dark-linear w-full mt-10 py-12 flex flex-col items-center gap-16 pb-96 text-white"
+      : "w-full mt-10 py-12 flex flex-col items-center gap-16 pb-96 text-black";
   return (
     <div className="flex flex-col items-center ">
-      <div className="bg-dark-linear w-full mt-10 py-12 flex flex-col items-center gap-16 pb-96">
-        <div className="flex flex-col items-center gap-6">
-          <h3 className="text-5xl text-white text-center uppercase">Why Us</h3>
-          <FaDiamond className="text-2xl text-orange-600" />
+      <div className={containerClasses}>
+        <div className="flex items-center gap-6">
+          <div className="bg-orange-600 w-8 h-3"></div>
+          <h3 className="text-4xl text-center uppercase font-semibold">Why Us</h3>
+          <div className="bg-orange-600 w-8 h-3"></div>
         </div>
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
             {items.map((item, idx) => (
               <div
                 key={idx}
-                className="flex flex-col gap-2 text-white text-center items-center justify-between"
+                className="flex flex-col gap-4 text-center items-center justify-between"
               >
                 <div className="text-orange-600 text-4xl">{item.icon}</div>
-                <h4 className="text-bold text-3xl">{item.title}</h4>
+                <h4 className="text-bold text-2xl">{item.title}</h4>
                 <p className="text-md">{item.description}</p>
               </div>
             ))}
