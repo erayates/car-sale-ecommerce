@@ -15,6 +15,8 @@ const config: Config = {
         "hero-pattern": "url('/assets/images/hero-image.jpeg')",
         "dark-linear":
           "linear-gradient(0.51deg, #0D0C0F -6.13%, #292D45 115.01%)",
+        "page-hero-linear":
+          "linear-gradient(180deg, rgba(26, 0, 0, 0.0659965) -124.09%, #01000A 149.23%)",
       },
       screens: {
         sm: "480px",
