@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import {  Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
-import Header from "@/components/header";
 
 import MuiThemeProvider from "@/theme";
-
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 const roboto = Poppins({
   subsets: ["latin"],
@@ -27,6 +27,7 @@ export default function RootLayout({
         <body className={roboto.className}>
           <Header />
           {children}
+          <Footer />
         </body>
       </MuiThemeProvider>
     </html>

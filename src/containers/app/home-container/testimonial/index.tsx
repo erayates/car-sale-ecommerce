@@ -2,13 +2,11 @@
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 import { TiStarFullOutline } from "react-icons/ti";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 const reviews = [
   {
@@ -57,13 +55,12 @@ export default function Testimonial() {
           spaceBetween={50}
           slidesPerView={1}
           navigation
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
         >
           {reviews.map((review, idx) => (
             <SwiperSlide key={idx} className="p-16">
-              <p className="text-center mb-8 text-slate-500 italic px-12 text-lg">{review.description}</p>
+              <p className="text-center mb-8 text-slate-500 italic px-12 text-lg">
+                {review.description}
+              </p>
               <div className="flex flex-col items-center justify-center">
                 <Image
                   src={`/assets/avatars/${review.avatar}`}
@@ -78,7 +75,11 @@ export default function Testimonial() {
                     .fill(null)
                     .map((_, idx) => (
                       <TiStarFullOutline
-                        className={idx < review.rate ? "text-yellow-500" : "text-gray-200"}
+                        className={
+                          idx < review.rate
+                            ? "text-yellow-500"
+                            : "text-gray-200"
+                        }
                         key={idx}
                       />
                     ))}
