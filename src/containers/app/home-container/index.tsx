@@ -3,6 +3,7 @@ import Hero from "./hero";
 import HeroSearch from "./hero-search";
 import FeaturedVehicles from "./featured-vehicles";
 import WhyUs from "./why-us";
+import Testimonial from "./testimonial";
 
 export default function HomeContainer() {
   return (
@@ -11,6 +12,7 @@ export default function HomeContainer() {
       <HeroSearch />
       <FeaturedVehicles />
       <WhyUs />
+      <Testimonial />
     </main>
   );
 }

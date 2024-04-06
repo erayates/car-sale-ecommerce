@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import {  Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import Header from "@/components/header";
 
 import MuiThemeProvider from "@/theme";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const roboto = Poppins({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <MuiThemeProvider>
-        <body className={inter.className}>
+        <body className={roboto.className}>
           <Header />
           {children}
         </body>

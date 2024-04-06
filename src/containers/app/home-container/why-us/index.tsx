@@ -44,24 +44,36 @@ const items = [
 
 export default function WhyUs() {
   return (
-    <div className="bg-dark-linear w-full mt-10 py-12 flex flex-col items-center gap-16">
-      <div className="flex flex-col items-center gap-6">
-        <h3 className="text-5xl text-white text-center uppercase">Why Us</h3>
-        <FaDiamond className="text-2xl text-orange-600"/>
-      </div>
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-          {items.map((item, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col gap-2 text-white text-center items-center justify-between"
-            >
-              <div className="text-orange-600 text-4xl">{item.icon}</div>
-              <h4 className="text-bold text-3xl">{item.title}</h4>
-              <p className="text-md">{item.description}</p>
-            </div>
-          ))}
+    <div className="flex flex-col items-center ">
+      <div className="bg-dark-linear w-full mt-10 py-12 flex flex-col items-center gap-16 pb-96">
+        <div className="flex flex-col items-center gap-6">
+          <h3 className="text-5xl text-white text-center uppercase">Why Us</h3>
+          <FaDiamond className="text-2xl text-orange-600" />
         </div>
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+            {items.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col gap-2 text-white text-center items-center justify-between"
+              >
+                <div className="text-orange-600 text-4xl">{item.icon}</div>
+                <h4 className="text-bold text-3xl">{item.title}</h4>
+                <p className="text-md">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="mt-[-16rem] w-full flex justify-center">
+        <iframe
+          className="w-[800px] h-[500px]"
+          src="https://www.youtube.com/embed/LQVIfeEehYQ?si=kvUevND1oZYSXZih"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </div>
     </div>
   );
