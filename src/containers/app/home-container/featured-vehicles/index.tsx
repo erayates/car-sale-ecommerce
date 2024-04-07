@@ -2,8 +2,7 @@ import Image from "next/image";
 import { MdLocationPin } from "react-icons/md";
 import { BsSpeedometer2 } from "react-icons/bs";
 import { FaGasPump } from "react-icons/fa6";
-import { BsCalendar2Date } from "react-icons/bs";
-import { convertNumberToCurrency } from "@/libs/utils";
+import { convertNumberToCurrency } from "@/lib/utils";
 
 const items = [
   {
