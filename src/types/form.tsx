@@ -29,5 +29,6 @@ export type ValidFieldNames =
   | "lastName"
   | "email"
   | "phone"
-  | "message";
-
+  | "message"
+  | "password"
+  | "passwordConfirm";

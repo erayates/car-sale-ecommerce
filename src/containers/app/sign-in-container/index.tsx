@@ -1,11 +1,12 @@
 import PageHero from "@/components/page-hero";
 import Link from "next/link";
+import SignInForm from "./sign-in-form";
 
 export default function SignInContainer() {
   return (
     <>
       <PageHero title="Sign In" />
-      <div className="bg-[#F2F2F2] container grid grid-cols-2 p-8 gap-16">
+      <div className="bg-[#F2F2F2] container grid grid-cols-2 p-8 gap-16 my-16">
         <div className="w-full h-full bg-dark-linear flex items-center justify-center">
           <h3 className="font-bold text-5xl text-white ">carify.</h3>
         </div>
@@ -21,13 +22,20 @@ export default function SignInContainer() {
           </p>
           <p className="text-sm">
             Login or{" "}
-            <Link href="/sign-up" className="text-blue-500 font-semibold underline">
+            <Link
+              href="/sign-up"
+              className="text-blue-500 font-semibold underline"
+            >
               Create an account?
             </Link>
           </p>
-        </div>
 
-        
+          <SignInForm />
+
+          <Link href="/reset-password" className="text-blue-500 font-semibold text-sm">
+            Reset Your Password by E-mail?
+          </Link>
+        </div>
       </div>
     </>
   );

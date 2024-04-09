@@ -8,26 +8,18 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCk3CGpz1nAa0oKMY9sFklChU5f2BWP3pA",
-  authDomain: "car-sale-ecommerce.firebaseapp.com",
-  projectId: "car-sale-ecommerce",
-  storageBucket: "car-sale-ecommerce.appspot.com",
-  messagingSenderId: "840958025909",
-  appId: "1:840958025909:web:db988139c10dc9b823defc",
+  apiKey: "AIzaSyAdc8VSaDF1bkXItnT0b4_pQyaHIoHhHcA",
+  authDomain: "car-sale-ecommerce-website.firebaseapp.com",
+  projectId: "car-sale-ecommerce-website",
+  storageBucket: "car-sale-ecommerce-website.appspot.com",
+  messagingSenderId: "345448386930",
+  appId: "1:345448386930:web:6f963fe059bac7c7da8deb"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 const db = getFirestore(app);
-
-export function onAuthStateChanged(cb) {
-  return _onAuthStateChanged(auth, cb);
-}
-
-export async function createUserWithEmailandPwd(email, password) {
-  return _createUserWithEmailandPwd(auth, email, password);
-}
