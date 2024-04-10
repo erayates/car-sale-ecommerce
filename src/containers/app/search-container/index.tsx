@@ -2,7 +2,7 @@ import PageHero from "@/components/page-hero";
 import SearchFilter from "./search-filter";
 import SearchItems from "./search-items";
 
-export default function SearchContainer() {
+export default function SearchContainer({ items }: { items: any }) {
   return (
     <>
       <PageHero title="Find Your Dream Car" />

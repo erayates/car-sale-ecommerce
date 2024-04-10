@@ -1,6 +1,7 @@
 import { FormFieldProps } from "@/types/form";
 
 export const Input: React.FC<FormFieldProps> = ({
+  value,
   type,
   placeholder,
   name,

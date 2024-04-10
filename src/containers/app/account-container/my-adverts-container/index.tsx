@@ -37,7 +37,7 @@ export default async function MyAdvertsContainer() {
         </Tooltip>
       </div>
 
-      <AdvertsList adverts={adverts}/>
+      <AdvertsList adverts={adverts} />
     </div>
   );
 }
