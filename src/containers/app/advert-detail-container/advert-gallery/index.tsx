@@ -16,7 +16,7 @@ const images = [
   // Add more image URLs as needed
 ];
 
-export default function ProductGallery() {
+export default function AdvertGallery() {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   const handleClickThumbnail = (image: string) => {
@@ -24,13 +24,20 @@ export default function ProductGallery() {
   };
 
   return (
-    <div className="flex flex-col gap-2 col-span-2">
+    <div className="flex flex-col gap-2 col-span-3">
       {/* Big Thumbnail */}
-      <div className="relative bg-slate-200 rounded-lg h-[512px]">
+      <div className="relative bg-slate-200 rounded-lg h-[512px] overflow-hidden">
+        <div className="absolute top-[-10px] left-0 right-0 font-semibold text-slate-300 text-5xl grid grid-cols-4 ">
+          {Array(50)
+            .fill(null)
+            .map((_, idx) => (
+              <p key={idx}>carify.</p>
+            ))}
+        </div>
         <img
           src={selectedImage}
           alt="Product"
-          className="w-full h-full rounded-lg object-contain"
+          className="w-full h-full rounded-lg object-contain z-30 relative"
         />
       </div>
       {/* Thumbnails Carousel */}
