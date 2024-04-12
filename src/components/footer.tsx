@@ -3,11 +3,12 @@ import Link from "next/link";
 import { IoLocationSharp } from "react-icons/io5";
 import { GoClockFill } from "react-icons/go";
 import { IoMdMail } from "react-icons/io";
-import { FaPhone, FaLongArrowAltRight } from "react-icons/fa";
+import { FaPhone, FaLongArrowAltRight, FaSearch } from "react-icons/fa";
+import { Input } from "./ui/input";
 
 const contacts = [
   {
-    icon: <IoLocationSharp className="text-5xl self-start mt-[-0.7rem]" />,
+    icon: <IoLocationSharp className=" lg:text-5xl items-center lg:self-start lg:mt-[-0.7rem]" />,
     text: "Unit 9, Manor Industrial Estate, Lower Wash Lane, Warrington, WA4",
   },
   {
@@ -57,8 +58,8 @@ export default function Footer() {
   return (
     <footer>
       <div className="bg-[#F2F2F2]">
-        <div className="container py-24 grid grid-cols-4 gap-16">
-          <div className="flex col-span-2 flex-col gap-6">
+        <div className="container py-24 grid grid-cols-3 lg:grid-cols-4 gap-16">
+          <div className="flex  col-span-3 md:col-span-1 lg:col-span-2 flex-col gap-6">
             <h1 className="font-bold text-3xl">carify.</h1>
             <p className="text-slate-400 text-md">
               Cras sit amet mi non orci pretium consectetur. Donec iaculis ante
@@ -66,10 +67,14 @@ export default function Footer() {
               sagittis ex id tortor tincidunt luctus. Donec consectetur
               consequat bibendum
             </p>
-            <input type="text" className="outline-0 p-4 rounded-lg"></input>
+            <input
+              type="text"
+              className="outline-0 p-4 rounded-lg"
+              placeholder="Search..."
+            ></input>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col col-span-3 md:col-span-1 gap-4">
             <h3 className="text-2xl font-semibold">Contact Us:</h3>
             {contacts.map((contact, idx) => (
               <div key={idx} className="flex items-center gap-3">
@@ -79,9 +84,8 @@ export default function Footer() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 col-span-3 md:col-span-1">
             <h3 className="text-2xl font-semibold">Information:</h3>
-
             <ul className="flex flex-col gap-4">
               {links.map((link, idx) => (
                 <li key={idx}>

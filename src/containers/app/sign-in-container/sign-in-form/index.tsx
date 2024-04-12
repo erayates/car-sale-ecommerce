@@ -9,6 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { SignInFormSchema } from "@/schemes/signInFormSchema";
 
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/auth";
+import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
+
 export default function SignInForm() {
   const {
     register,
@@ -19,8 +24,16 @@ export default function SignInForm() {
     resolver: zodResolver(SignInFormSchema),
   });
 
+  const router = useRouter();
+
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
   const onSubmit = async (data: FormData) => {
-    console.log("success!", data);
+    signInWithEmailAndPassword(data.email, data.password);
+    if (user) {
+      router.push("/");
+    }
   };
 
   return (
@@ -41,13 +54,24 @@ export default function SignInForm() {
         error={errors.password}
       />
 
-      <button
-        type="submit"
-        className="bg-orange-600 text-white p-4 flex gap-2 font-semibold hover:bg-orange-700 hover:transition-all transition-all justify-center text-sm rounded-md"
-      >
-        Login
-        <MdOutlineArrowRightAlt className="text-xl" />
-      </button>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <CircularProgress />
+        </div>
+      ) : (
+        <button
+          type="submit"
+          className="bg-orange-600 text-white p-4 flex gap-2 font-semibold hover:bg-orange-700 hover:transition-all transition-all justify-center text-sm rounded-md"
+        >
+          Login
+          <MdOutlineArrowRightAlt className="text-xl" />
+        </button>
+      )}
+      {error && (
+        <p className="text-red-500 text-sm">
+          You entered wrong email or password.
+        </p>
+      )}
     </form>
   );
 }

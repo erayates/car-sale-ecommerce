@@ -9,7 +9,7 @@ export default function HomeContainer() {
   return (
     <main className="w-full h-full items-center justify-between relative mt-[-112px]">
       <Hero />
-      <HeroSearch />
+      {/* <HeroSearch /> */}
       <FeaturedVehicles />
       <WhyUs color="dark"/>
       <Testimonial />

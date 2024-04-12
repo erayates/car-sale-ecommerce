@@ -3,7 +3,6 @@ import * as React from "react";
 import { FaShieldAlt, FaBriefcase, FaUserPlus } from "react-icons/fa";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { IoDiamond } from "react-icons/io5";
-import { FaDiamond } from "react-icons/fa6";
 
 const items = [
   {
@@ -50,7 +49,7 @@ export default function WhyUs({ color }: { color: string }) {
   return (
     <div className="flex flex-col items-center ">
       <div className={containerClasses}>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 mt-4">
           <div className="bg-orange-600 w-8 h-3"></div>
           <h3 className="text-4xl text-center uppercase font-semibold">Why Us</h3>
           <div className="bg-orange-600 w-8 h-3"></div>

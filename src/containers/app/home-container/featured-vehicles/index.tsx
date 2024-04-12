@@ -83,25 +83,29 @@ export default function FeaturedVehicles() {
   const firstItem = items[0];
   const cars = items.slice(1, items.length);
   return (
-    <div className="relative container mt-24">
-      <h3 className="text-3xl text-center font-bold uppercase">
-        Featured Vehicles
-      </h3>
-      <p className="text-center text-md">
+    <div className="relative container my-48">
+      <div className="flex gap-2 items-center justify-center">
+        <div className="w-8 h-3 bg-orange-600"></div>
+        <h3 className="text-3xl text-center font-bold uppercase">
+          Featured Vehicles
+        </h3>
+        <div className="w-8 h-3 bg-orange-600"></div>
+      </div>
+      <p className="text-center text-md text-gray-400">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima,
         quidem!
       </p>
 
-      <div className="grid grid-cols-3 gap-8 mt-12">
-        <div className="row-auto lg:row-span-2 lg:col-span-2 shadow-lg rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="group row-span-1 col-span-1 lg:row-span-2 lg:col-span-2 shadow-lg h-64 lg:h-auto rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden">
           <Image
             src={firstItem.thumbnail}
             fill
             alt="Renault Clio"
-            className="object-cover object-left opacity-40 hover:scale-105 transition-all"
+            className="object-cover object-left opacity-40 group-hover:scale-105 transition-all"
           />
           <div className="absolute bottom-0 p-6 text-white flex flex-col gap-1">
-            <h4 className="text-3xl font-semibold">
+            <h4 className="text-lg lg:text-3xl font-semibold">
               {firstItem.brand} {firstItem.series} {firstItem.model}
             </h4>
             <p className="flex gap-1 text-md items-center">
@@ -114,20 +118,20 @@ export default function FeaturedVehicles() {
               <FaGasPump /> {firstItem.fuel_type}
             </p>
           </div>
-          <div className="bg-white px-4 py-4 absolute right-2 bottom-2 rounded-full font-semibold text-xl">
+          <div className="bg-orange-600 text-white p-3 lg:px-4 lg:py-4 absolute right-2 bottom-2 rounded-md font-semibold text-sm lg:text-xl">
             ${convertNumberToCurrency(firstItem.price)}
           </div>
         </div>
         {cars.map((car, idx) => (
           <div
-            className="h-64 shadow-lg rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden"
+            className="h-64 shadow-lg rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden group"
             key={idx}
           >
             <Image
               src={car.thumbnail}
               fill
               alt="BMW 3.20"
-              className="object-cover object-center opacity-40 hover:scale-105 transition-all"
+              className="object-cover object-center opacity-40 group-hover:scale-105 transition-all"
             />
             <div className="absolute bottom-0 p-6 text-white flex flex-col ">
               <h4 className="text-lg font-semibold">
@@ -143,7 +147,7 @@ export default function FeaturedVehicles() {
                 <FaGasPump /> {car.fuel_type}
               </p>
             </div>
-            <div className="bg-white px-3 py-3 absolute right-2 bottom-2 rounded-full font-semibold text-sm">
+            <div className="bg-orange-600 px-3 py-3 absolute right-2 bottom-2 text-white rounded-md font-semibold text-sm">
               ${convertNumberToCurrency(car.price)}
             </div>
           </div>

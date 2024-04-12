@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Goldman, Lato, Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
 import MuiThemeProvider from "@/theme";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 
-const roboto = Poppins({
+const goldman = Goldman({
   subsets: ["latin"],
   weight: "400",
+  variable: "--font-goldman",
+});
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-lato",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <MuiThemeProvider>
-        <body className={roboto.className}>
+        <body className={goldman.className}>
           <Header />
           {children}
           <Footer />

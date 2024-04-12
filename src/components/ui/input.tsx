@@ -9,10 +9,10 @@ export const Input: React.FC<FormFieldProps> = ({
   error,
   valueAsNumber,
 }) => (
-  <div className="flex flex-col gap-2">
+  <div className="flex flex-col gap-2 ">
     <input
       type={type}
-      className="border border-slate-200 p-4 rounded-md"
+      className={`border border-slate-200 p-4 rounded-md`}
       placeholder={placeholder}
       {...register(name, { valueAsNumber })}
     />

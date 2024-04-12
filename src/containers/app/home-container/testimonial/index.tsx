@@ -43,12 +43,15 @@ const reviews = [
 export default function Testimonial() {
   return (
     <div className="container flex flex-col items-center mt-24">
-      <h3 className="text-4xl font-semibold text-center">
-        What Clients Say
-        <br />
-        About Us
-      </h3>
-
+      <div className="flex items-center gap-8">
+        <div className="w-8 h-3 bg-orange-600"></div>
+        <h3 className="text-2xl lg:text-4xl font-semibold text-center">
+          What Clients Say
+          <br />
+          About Us
+        </h3>
+        <div className="w-8 h-3 bg-orange-600"></div>
+      </div>
       <div className="container flex">
         <Swiper
           modules={[Navigation]}
@@ -58,7 +61,7 @@ export default function Testimonial() {
         >
           {reviews.map((review, idx) => (
             <SwiperSlide key={idx} className="p-16">
-              <p className="text-center mb-8 text-slate-500 italic px-12 text-lg">
+              <p className="text-center mb-8 text-slate-500 italic px-2 lg:px-12 text-lg">
                 {review.description}
               </p>
               <div className="flex flex-col items-center justify-center">
