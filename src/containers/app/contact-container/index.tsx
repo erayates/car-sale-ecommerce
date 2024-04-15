@@ -31,7 +31,7 @@ export default function ContactContainer() {
     <>
       <PageHero title="Contact Us" />
       <ContactMap />
-      <div className="bg-[#1F2B3E] container grid grid-cols-2 p-12 gap-12 mt-[-4rem] z-90 relative">
+      <div className="bg-[#1F2B3E] container grid grid-cols-1 md:grid-cols-2 p-12 gap-12 mt-[-4rem] z-90 relative">
         <div className="text-white flex flex-col gap-4">
           <h3 className="text-3xl font-bold">carify.</h3>
           <p className="text-sm text-slate-400">

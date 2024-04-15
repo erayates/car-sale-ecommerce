@@ -6,7 +6,7 @@ import { MdOutlineArrowRightAlt } from "react-icons/md";
 export default function AboutUsPromo() {
   return (
     <>
-      <div className="grid grid-cols-2 w-full relative mt-[16rem]">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full relative mt-[16rem]">
         <div className="h-[500px] bg-promo-dark-linear relative mt-[-3rem] shadow-lg">
           <Image
             src="/assets/images/featured-cars/bmw-320.jpg"
@@ -41,14 +41,14 @@ export default function AboutUsPromo() {
             </span>
 
             <Link
-              href="/"
-              className="uppercase text-orange-600 font-bold flex items-center gap-2"
+              href="/search"
+              className="uppercase text-orange-600 font-bold flex items-center gap-2 hover:translate-x-4 transition-all"
             >
               Find Car <MdOutlineArrowRightAlt className="text-2xl" />
             </Link>
           </div>
         </div>
-        <div className="h-[500px] bg-promo-light-linear relative shadow-lg">
+        <div className="h-[500px] bg-promo-light-linear relative shadow-lg hidden md:block">
           <Image
             src="/assets/images/featured-cars/golf-8.webp"
             fill
@@ -58,8 +58,8 @@ export default function AboutUsPromo() {
         </div>
       </div>
 
-      <div className="bg-dark-linear py-36 mt-[-3rem] relative">
-        <div className="container flex justify-evenly">
+      <div className="bg-dark-linear py-36 mt-0 md:mt-[-3rem] relative">
+        <div className="container flex flex-col md:flex-row gap-12 md:gap-0 md:justify-evenly">
           <div className="text-center flex flex-col items-center text-white gap-2">
             <h3 className="font-bold text-5xl">12500+</h3>
             <div className="w-8 h-2 bg-orange-600"></div>
@@ -75,7 +75,7 @@ export default function AboutUsPromo() {
           <div className="text-center flex flex-col items-center text-white gap-2">
             <h3 className="font-bold text-5xl">8000+</h3>
             <div className="w-8 h-2 bg-orange-600"></div>
-            <p className="text-sm">Active ad in carify.</p>
+            <p className="text-sm">Active ads in carify.</p>
           </div>
         </div>
       </div>

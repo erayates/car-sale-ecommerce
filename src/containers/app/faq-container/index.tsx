@@ -6,10 +6,10 @@ export default function FAQContainer() {
   return (
     <>
       <PageHero title="FAQ" />
-      <div className="container my-16 grid grid-cols-3 gap-12">
+      <div className="container my-16 grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
         <FAQSidebar />
 
-        <div className="col-span-2 flex flex-col gap-8">
+        <div className="col-span-2 flex flex-col gap-8 mt-8 lg:mt-0 px-4 lg:p-0">
           <h3 className="text-3xl font-semibold">
             Frenquently Asked Questions
           </h3>

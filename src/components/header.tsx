@@ -51,10 +51,13 @@ export default function Header() {
             </ul>
           </div>
           <div className="flex gap-4 items-center">
-            <button className="bg-amber-600 hover:bg-amber-700 transition-all py-1.5 px-4 rounded-lg text-white text-sm flex items-center gap-2">
+            <Link
+              href="/create-advert"
+              className="bg-amber-600 hover:bg-amber-700 transition-all py-1.5 px-4 rounded-lg text-white text-sm flex items-center gap-2"
+            >
               <MdSell />{" "}
               <span className="hidden lg:inline-block">Sell Now!</span>
-            </button>
+            </Link>
 
             <button className="text-white text-xl">
               <MdSearch />
@@ -75,13 +78,13 @@ export default function Header() {
               </Link>
             ) : (
               <>
-                <button className="text-white text-xl">
+                <Link href="/account/favorites" className="text-white text-xl">
                   <MdFavorite />
-                </button>
+                </Link>
 
-                <button className="text-white">
+                <Link href="/account" className="text-white">
                   <FaUser />
-                </button>
+                </Link>
                 <button
                   onClick={onLogout}
                   className="text-xl text-white bg-red-700 p-2 rounded-md"

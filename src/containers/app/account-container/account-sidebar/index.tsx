@@ -4,7 +4,8 @@ import { FaUser } from "react-icons/fa6";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { IoMegaphoneSharp } from "react-icons/io5";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-
+import { IoHeart } from "react-icons/io5";
+import { FaUnlockAlt } from "react-icons/fa";
 
 
 import Link from "next/link";
@@ -27,6 +28,17 @@ const sidebarItems = [
     title: "My Adverts",
     icon: <IoMegaphoneSharp />,
   },
+  {
+    href: "/account/favorites",
+    title: "Favorites",
+    icon: <IoHeart />,
+  },
+  {
+    href: "/account/update-account",
+    title: "Update Account",
+    icon: <FaUnlockAlt /> 
+    
+  },
 ];
 
 export default function AccountSidebar() {
@@ -47,7 +59,7 @@ export default function AccountSidebar() {
             >
               <Link
                 href={item.href}
-                className="flex gap-2 items-center text-lg font-semibold"
+                className="flex gap-2 items-center text-md font-semibold"
               >
                 {item.icon} {item.title}
               </Link>
@@ -56,8 +68,8 @@ export default function AccountSidebar() {
         </ul>
 
         <button className="text-red-700 font-bold text-lg uppercase py-2 px-4 mb-4 flex items-center gap-2 hover:text-white hover:bg-red-700 transition-all rounded-md mt-48">
-            Logout
-            <MdOutlineArrowRightAlt className="text-3xl"/>
+          Logout
+          <MdOutlineArrowRightAlt className="text-3xl" />
         </button>
       </nav>
     </aside>
