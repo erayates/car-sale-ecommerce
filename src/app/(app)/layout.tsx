@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 import MuiThemeProvider from "@/theme";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Toastify from "@/components/ui/toast";
 
 const goldman = Goldman({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Toastify />
         </body>
       </MuiThemeProvider>
     </html>

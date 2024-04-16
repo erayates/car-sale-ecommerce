@@ -12,21 +12,36 @@ import { SignUpFormSchema } from "@/schemes/signUpFormSchema";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth } from "@/lib/firebase/auth";
 
+import { createUser } from "@/lib/actions";
+import { toast } from "react-toastify";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { CircularProgress } from "@mui/material";
+
 export default function SignUpForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(SignUpFormSchema),
   });
 
+  const [createUserWithEmailAndPassword, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
   const onSubmit = async (data: FormData) => {
-    console.log("success!", data);
-    createUserWithEmailAndPassword(auth, data.email, data.password).then(
-      (user) => {
-        console.log("success!", user);
+    createUserWithEmailAndPassword(data.email, data.password).then(
+      async (user) => {
+        const res = await createUser(data);
+        if (res.ok) {
+          toast.success("You registered successfully!", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+          reset();
+        }
       }
     );
   };
@@ -73,13 +88,21 @@ export default function SignUpForm() {
         error={errors.passwordConfirm}
       />
 
-      <button
-        type="submit"
-        className="bg-orange-600 text-white p-4 flex gap-2 font-semibold hover:bg-orange-700 hover:transition-all transition-all justify-center text-sm rounded-md"
-      >
-        Register
-        <MdOutlineArrowRightAlt className="text-xl" />
-      </button>
+      {loading ? (
+        <div className="flex items-center justify-center">
+          <CircularProgress />
+        </div>
+      ) : (
+        <button
+          type="submit"
+          className="bg-orange-600 text-white p-4 flex gap-2 font-semibold hover:bg-orange-700 hover:transition-all transition-all justify-center text-sm rounded-md"
+        >
+          Register
+          <MdOutlineArrowRightAlt className="text-xl" />
+        </button>
+      )}
+
+      {error && <p className="text-red-500 text-sm">{error.message}</p>}
     </form>
   );
 }

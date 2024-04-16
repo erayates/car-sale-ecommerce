@@ -11,14 +11,30 @@ import { auth } from "@/lib/firebase/auth";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import MobileNavigation from "./mobile-nav";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
   const [openMobileNav, setOpenMobileNav] = useState(false);
 
-  function onLogout() {
-    signOut();
+  const router = useRouter();
+
+  async function onLogout() {
+    try {
+      await signOut();
+      const response = await fetch("/api/v1/logout", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        router.push("/sign-in");
+      }
+    } catch (error) {
+      console.error("Error signing out with email.", error);
+    }
   }
 
   return (

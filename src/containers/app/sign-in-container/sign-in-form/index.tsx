@@ -13,6 +13,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import { useEffect } from "react";
 
 export default function SignInForm() {
   const {
@@ -29,11 +30,27 @@ export default function SignInForm() {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const onSubmit = async (data: FormData) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  useEffect(() => {
     if (user) {
+      userLogin(user);
       router.push("/");
     }
+
+    async function userLogin(user: any) {
+      const idToken = await user.user.getIdToken();
+
+      const res = await fetch("/api/v1/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+    }
+  }, [router, user]);
+
+  const onSubmit = async (data: FormData) => {
+    await signInWithEmailAndPassword(data.email, data.password);
   };
 
   return (

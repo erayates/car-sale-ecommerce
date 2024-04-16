@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: "No data found." }, { status: 404 });
   }
 
-  const data = querySnapshot.docs.map((doc) => doc.data());
+  const advert = querySnapshot.docs[0].data();
 
-  return NextResponse.json({ data }, { status: 200 });
+  return NextResponse.json(advert, { status: 200 });
 }
