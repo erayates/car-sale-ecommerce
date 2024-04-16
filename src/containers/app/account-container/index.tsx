@@ -1,13 +1,9 @@
-"use client";
 
 import Link from "next/link";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import { useUserStore } from "@/lib/userStore";
 
 export default function AccountContainer() {
-  const { currentUser } = useUserStore();
 
-  console.log(useUserStore());
   return (
     <>
       <div className="flex flex-col gap-4 col-span-2 w-full">

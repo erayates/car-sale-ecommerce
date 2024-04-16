@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import PageHero from "@/components/page-hero";
-import FileUpload from "./upload-file";
 import { Roboto } from "next/font/google";
 import AdvertMultistepForm from "./advert-multi-step-form";
 
@@ -11,6 +10,7 @@ const font = Roboto({
   weight: ["400", "700"],
   variable: "--font-lato",
 });
+
 
 export default function CreateAdvertContainer() {
   return (

@@ -11,6 +11,7 @@ import { FaUnlockAlt } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+
 const sidebarItems = [
   {
     href: "/account",

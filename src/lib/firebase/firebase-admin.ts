@@ -1,14 +1,3 @@
-// import { initializeApp, getApps, cert, getApp } from "firebase-admin/app";
-// var serviceAccount = require("./serviceAccountKey.json");
-
-// const firebaseAdminConfig = {
-//   credential: cert(serviceAccount),
-// };
-
-// export function customInitApp() {
-//   getApps().length <= 0 ? initializeApp(firebaseAdminConfig) : getApp();
-// }
-
 import "server-only";
 
 import { cookies } from "next/headers";

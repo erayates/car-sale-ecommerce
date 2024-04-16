@@ -10,8 +10,8 @@ import { auth } from "@/lib/firebase/auth";
 
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import MobileNavigation from "./mobile-nav";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Header() {
   const [user, loading, error] = useAuthState(auth);
