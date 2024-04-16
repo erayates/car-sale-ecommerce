@@ -1,4 +1,4 @@
-export const createUser = async (data: any) => {
+export const createUser = async (data: any, uid: string) => {
   try {
     const res = await fetch("/api/v1/register", {
       method: "POST",
@@ -6,6 +6,7 @@ export const createUser = async (data: any) => {
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
+        uid: uid,
       }),
       headers: {
         "Content-Type": "application/json",

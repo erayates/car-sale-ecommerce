@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { SignUpFormSchema } from "@/schemes/signUpFormSchema";
 
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth } from "@/lib/firebase/auth";
 
 import { createUser } from "@/lib/actions";
@@ -28,22 +27,33 @@ export default function SignUpForm() {
     resolver: zodResolver(SignUpFormSchema),
   });
 
-  const [createUserWithEmailAndPassword, loading, error] =
+  const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
+  const showError = (errorType: string) => {
+    switch (errorType) {
+      case "auth/email-already-in-use":
+        return "Email already in use.";
+      default:
+        return "An error occurred. Please try again.";
+    }
+  };
+
   const onSubmit = async (data: FormData) => {
-    createUserWithEmailAndPassword(data.email, data.password).then(
-      async (user) => {
-        const res = await createUser(data);
-        if (res.ok) {
-          toast.success("You registered successfully!", {
-            position: "top-center",
-            autoClose: 3000,
-          });
-          reset();
-        }
-      }
+    const user = await createUserWithEmailAndPassword(
+      data.email,
+      data.password
     );
+    if (user) {
+      const response = await createUser(data, user.user.uid);
+      if (response.ok) {
+        toast.success("You registered successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        reset();
+      }
+    }
   };
 
   return (
@@ -102,7 +112,7 @@ export default function SignUpForm() {
         </button>
       )}
 
-      {error && <p className="text-red-500 text-sm">{error.message}</p>}
+      {error && <p className="text-red-500 text-sm">{showError(error.code)}</p>}
     </form>
   );
 }

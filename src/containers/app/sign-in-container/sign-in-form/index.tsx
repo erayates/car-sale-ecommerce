@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { FormData } from "@/types/form";
 import { Input } from "@/components/ui/input";
 
+
+import {useEffect} from "react"
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { MdOutlineArrowRightAlt } from "react-icons/md";
@@ -11,9 +13,8 @@ import { SignInFormSchema } from "@/schemes/signInFormSchema";
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/auth";
-import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
-import { useEffect } from "react";
+import { useUserStore } from "@/lib/userStore";
 
 export default function SignInForm() {
   const {
@@ -25,21 +26,24 @@ export default function SignInForm() {
     resolver: zodResolver(SignInFormSchema),
   });
 
-  const router = useRouter();
+  const { fetchUserInfo, currentUser } = useUserStore();
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  useEffect(() => {
-    if (user) {
-      userLogin(user);
-      router.push("/");
-    }
 
-    async function userLogin(user: any) {
+  useEffect(() => {
+
+  }, [user])
+
+
+  const onSubmit = async (data: FormData) => {
+    const user = await signInWithEmailAndPassword(data.email, data.password);
+    if (user) {
+      fetchUserInfo(user.user.uid);
       const idToken = await user.user.getIdToken();
 
-      const res = await fetch("/api/v1/login", {
+      await fetch("/api/v1/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,10 +51,8 @@ export default function SignInForm() {
         body: JSON.stringify({ idToken }),
       });
     }
-  }, [router, user]);
 
-  const onSubmit = async (data: FormData) => {
-    await signInWithEmailAndPassword(data.email, data.password);
+    console.log(currentUser);
   };
 
   return (

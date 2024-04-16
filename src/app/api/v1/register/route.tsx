@@ -8,12 +8,14 @@ import {
   documentId,
   Timestamp,
   addDoc,
+  setDoc,
+  doc,
 } from "firebase/firestore";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, firstName, lastName } = await req.json();
-    const usersRef = collection(db, "users");
+    const { email, firstName, lastName, uid } = await req.json();
+    const docRef = doc(db, "users", uid);
     const docData = {
       email: email,
       createdAt: Timestamp.fromDate(new Date()),
@@ -28,9 +30,10 @@ export async function POST(req: NextRequest) {
       lastName: lastName,
       avatar: "",
       phone: `https://ui-avatars.com/api/?name=${firstName}+${lastName}`,
+      onlineStatus: false,
     };
 
-    await addDoc(usersRef, docData);
+    await setDoc(docRef, docData, { merge: true });
     return NextResponse.json(
       { message: "User created successfully." },
       { status: 201 }
