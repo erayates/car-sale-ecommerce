@@ -6,6 +6,8 @@ import MuiThemeProvider from "@/theme";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Toastify from "@/components/ui/toast";
+import { UserStoreProvider } from "@/providers/userProvider";
+import HydrationZustand from "@/providers/hydrationZustand";
 
 const goldman = Goldman({
   subsets: ["latin"],
@@ -27,10 +29,14 @@ export default function RootLayout({
     <html lang="en">
       <MuiThemeProvider>
         <body className={goldman.className}>
-          <Header />
-          {children}
-          <Footer />
-          <Toastify />
+          <UserStoreProvider>
+            <HydrationZustand>
+              <Header />
+              {children}
+              <Footer />
+              <Toastify />
+            </HydrationZustand>
+          </UserStoreProvider>
         </body>
       </MuiThemeProvider>
     </html>

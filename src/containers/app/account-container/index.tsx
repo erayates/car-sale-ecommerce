@@ -1,8 +1,19 @@
+"use client";
 
+import { useUserStore } from "@/providers/userProvider";
+import { UserType } from "@/types/user";
+import { CircularProgress } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 
 export default function AccountContainer() {
+  const currentUser = useUserStore((state) => state.currentUser as UserType);
+  const loading = useUserStore((state) => state.isLoading as boolean);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
 
   return (
     <>
@@ -10,36 +21,46 @@ export default function AccountContainer() {
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">Account:</h3>
           <div className="flex gap-10 w-full">
-            <div className="max-w-max">
-              <img
-                src="https://ui-avatars.com/api/?name=John+Doe"
-                className="rounded-lg w-32 h-32 relative"
+            <div className="max-w-max w-32 h-32 relative">
+              <Image
+                src={currentUser.avatar}
+                className="rounded-lg relative"
                 alt="User Avatar"
+                fill
               />
             </div>
             <div className="flex flex-col gap-6">
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">Name:</p>
-                <p className="font-semibold">John Doe</p>
+                <p className="font-semibold">
+                  {currentUser.firstName} {currentUser.lastName}
+                </p>
               </div>
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">E-mail:</p>
-                <p className="font-semibold">eray.ates@outlook.com</p>
+                <p className="font-semibold">{currentUser?.email}</p>
               </div>
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">Phone:</p>
-                <p className="font-semibold">+90 538 645 11 09</p>
+                <p className="font-semibold">{currentUser.phone}</p>
               </div>
 
               <div className="flex gap-2">
-                <p className="text-slate-500 font-semibold">Country:</p>
-                <p className="font-semibold">Turkey</p>
+                <div>
+                  <p className="text-slate-500 font-semibold">Country:</p>
+                  <p className="font-semibold">{currentUser.address.country}</p>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <p className="text-slate-500 font-semibold">Province:</p>
+                <p className="font-semibold">{currentUser.address.province}</p>
               </div>
 
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">Address:</p>
                 <p className="font-semibold">
-                  60 Stonybrook Lane Atlanta, GA 30303
+                  {currentUser.address.addressLine}
                 </p>
               </div>
 

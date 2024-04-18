@@ -1,5 +1,4 @@
 import AccountContainer from "@/containers/app/account-container";
-
-export default function Account() {
+export default async function Account() {
   return <AccountContainer />;
 }

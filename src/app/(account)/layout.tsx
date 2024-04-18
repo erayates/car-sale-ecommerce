@@ -7,6 +7,9 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import AccountSidebar from "@/containers/app/account-container/account-sidebar";
 import PageHero from "@/components/page-hero";
+import { UserStoreProvider } from "@/providers/userProvider";
+import HydrationZustand from "@/providers/hydrationZustand";
+import Toastify from "@/components/ui/toast";
 
 const roboto = Poppins({
   subsets: ["latin"],
@@ -26,16 +29,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <MuiThemeProvider>
-        <body className={roboto.className}>
-          <Header />
-          <PageHero title="Account" />
-          <main className="container grid grid-cols-3 gap-16 relative my-16">
-            <AccountSidebar />
-            {children}
-          </main>
-
-          <Footer />
-        </body>
+        <UserStoreProvider>
+          <body className={roboto.className}>
+            <HydrationZustand>
+              <Header />
+              <PageHero title="Account" />
+              <main className="container grid grid-cols-3 gap-16 relative my-16">
+                <AccountSidebar />
+                {children}
+              </main>
+              <Toastify />
+              <Footer />
+            </HydrationZustand>
+          </body>
+        </UserStoreProvider>
       </MuiThemeProvider>
     </html>
   );

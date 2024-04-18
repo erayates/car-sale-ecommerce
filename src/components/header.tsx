@@ -8,10 +8,17 @@ import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
 
 import { auth } from "@/lib/firebase/auth";
 
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignOut,
+  useUpdateEmail,
+} from "react-firebase-hooks/auth";
 import MobileNavigation from "./mobile-nav";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useUserStore } from "@/providers/userProvider";
+import { UserType } from "@/types/user";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const [user, loading, error] = useAuthState(auth);
@@ -19,6 +26,42 @@ export default function Header() {
   const [openMobileNav, setOpenMobileNav] = useState(false);
 
   const router = useRouter();
+  const currentUser = useUserStore((state) => state.currentUser as UserType);
+  const fetchCurrentUser = useUserStore(
+    (state) => state.fetchCurrentUser as (uid: string) => void
+  );
+
+  const [updateEmail, updateError] = useUpdateEmail(auth);
+
+  const updateUserEmail = async () => {
+    const isUpdated = await updateEmail(auth.currentUser.email);
+    if (isUpdated) {
+      const response = await fetch(`/api/v1/users/${currentUser.uid}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          email: auth.currentUser.email,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      if (response.ok && response.status === 200) {
+        toast.success("Your email updated successfully.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchCurrentUser(user.uid);
+      if (auth.currentUser.email !== currentUser.email) {
+        updateUserEmail();
+      }
+    }
+  }, [user]);
 
   async function onLogout() {
     try {

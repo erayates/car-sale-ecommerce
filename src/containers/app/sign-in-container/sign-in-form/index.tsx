@@ -14,6 +14,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/auth";
 import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/providers/userProvider";
 
 export default function SignInForm() {
   const {

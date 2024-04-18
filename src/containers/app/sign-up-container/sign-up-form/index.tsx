@@ -49,7 +49,7 @@ export default function SignUpForm() {
       if (response.ok) {
         toast.success("You registered successfully!", {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 2000,
         });
         reset();
       }

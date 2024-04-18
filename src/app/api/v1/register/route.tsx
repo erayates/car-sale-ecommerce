@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/firebase/auth";
 import {
-  collection,
-  query,
-  where,
-  getDocs,
-  documentId,
   Timestamp,
-  addDoc,
   setDoc,
   doc,
 } from "firebase/firestore";
@@ -23,13 +17,12 @@ export async function POST(req: NextRequest) {
       address: {
         addresLine: "",
         country: "",
-        district: "",
         province: "",
       },
       firstName: firstName,
       lastName: lastName,
-      avatar: "",
-      phone: `https://ui-avatars.com/api/?name=${firstName}+${lastName}`,
+      avatar: `https://ui-avatars.com/api/?name=${firstName}+${lastName}`,
+      phone: "",
       onlineStatus: false,
     };
 

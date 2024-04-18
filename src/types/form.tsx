@@ -20,6 +20,7 @@ export type ContactFormData = {
 export type FormFieldProps = {
   type?: string;
   placeholder?: string;
+  defaultValue?: string;
   value?: string;
   name: string;
   register: UseFormRegister<FormData>;

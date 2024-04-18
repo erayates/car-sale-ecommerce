@@ -32,7 +32,7 @@ export default function SignInContainer() {
 
           <SignInForm />
 
-          <Link href="/reset-password" className="text-blue-500 font-semibold text-sm">
+          <Link href="/forgot-password" className="text-blue-500 font-semibold text-sm">
             Reset Your Password by E-mail?
           </Link>
         </div>
