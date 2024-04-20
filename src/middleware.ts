@@ -19,7 +19,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       },
     });
     if (isUserAuth.status !== 200) {
-      console.log(isUserAuth.status);
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
   }

@@ -21,10 +21,14 @@ export default function SignUpForm() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(SignUpFormSchema),
+    defaultValues: {
+      interior: [],
+      multimedia: [],
+      safety: [],
+    },
   });
 
   const [createUserWithEmailAndPassword, user, loading, error] =
@@ -47,10 +51,7 @@ export default function SignUpForm() {
     if (user) {
       const response = await createUser(data, user.user.uid);
       if (response.ok) {
-        toast.success("You registered successfully!", {
-          position: "top-center",
-          autoClose: 2000,
-        });
+        toast.success("You registered successfully!");
         reset();
       }
     }

@@ -1,11 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AdvertGallery({ images = [] }: { images: [] }) {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
+  useEffect(() => {
+    setSelectedImage(images[0])
+  }, [images])
+  
   const handleClickThumbnail = (image: string) => {
     setSelectedImage(image);
   };

@@ -36,20 +36,20 @@ export default function AccountContainer() {
                   {currentUser.firstName} {currentUser.lastName}
                 </p>
               </div>
+
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">E-mail:</p>
                 <p className="font-semibold">{currentUser?.email}</p>
               </div>
+
               <div className="flex gap-2">
                 <p className="text-slate-500 font-semibold">Phone:</p>
                 <p className="font-semibold">{currentUser.phone}</p>
               </div>
 
               <div className="flex gap-2">
-                <div>
-                  <p className="text-slate-500 font-semibold">Country:</p>
-                  <p className="font-semibold">{currentUser.address.country}</p>
-                </div>
+                <p className="text-slate-500 font-semibold">Country:</p>
+                <p className="font-semibold">{currentUser.address.country}</p>
               </div>
 
               <div className="flex gap-2">
@@ -65,7 +65,7 @@ export default function AccountContainer() {
               </div>
 
               <Link
-                href="/"
+                href="/account/update-account"
                 className="uppercase text-red-700 font-bold flex gap-2 items-center"
               >
                 Change Account Information{" "}

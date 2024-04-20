@@ -46,10 +46,7 @@ export default function Header() {
         },
       });
       if (response.ok && response.status === 200) {
-        toast.success("Your email updated successfully.", {
-          position: "top-center",
-          autoClose: 3000,
-        });
+        toast.success("Your email updated successfully.");
       }
     }
   };

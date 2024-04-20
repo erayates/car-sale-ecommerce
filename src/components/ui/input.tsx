@@ -1,7 +1,6 @@
 import { FormFieldProps } from "@/types/form";
 
 export const Input: React.FC<FormFieldProps> = ({
-  value,
   type,
   placeholder,
   name,
@@ -9,7 +8,6 @@ export const Input: React.FC<FormFieldProps> = ({
   error,
   valueAsNumber,
   className,
-  defaultValue,
 }) => {
   return (
     <>

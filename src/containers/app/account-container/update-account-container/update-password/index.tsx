@@ -28,9 +28,7 @@ export default function UpdatePassword() {
         .then(async () => {
           updatePassword(auth.currentUser, newPassword)
             .then(async () => {
-              toast.success("Your password changed successfully!", {
-                position: "top-center",
-              });
+              toast.success("Your password changed successfully!");
               await signOut(auth);
               await fetch("/api/v1/logout");
               router.push("/sign-in");
@@ -49,18 +47,11 @@ export default function UpdatePassword() {
     switch (errorType) {
       case "auth/invalid-credential":
         toast.error(
-          "Your entered password is not your current password. Please check your current password that you entered.",
-          {
-            position: "top-center",
-            autoClose: 3000,
-          }
+          "Your entered password is not your current password. Please check your current password that you entered."
         );
         break;
       default:
-        toast.error("Something went wrong!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
+        toast.error("Something went wrong!");
         break;
     }
   };

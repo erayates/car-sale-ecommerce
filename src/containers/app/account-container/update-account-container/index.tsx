@@ -6,6 +6,7 @@ import * as React from "react";
 import UpdateEmail from "./update-email";
 import UpdatePassword from "./update-password";
 import UpdateUserInfo from "./update-user-info";
+import UpdateAvatar from "./update-avatar";
 
 export default function UpdateAccountContainer() {
   const isLoading = useUserStore((state) => state.isLoading as boolean);
@@ -29,6 +30,7 @@ export default function UpdateAccountContainer() {
         </div>
 
         <div className="col-span-2 lg:col-span-1 w-full space-y-8">
+          <UpdateAvatar />
           <UpdatePassword />
           <UpdateEmail />
         </div>

@@ -34,7 +34,7 @@ export default function RootLayout({
             <HydrationZustand>
               <Header />
               <PageHero title="Account" />
-              <main className="container grid grid-cols-3 gap-16 relative my-16">
+              <main className="container grid grid-cols-1 md:grid-cols-3 md:gap-16 space-y-16 md:space-y-0 relative my-16">
                 <AccountSidebar />
                 {children}
               </main>

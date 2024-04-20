@@ -2,6 +2,9 @@ import { CircularProgress } from "@mui/material";
 import useSWR from "swr";
 
 import * as React from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useFormContext } from "react-hook-form";
 
 const headers = {
   "X-RapidAPI-Key": "8eca1d2a66msh8c46c9a6b94076cp1d13f2jsn722a66acfb3c",
@@ -47,32 +50,68 @@ export default function GeneralInfoStep() {
     isLoading,
   } = useSWR("https://car-data.p.rapidapi.com/cars/makes", fetcher);
 
+  const { register } = useFormContext();
+
   return (
     <div className="grid grid-cols-5 gap-24">
-      <div className="flex flex-col col-span-2 gap-2">
+      <div className="flex flex-col col-span-5 lg:col-span-2 gap-2">
         <h3 className="text-2xl">Advert Information:</h3>
+        <p className="text-md text-blue-500">
+          Each field is required in this step, so you need to fill all field.
+          Otherwise, you will get error.
+        </p>
         <div className="flex flex-col gap-2">
           <span>Title:</span>
-          <input
+          <Input
             type="text"
-            placeholder="Enter ad title"
+            name="title"
+            placeholder="Enter an title"
+            register={register}
             className="p-2 rounded-md border border-slate-200"
+            error={undefined}
           />
         </div>
         <div className="flex flex-col gap-2">
           <span>Description:</span>
-          <textarea
-            rows={10}
+          <Textarea
+            rows={2}
+            register={register}
+            name="description"
             placeholder="Enter ad description"
             className="p-2 rounded-md border border-slate-200 resize-none"
+            error={undefined}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span>City:</span>
+          <Input
+            type="text"
+            name="city"
+            placeholder="Enter the city (location) of the car"
+            register={register}
+            className="p-2 rounded-md border border-slate-200"
+            error={undefined}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span>Adress Line:</span>
+          <Textarea
+            rows={1}
+            register={register}
+            name="addressLine"
+            placeholder="Enter car location adress line"
+            className="p-2 rounded-md border border-slate-200 resize-none"
+            error={undefined}
           />
         </div>
       </div>
 
-      <div className="flex flex-col col-span-3 gap-2 w-full">
+      <div className="flex flex-col col-span-5 lg:col-span-3 gap-2 w-full">
         <div className="flex flex-col gap-2 w-full">
           <h3 className="text-2xl">Car Information:</h3>{" "}
-          <div className="grid grid-cols-2 gap-12">
+          <div className="gap-12">
             <div className="space-y-2">
               <div className="grid grid-cols-3 items-center gap-2">
                 <span>Brand: </span>
@@ -83,6 +122,7 @@ export default function GeneralInfoStep() {
                   <select
                     name="brand"
                     className="border border-slate-200 p-2 rounded-md col-span-2"
+                    {...register("brand")}
                     onChange={(e) => setBrand(e.target.value)}
                   >
                     {brands?.map((brand: string, idx: number) => (
@@ -96,10 +136,10 @@ export default function GeneralInfoStep() {
               {brand && (
                 <>
                   <div className="grid grid-cols-3 items-center gap-2">
-                    <span>Models:</span>
+                    <span>Model:</span>
                     <select
-                      defaultValue="Select a brand"
-                      name="brand"
+                      name="model"
+                      {...register("model")}
                       className="border border-slate-200 p-2 rounded-md col-span-2"
                     >
                       {models?.map((model: string, idx: number) => (
@@ -112,8 +152,8 @@ export default function GeneralInfoStep() {
                   <div className="grid grid-cols-3 items-center gap-2">
                     <span className="col-span-1">Fuel Type:</span>
                     <select
-                      defaultValue="Select a brand"
-                      name="brand"
+                      name="fuelType"
+                      {...register("fuelType")}
                       className="border border-slate-200 p-2 rounded-md col-span-2"
                     >
                       <option value="Diesel">Diesel</option>
@@ -127,20 +167,21 @@ export default function GeneralInfoStep() {
                   <div className="grid grid-cols-3 items-center gap-2">
                     <span className="col-span-1">Gearbox:</span>
                     <select
-                      defaultValue="Select a brand"
-                      name="brand"
+                      name="gearbox"
+                      {...register("gearbox")}
                       className="border border-slate-200 p-2 rounded-md col-span-2"
                     >
                       <option value="Automatic">Automatic</option>
-                      <option value="Manuel">Semi-automatic</option>
+                      <option value="Semi-automatic">Semi-automatic</option>
+                      <option value="Manuel">Manuel</option>
                     </select>
                   </div>
 
                   <div className="grid grid-cols-3 items-center gap-2">
                     <span>Year Of Model:</span>
                     <select
-                      defaultValue="Select a brand"
                       name="yearOfModel"
+                      {...register("yearOfModel")}
                       className="border border-slate-200 p-2 rounded-md col-span-2"
                     >
                       {Array.from(
@@ -156,80 +197,91 @@ export default function GeneralInfoStep() {
 
                   <div className="grid grid-cols-3 items-center gap-2">
                     <span>Engine Size:</span>
-                    <input
+                    <Input
                       type="number"
                       name="engineSize"
+                      register={register}
+                      error={undefined}
                       className="border border-slate-200 p-2 rounded-md col-span-2"
                       placeholder="cc"
                     />
                   </div>
+
+                  <div className="col-span-1 space-y-2">
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Engine Power:</span>
+                      <Input
+                        type="number"
+                        placeholder="hp"
+                        name="enginePower"
+                        register={register}
+                        error={undefined}
+                        className="p-2 border border-slate-200 rounded-md col-span-2"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Car Status:</span>
+                      <select
+                        defaultValue="Select a brand"
+                        name="carStatus"
+                        {...register("carStatus")}
+                        className="border border-slate-200 p-2 rounded-md col-span-2"
+                      >
+                        <option value="Used">Used</option>
+                        <option value="Brand-new">Brand-new</option>
+                      </select>
+                    </div>
+
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Mileage:</span>
+                      <Input
+                        type="number"
+                        name="mileage"
+                        error={undefined}
+                        register={register}
+                        placeholder="km"
+                        className="p-2 border border-slate-200 rounded-md col-span-2"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Color:</span>
+                      <Input
+                        type="text"
+                        name="color"
+                        register={register}
+                        error={undefined}
+                        className="p-2 border border-slate-200 rounded-md col-span-2"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Seller:</span>
+                      <select
+                        name="seller"
+                        {...register("seller")}
+                        className="border border-slate-200 p-2 rounded-md col-span-2"
+                      >
+                        <option value="From-owner">From-owner</option>
+                        <option value="Dealer">Dealer</option>
+                      </select>
+                    </div>
+
+                    <div className="grid grid-cols-3 items-center gap-2">
+                      <span>Price:</span>
+                      <Input
+                        type="number"
+                        register={register}
+                        error={undefined}
+                        name="price"
+                        className="border border-slate-200 p-2 rounded-md col-span-2"
+                      />
+                    </div>
+                  </div>
                 </>
               )}
             </div>
-            {brand && (
-              <div className="col-span-1 space-y-2">
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Engine Power:</span>
-                  <input
-                    type="number"
-                    name="enginePower"
-                    className="p-2 border border-slate-200 rounded-md col-span-2"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Car Status:</span>
-                  <select
-                    defaultValue="Select a brand"
-                    name="carStatus"
-                    className="border border-slate-200 p-2 rounded-md col-span-2"
-                  >
-                    <option value="Used">Used</option>
-                    <option value="Brand-new">Brand-new</option>
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Mileage:</span>
-                  <input
-                    type="number"
-                    name="mileage"
-                    placeholder="km"
-                    className="p-2 border border-slate-200 rounded-md col-span-2"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Color:</span>
-                  <input
-                    type="text"
-                    name="color"
-                    className="p-2 border border-slate-200 rounded-md col-span-2"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Seller:</span>
-                  <select
-                    defaultValue="Select a brand"
-                    name="carStatus"
-                    className="border border-slate-200 p-2 rounded-md col-span-2"
-                  >
-                    <option value="From-owner">From-owner</option>
-                    <option value="Dealer">Dealer</option>
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-3 items-center gap-2">
-                  <span>Price:</span>
-                  <input
-                    type="number"
-                    name="mileage"
-                    className="border border-slate-200 p-2 rounded-md col-span-2"
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

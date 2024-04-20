@@ -1,8 +1,12 @@
+import { ChangeEvent } from "react";
 import {
   FieldError,
   UseFormRegister,
   FieldErrorsImpl,
   Merge,
+  FieldValues,
+  UseFormSetValue,
+  UseFormGetValues,
 } from "react-hook-form";
 
 export type FormData = {
@@ -31,4 +35,20 @@ export type FormFieldProps = {
   rows?: number;
   className?: string;
   children?: React.ReactNode;
+};
+
+export type CheckboxProps = {
+  name: string;
+  setValue: UseFormSetValue<FieldValues>;
+  getValues: UseFormGetValues<FieldValues>;
+  className?: string;
+  register: UseFormRegister<FormData>;
+  value: string;
+};
+
+export type FileInputProps = {
+  name: string;
+  register: UseFormRegister<FormData> | UseFormRegister<any>;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  multiple: boolean;
 };

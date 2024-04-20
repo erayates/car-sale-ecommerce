@@ -5,6 +5,7 @@ import { IoSpeedometerOutline } from "react-icons/io5";
 import { FaCalendarAlt } from "react-icons/fa";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useRef, useState, useEffect } from "react";
+import dayjs from "dayjs";
 
 interface AdvertSingleItemProps {
   item: any;
@@ -17,10 +18,7 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({ item, index }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        actionsDiv.current &&
-        !actionsDiv.current.contains(event.target as Node)
-      ) {
+      if (actionsDiv.current) {
         setOpenActions(false);
       }
     };
@@ -33,7 +31,7 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({ item, index }) => {
   }, []);
 
   const onActionsButtonClick = () => {
-    setOpenActions((openActions) => !openActions);
+    setOpenActions((prev) => !prev);
   };
 
   return (
@@ -52,18 +50,17 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({ item, index }) => {
           <h3 className="font-semibold">
             {item.title} {index}
           </h3>
-          <div className="relative">
+          <div className="relative" ref={actionsDiv}>
             <button className="text-slate-500" onClick={onActionsButtonClick}>
               <HiOutlineDotsVertical />
             </button>
             {openActions && (
-              <div
-                className="shadow-md absolute text-sm p-4 bg-white z-30 rounded-lg min-w-[140px] transition-all"
-                ref={actionsDiv}
-              >
+              <div className="shadow-md absolute text-sm p-4 bg-white z-30 left-[-100px] md:left-0 rounded-lg min-w-[140px] transition-all">
                 <ul className="flex flex-col gap-2">
                   <li className="cursor-pointer">Show Ad Page</li>
-                  <li className="text-blue-500 cursor-pointer">Update Advert</li>
+                  <li className="text-blue-500 cursor-pointer">
+                    Update Advert
+                  </li>
                   <li className="text-red-700 cursor-pointer">Delete Advert</li>
                 </ul>
               </div>
@@ -84,13 +81,15 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({ item, index }) => {
 
         <div className="flex gap-2 items-center">
           <FaCalendarAlt />
-          <p className="text-slate-500 text-sm">{item.createdAt}</p>
+          <p className="text-slate-500 text-sm">
+            {dayjs.unix(item.createdAt.seconds).format("DD MMM YYYY")}
+          </p>
         </div>
       </div>
 
       <div className="absolute right-0 bottom-0 rounded-lg flex items-center">
         <p className="bg-orange-600 text-white font-semibold  px-4 py-2 rounded-br-lg rounded-tl-lg">
-          ₺ {convertNumberToCurrency(780000)}
+          $ {convertNumberToCurrency(item.price)}
         </p>
       </div>
     </div>

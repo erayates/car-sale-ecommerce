@@ -26,17 +26,9 @@ export function convertNumberToCurrency(num: number): string {
 }
 
 export const mockImages = [
-  "/assets/images/featured-cars/clio.jpg",
-  "/assets/images/featured-cars/ford-kuga.jpg",
-  "/assets/images/featured-cars/bmw-320.jpg",
-  "/assets/images/featured-cars/golf-8.webp",
-  "https://via.placeholder.com/500x500?text=Image+5",
-  "https://via.placeholder.com/500x500?text=Image+6",
-  "https://via.placeholder.com/500x500?text=Image+6",
-
-  "https://via.placeholder.com/500x500?text=Image+6",
-
-  // Add more image URLs as needed
+  "https://via.placeholder.com/500x500?text=Image",
+  "https://via.placeholder.com/500x500?text=Image",
+  "https://via.placeholder.com/500x500?text=Image",
 ];
 
 export const safetyFeatureOptions = [

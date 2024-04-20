@@ -44,10 +44,7 @@ export default function UpdateUserInfo() {
       });
       if (response.ok && response.status === 200) {
         fetchCurrentUser(currentUser.uid);
-        toast.success("Your profile updated successfully.", {
-          position: "top-center",
-          autoClose: 3000,
-        });
+        toast.success("Your profile updated successfully.");
         reset();
       }
     } catch (err) {

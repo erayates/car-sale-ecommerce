@@ -12,9 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-import { type UserType } from "@/types/user";
 import { useUserStore } from "@/providers/userProvider";
-import { Tapestry } from "next/font/google";
 
 export default function UpdateEmail() {
   const isLoading = useUserStore((state) => state.isLoading as boolean);
@@ -30,28 +28,17 @@ export default function UpdateEmail() {
     switch (errorType) {
       case "auth/too-many-requests":
         toast.warning(
-          "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
-          {
-            position: "top-center",
-            autoClose: 3000,
-          }
+          "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later."
         );
         break;
 
       case "auth/invalid-credential":
         toast.error(
-          "You entered wrong password. Please enter your account password correctly.",
-          {
-            position: "top-center",
-            autoClose: 3000,
-          }
+          "You entered wrong password. Please enter your account password correctly."
         );
         break;
       default:
-        toast.error("Something went wrong!", {
-          position: "top-center",
-          autoClose: 30000,
-        });
+        toast.error("Something went wrong!");
     }
   };
 

@@ -29,8 +29,14 @@ export async function PATCH(req: NextRequest, res: NextResponse) {
   try {
     const uid = req.nextUrl.pathname.split("/").pop();
     const userDocRef = doc(db, "users", uid);
-    const { email } = await req.json();
-    await setDoc(userDocRef, { email: email }, { merge: true });
+    const { email, avatar } = await req.json();
+    if (email) {
+      await setDoc(userDocRef, { email: email }, { merge: true });
+    }
+
+    if (avatar) {
+      await setDoc(userDocRef, { avatar: avatar }, { merge: true });
+    }
 
     return NextResponse.json(
       { message: "User updated successfully." },
@@ -55,15 +61,16 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     await setDoc(
       userDocRef,
       {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
+        firstName,
+        lastName,
+        phone,
         address: {
-          addressLine: addressLine,
-          province: province,
-          country: country,
+          addressLine,
+          province,
+          country,
         },
       },
+
       { merge: true }
     );
 

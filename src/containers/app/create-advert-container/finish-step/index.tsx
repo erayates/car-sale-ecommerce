@@ -2,7 +2,7 @@ import { FaInfoCircle } from "react-icons/fa";
 
 export default function FinishStep() {
   return (
-    <div className="px-48 my-4 flex flex-col gap-4 text-blue-400 text-center items-center">
+    <div className="px-12 lg:px-48 my-4 flex flex-col gap-4 text-blue-400 text-center items-center justify-center">
       <FaInfoCircle className="text-5xl" />
       <p>
         You are one step away from adding your ad to our site. After pressing
