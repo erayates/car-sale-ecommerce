@@ -28,5 +28,11 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 //Add your protected routes
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/account/:path*", "/create-advert"],
+  matcher: [
+    "/sign-in",
+    "/sign-up",
+    "/account/:path*",
+    "/create-advert",
+    "/advert/:path*",
+  ],
 };

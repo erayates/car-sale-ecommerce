@@ -28,6 +28,7 @@ export default function AdvertGallery({ images = [] }: { images: [] }) {
         <Image
           src={selectedImage ?? ""}
           alt="Product"
+          unoptimized
           className="w-full h-full rounded-lg object-contain z-30 relative"
           fill
         />
@@ -45,6 +46,7 @@ export default function AdvertGallery({ images = [] }: { images: [] }) {
                 src={image ?? ""}
                 alt={`Photo ${index + 1}`}
                 fill
+                unoptimized
                 className="w-full h-full object-fill border-2 border-gray-200 rounded-lg"
               />
             </div>

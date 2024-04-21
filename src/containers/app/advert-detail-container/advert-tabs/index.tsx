@@ -6,8 +6,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import TechnicalDetailsTab from "./technical-details-tab";
 
-export default function AdvertTabs() {
+export default function AdvertTabs({ advert }: { advert: any }) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (
@@ -26,14 +27,9 @@ export default function AdvertTabs() {
             <Tab label="Technical Details" value="2" />
           </TabList>
         </Box>
-        <TabPanel value="1">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam,
-          officiis non? Iusto consequatur corporis quidem ab optio doloremque
-          odio voluptatibus, illo, labore aliquam minus quibusdam reiciendis
-          deleniti cumque accusamus accusantium.
-        </TabPanel>
+        <TabPanel value="1">{advert.description}</TabPanel>
         <TabPanel value="2">
-        
+          <TechnicalDetailsTab advert={advert} />
         </TabPanel>
       </TabContext>
     </Box>

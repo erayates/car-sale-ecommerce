@@ -3,30 +3,35 @@
 import { CircularProgress, Tooltip } from "@mui/material";
 
 import { FaPlus } from "react-icons/fa";
-import AdvertsList from "./adverts-list";
-import { advertsList } from "@/mocks";
+import AdvertsList from "../../../../components/adverts-list";
 import Link from "next/link";
 import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { auth } from "@/lib/firebase/auth";
 import { useUserStore } from "@/providers/userProvider";
-import { UserType } from "@/types/user";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function MyAdvertsContainer() {
-  const currentUser = useUserStore((state) => state.currentUser as UserType);
-
   const {
     data: adverts,
     error,
     isLoading,
   } = useSWR("/api/v1/adverts", fetcher);
 
-  const userAds = adverts?.filter((ad) => ad.uid === currentUser.uid);
+  const userAds = adverts?.filter((ad) => ad.uid === auth.currentUser?.uid);
+
   if (isLoading) {
     return (
       <div className="col-span-2 flex justify-center items-center">
         <CircularProgress />
+      </div>
+    );
+  }
+
+  if (userAds.message) {
+    return (
+      <div className="col-span-2 flex justify-center items-center">
+        There is no advert to be displayed.
       </div>
     );
   }

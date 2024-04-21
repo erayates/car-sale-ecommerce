@@ -20,13 +20,14 @@ export default function AccountContainer() {
       <div className="flex flex-col gap-4 col-span-2 w-full">
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">Account:</h3>
-          <div className="flex gap-10 w-full">
-            <div className="max-w-max w-32 h-32 relative">
+          <div className="flex gap-4 lg:gap-10 w-full">
+            <div className="max-w-max relative">
               <Image
                 src={currentUser.avatar}
                 className="rounded-lg relative"
+                width={128}
+                height={128}
                 alt="User Avatar"
-                fill
               />
             </div>
             <div className="flex flex-col gap-6">

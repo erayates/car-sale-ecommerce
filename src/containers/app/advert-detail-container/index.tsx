@@ -3,20 +3,19 @@ import AdvertGallery from "./advert-gallery";
 import AdvertFeatures from "./advert-features";
 import AdvertTabs from "./advert-tabs";
 import AdvertOwnerInfo from "./advert-owner-info";
-import { images } from "@/lib/utils";
-
-export default function AdvertDetailContainer() {
+import { mockImages } from "@/lib/utils";
+export default function AdvertDetailContainer({ advert }: { advert: any }) {
   return (
     <div className="relative">
       <PageHero title="Advert Detail" />
-      <AdvertOwnerInfo />
+      <AdvertOwnerInfo advertOwnerId={advert.uid}/>
 
       <div className="grid grid-cols-5 gap-12 container mb-16 mt-8 relative">
-        <AdvertGallery images={images} />
-        <AdvertFeatures />
+        <AdvertGallery images={advert.images ?? mockImages} />
+        <AdvertFeatures advert={advert}/>
       </div>
       <div className="container mb-16">
-        <AdvertTabs />
+        <AdvertTabs advert={advert}/>
       </div>
     </div>
   );

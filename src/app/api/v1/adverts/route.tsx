@@ -6,19 +6,45 @@ import {
   addDoc,
   collection,
   doc,
+  documentId,
   getDocs,
+  query,
   setDoc,
+  where,
 } from "firebase/firestore";
 
+import slugify from "slugify";
+
 export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+
   try {
-    const advertsRef = collection(db, "adverts");
+    const advertsCollection = collection(db, "adverts");
 
-    const adverts = await getDocs(advertsRef);
+    if (searchParams.get("favorites")) {
+      const uid = searchParams.get("favorites");
+      const q = where("favorites", "array-contains", uid);
+      const querySnapshot = await getDocs(query(advertsCollection, q));
 
-    const data = adverts.docs.map((doc) => doc.data());
-    // Execute the query to retrieve data from Firestore
+      if (querySnapshot.empty) {
+        return NextResponse.json(
+          { message: "No data found." },
+          { status: 404 }
+        );
+      }
 
+      const userFavorites = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      return NextResponse.json(userFavorites, { status: 200 });
+    }
+
+    const adverts = await getDocs(advertsCollection);
+    const data = adverts.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
     if (data) {
       return NextResponse.json(data, { status: 200 });
     }
@@ -54,6 +80,7 @@ export async function POST(req: NextRequest) {
       price: Number(reqBody.price),
       yearOfModel: Number(reqBody.yearOfModel),
       favorites: [],
+      slug: slugify(reqBody.title),
     };
 
     await addDoc(advertsCollection, docData);

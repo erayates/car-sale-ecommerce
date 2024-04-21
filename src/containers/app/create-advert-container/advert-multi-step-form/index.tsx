@@ -65,11 +65,12 @@ export default function AdvertMultiStepForm() {
     try {
       const photos = data.photos;
       let images = [];
-      for (let photo in photos) {
-        const photoURL = await upload(photo, "gallery");
+
+      for (let i = 0; i < photos.length; i++) {
+        const photoURL = await upload(photos[i], "gallery");
         images.push(photoURL);
       }
-
+      
       delete data.photos;
 
       const response = await fetch(`/api/v1/adverts`, {

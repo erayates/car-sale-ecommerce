@@ -1,10 +1,16 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import AdvertSingleItem from "../advert-single-item";
+import AdvertSingleItem from "./advert-single-item";
 import Pagination from "@/components/ui/pagination";
 
-export default function AdvertsList({ adverts }: { adverts: any }) {
+export default function AdvertsList({
+  adverts,
+  type,
+}: {
+  adverts: any;
+  type: string;
+}) {
   const [items, setItems] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,11 +28,11 @@ export default function AdvertsList({ adverts }: { adverts: any }) {
   return (
     <div className="flex flex-col gap-6 mt-8">
       {items.map((item: any, idx: number) => (
-          <AdvertSingleItem item={item} key={idx} index={idx} />
+        <AdvertSingleItem item={item} key={idx} index={idx} type={type} />
       ))}
 
       <Pagination
-        totalItems={adverts.length}
+        totalItems={adverts?.length}
         rowsPerPage={rowsPerPage}
         onPageChange={handlePageChange}
       />

@@ -8,6 +8,8 @@ import {
 const upload = (file, folderName: string) => {
   const date = new Date();
   const storage = getStorage();
+
+  console.log(file)
   const storageRef = ref(storage, `images/${folderName}/${date + file.name}`);
 
   const uploadTask = uploadBytesResumable(storageRef, file);
