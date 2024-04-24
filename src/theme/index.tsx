@@ -40,7 +40,3 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     </MUIThemeProvider>
   );
 }
-
-ThemeProvider.propTypes = {
-  children: PropTypes.node,
-};

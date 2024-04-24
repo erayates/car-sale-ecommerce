@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+"use client";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -7,21 +7,18 @@ import Toolbar from "@mui/material/Toolbar";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 
-import { useResponsive } from "src/hooks/use-responsive";
+import { useResponsive } from "@/hooks/use-responsive";
 
 import { bgBlur } from "@/theme/css";
 
-import Iconify from "src/components/iconify";
-
 import Searchbar from "@/components/dashboard/ui/search-bar";
 import { NAV, HEADER } from "./config-layout";
-import AccountPopover from "./common/account-popover";
-import LanguagePopover from "./common/language-popover";
-import NotificationsPopover from "./common/notifications-popover";
+import AccountPopover from "@/components/dashboard/ui/account-popover";
+import NotificationsPopover from "@/components/dashboard/ui/notifications-popover";
 
-// ----------------------------------------------------------------------
+import { FiMenu } from "react-icons/fi";
 
-export default function Header({ onOpenNav }) {
+export default function Header({ onOpenNav }: { onOpenNav: () => void }) {
   const theme = useTheme();
 
   const lgUp = useResponsive("up", "lg");
@@ -30,16 +27,12 @@ export default function Header({ onOpenNav }) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill" />
+          <FiMenu />
         </IconButton>
       )}
-
       <Searchbar />
-
       <Box sx={{ flexGrow: 1 }} />
-
       <Stack direction="row" alignItems="center" spacing={1}>
-        <LanguagePopover />
         <NotificationsPopover />
         <AccountPopover />
       </Stack>
@@ -62,6 +55,7 @@ export default function Header({ onOpenNav }) {
           width: `calc(100% - ${NAV.WIDTH + 1}px)`,
           height: HEADER.H_DESKTOP,
         }),
+        borderBottom: (theme) => `dashed 1px ${theme.palette.divider}`,
       }}
     >
       <Toolbar

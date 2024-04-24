@@ -1,4 +1,5 @@
 import ThemeProvider from "@/theme";
+import DashboardLayout from "@/layouts/dashboard-layout";
 
 export const metadata = {
   title: "Next.js",
@@ -13,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeProvider>
-        <body>{children}</body>
+        <body>
+          <DashboardLayout>{children}</DashboardLayout>
+        </body>
       </ThemeProvider>
     </html>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Goldman, Lato, Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
-import MuiThemeProvider from "@/theme";
+import ThemeProvider from "@/theme";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Toastify from "@/components/ui/toast";
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <MuiThemeProvider>
+      <ThemeProvider>
         <body className={goldman.className}>
           <UserStoreProvider>
             <HydrationZustand>
@@ -38,7 +38,7 @@ export default function RootLayout({
             </HydrationZustand>
           </UserStoreProvider>
         </body>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </html>
   );
 }
