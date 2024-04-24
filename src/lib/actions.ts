@@ -22,3 +22,8 @@ export const createUser = async (data: any, uid: string) => {
     return { message: err };
   }
 };
+
+
+export const deleteAdvert = async() => {
+
+}
