@@ -30,7 +30,7 @@ export function responsiveFontSizes({
   };
 }
 
-export const primaryFont = "Inter, sans-serif";
+export const primaryFont = "Public Sans, sans-serif";
 export const secondaryFont = "Barlow, sans-serif";
 
 // ----------------------------------------------------------------------

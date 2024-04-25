@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { fShortenNumber } from "@/lib/format-number";
 
 // ----------------------------------------------------------------------
 
@@ -37,10 +38,12 @@ const DashboardWidgetSummary: React.FC<DashboardWidgetSummarProps> = ({
       }}
       {...other}
     >
-      {icon && <Box sx={{ width: 64, height: 64 }}>{icon}</Box>}
+      {icon && (
+        <Box sx={{ width: 64, height: 64, position: "relative" }}>{icon}</Box>
+      )}
 
       <Stack spacing={0.5}>
-        <Typography variant="h4">{total}</Typography>
+        <Typography variant="h4">{fShortenNumber(total)}</Typography>
 
         <Typography variant="subtitle2" sx={{ color: "text.disabled" }}>
           {title}

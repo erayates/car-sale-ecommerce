@@ -16,6 +16,8 @@ import AppTrafficBySite from "../app-traffic-by-site";
 import AppCurrentSubject from "../app-current-subject";
 import AppConversionRates from "../app-conversion-rates";
 import DashboardWidgetSummary from "./dashboard-widget-summary";
+import Image from "next/image";
+import DashboardLatestMessages from "./dashboard-latest-messages";
 
 // ----------------------------------------------------------------------
 
@@ -29,10 +31,12 @@ export default function DashboardContainer() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <DashboardWidgetSummary
-            title="Weekly Sales"
+            title="Total Adverts"
             total={714000}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            icon={
+              <Image alt="icon" src="/assets/icons/ic_glass_bag.png" fill />
+            }
           />
         </Grid>
 
@@ -42,28 +46,41 @@ export default function DashboardContainer() {
             total={1352831}
             color="info"
             icon={
-              <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
+              <Image alt="icon" src="/assets/icons/ic_glass_users.png" fill />
             }
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <DashboardWidgetSummary
-            title="Item Orders"
+            title="Sold Cars"
             total={1723315}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            icon={
+              <Image alt="icon" src="/assets/icons/ic_glass_buy.png" fill />
+            }
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={3}>
           <DashboardWidgetSummary
-            title="Bug Reports"
+            title="Messages"
             total={234}
             color="error"
             icon={
-              <img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />
+              <Image alt="icon" src="/assets/icons/ic_glass_message.png" fill />
             }
+          />
+        </Grid>
+        <Grid xs={12} md={6} lg={8}>
+          <DashboardLatestMessages
+            title="Latest Messages"
+            list={[...Array(5)].map((_, index) => ({
+              firstName: faker.person.firstName(),
+              lastName: faker.person.lastName(),
+              content: faker.commerce.productDescription(),
+              createdAt: faker.date.recent(),
+            }))}
           />
         </Grid>
 
@@ -165,18 +182,7 @@ export default function DashboardContainer() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppNewsUpdate
-            title="News Update"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: faker.person.jobTitle(),
-              description: faker.commerce.productDescription(),
-              image: `/assets/images/covers/cover_${index + 1}.jpg`,
-              postedAt: faker.date.recent(),
-            }))}
-          />
-        </Grid>
+      
 
         <Grid xs={12} md={6} lg={4}>
           <AppOrderTimeline
