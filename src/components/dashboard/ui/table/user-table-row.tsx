@@ -12,31 +12,32 @@ import IconButton from "@mui/material/IconButton";
 import { FiEdit2 } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 import { FiMoreVertical } from "react-icons/fi";
+import { Chip } from "@mui/material";
 
 interface CustomTableRowProps {
-  avatarUrl: string;
-  company: string;
-  handleClick: () => void;
-  isVerified: string;
-  name: string;
+  avatar: string;
+  firstName: string;
+  handleClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  lastName: string;
   role: string;
-  selected: any;
+  email: string;
   status: string;
+  selected: any;
 }
 
-const CustomTableRow: React.FC<CustomTableRowProps> = ({
+const CustomUserTableRow: React.FC<CustomTableRowProps> = ({
   selected,
-  name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
+  firstName,
+  lastName,
+  email,
+  role = "User",
+  avatar,
   status,
   handleClick,
 }) => {
   const [open, setOpen] = useState(null);
 
-  const handleOpenMenu = (event) => {
+  const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
   };
 
@@ -53,24 +54,25 @@ const CustomTableRow: React.FC<CustomTableRowProps> = ({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={firstName + "+" + lastName + "Avatar"} src={avatar} />
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {firstName + " " + lastName}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{email}</TableCell>
 
         <TableCell>{role}</TableCell>
 
-        <TableCell align="center">{isVerified ? "Yes" : "No"}</TableCell>
-
-        <TableCell>
-          <Typography color={(status === "banned" && "error") || "success"}>
-            {status}
-          </Typography>
+        <TableCell align="center">
+          {status ? (
+            <Chip label="Online" color="success" size="small" />
+          ) : (
+            <Chip label="Offline" size="small" />
+          )}
         </TableCell>
+
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -103,4 +105,4 @@ const CustomTableRow: React.FC<CustomTableRowProps> = ({
   );
 };
 
-export default CustomTableRow;
+export default CustomUserTableRow;

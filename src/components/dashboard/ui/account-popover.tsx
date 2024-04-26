@@ -8,16 +8,14 @@ import { alpha } from "@mui/material/styles";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { AiFillHome } from "react-icons/ai";
 
 import { account } from "@/mocks/account";
-
 // -----------------------a-----------------------------------------------
 
 const MENU_OPTIONS = [
   {
     label: "Home",
-    icon: <AiFillHome />,
+    icon: "eva:home-fill",
   },
   {
     label: "Profile",
@@ -34,7 +32,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
   };
 

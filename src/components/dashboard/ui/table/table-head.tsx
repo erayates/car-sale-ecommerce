@@ -16,9 +16,10 @@ interface TableHeadProps {
   order: "asc" | "desc";
   orderBy: string;
   rowCount: number;
-  headLabel: [];
-  onRequestSort: () => void;
+  headLabel: any[];
+  onRequestSort: (event: React.MouseEvent<HTMLSpanElement>, id: string) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  numSelected: number;
 }
 
 const CustomTableHead: React.FC<TableHeadProps> = ({
@@ -30,9 +31,10 @@ const CustomTableHead: React.FC<TableHeadProps> = ({
   onRequestSort,
   onSelectAllClick,
 }) => {
-  const onSort = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+  const onSort =
+    (property: string) => (event: React.MouseEvent<HTMLSpanElement>) => {
+      onRequestSort(event, property);
+    };
 
   return (
     <TableHead>

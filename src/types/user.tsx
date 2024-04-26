@@ -8,7 +8,7 @@ export type UserType = {
   onlineStatus: boolean | null;
   phone: string | null;
   updatedAt: Date | null;
-  uid: string | null;
+  uid: string | null; 
 };
 
 type UserAddressType = {

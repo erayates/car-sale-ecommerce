@@ -12,6 +12,8 @@ import CardHeader from "@mui/material/CardHeader";
 import { IoIosArrowForward } from "react-icons/io";
 import { fToNow } from "@/lib/format-time";
 import Link from "next/link";
+import { UserType } from "@/types/user";
+import { Chip } from "@mui/material";
 
 interface DashboardLatestMessagesProps {
   title: string;
@@ -19,7 +21,7 @@ interface DashboardLatestMessagesProps {
   list: any[];
 }
 
-const DashboardLatestUsers: React.FC<DashboardLatestMessagesProps> = ({
+const DashboardLatestMessages: React.FC<DashboardLatestMessagesProps> = ({
   title,
   subheader,
   list,
@@ -30,8 +32,8 @@ const DashboardLatestUsers: React.FC<DashboardLatestMessagesProps> = ({
       <CardHeader title={title} subheader={subheader} />
 
       <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
-        {list.map((message) => (
-          <LatestMessagesItem key={message.id} message={message} />
+        {list.map((user, idx) => (
+          <LatestMessagesItem key={idx} user={user} />
         ))}
       </Stack>
 
@@ -39,15 +41,15 @@ const DashboardLatestUsers: React.FC<DashboardLatestMessagesProps> = ({
 
       <Box sx={{ p: 2, textAlign: "right" }}>
         <Button size="small" color="inherit" endIcon={<IoIosArrowForward />}>
-          <Link href="/dashboard/messages">View all</Link>
+          <Link href="/dashboard/users">View all</Link>
         </Button>
       </Box>
     </Card>
   );
 };
 
-function LatestMessagesItem({ message }: { message: Message }) {
-  const { firstName, lastName, createdAt, content } = message;
+function LatestMessagesItem({ user }: { user: UserType }) {
+  const { firstName, lastName, createdAt, email, onlineStatus } = user;
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -64,18 +66,29 @@ function LatestMessagesItem({ message }: { message: Message }) {
         </Typography>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-          {content}
+          {email}
         </Typography>
       </Box>
 
       <Typography
         variant="caption"
-        sx={{ pr: 3, flexShrink: 0, color: "text.secondary" }}
+        sx={{
+          pr: 3,
+          flexShrink: 0,
+          color: "text.secondary",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
         {fToNow(createdAt)}
+        {onlineStatus ? (
+          <Chip label="Online" color="success" size="small" />
+        ) : (
+          <Chip label="Offline" size="small" />
+        )}
       </Typography>
     </Stack>
   );
 }
 
-export default DashboardLatestUsers;
+export default DashboardLatestMessages;
