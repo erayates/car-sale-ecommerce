@@ -1,5 +1,6 @@
 "use client";
 
+import HydrationLoading from "@/components/hydration-loading";
 import { ReactNode, useEffect, useState } from "react";
 
 const HydrationZustand = ({ children }: { children: ReactNode }) => {
@@ -10,7 +11,7 @@ const HydrationZustand = ({ children }: { children: ReactNode }) => {
     setIsHydrated(true);
   }, []);
 
-  return <>{isHydrated ? <>{children}</> : <p>Loading...</p>}</>;
+  return <>{isHydrated ? <>{children}</> : <HydrationLoading />}</>;
 };
 
 export default HydrationZustand;

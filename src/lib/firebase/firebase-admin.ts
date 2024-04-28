@@ -5,6 +5,8 @@ import { cookies } from "next/headers";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { SessionCookieOptions, getAuth } from "firebase-admin/auth";
 
+import * as firebaseAdmin from "firebase-admin";
+
 var serviceAccount = require("./serviceAccountKey.json");
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
@@ -31,16 +33,24 @@ export async function isUserAuthenticated(
   }
 }
 
+export async function isUserAdmin(session: string | undefined = undefined) {
+  const currentUser = await getCurrentUser();
+  if (currentUser) {
+    const claims = currentUser.customClaims;
+    claims && (claims["role"] === "admin" ? true : false);
+    return false;
+  }
+
+}
+
 export async function getCurrentUser() {
   const session = await getSession();
-
   if (!(await isUserAuthenticated(session))) {
     return null;
   }
 
-  const decodedIdToken = await auth.verifySessionCookie(session!);
+  const decodedIdToken = await auth.verifySessionCookie(session);
   const currentUser = await auth.getUser(decodedIdToken.uid);
-
   return currentUser;
 }
 
@@ -64,3 +74,5 @@ export async function revokeAllSessions(session: string) {
 
   return await auth.revokeRefreshTokens(decodedIdToken.sub);
 }
+
+export default firebaseAdmin;

@@ -10,7 +10,6 @@ import { MdOutlineArrowRightAlt } from "react-icons/md";
 export default function AccountContainer() {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
   const loading = useUserStore((state) => state.isLoading as boolean);
-
   if (loading) {
     return <CircularProgress />;
   }

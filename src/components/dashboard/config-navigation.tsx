@@ -12,7 +12,7 @@ const navConfig = [
   {
     title: "Dashboard",
     path: "/dashboard",
-    icon: <IoAnalyticsOutline className="w-6 h-6"/>,
+    icon: <IoAnalyticsOutline width={8} height={8}/>,
   },
   {
     title: "Users",
@@ -21,7 +21,7 @@ const navConfig = [
   },
   {
     title: "Adverts",
-    path: "/dashboard/adverts",
+    path: "/dashboard/ads",
     icon: <RiAdvertisementFill className="w-5 h-5"/>,
   },
   {

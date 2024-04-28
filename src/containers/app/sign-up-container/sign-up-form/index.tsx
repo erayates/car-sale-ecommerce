@@ -9,12 +9,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { SignUpFormSchema } from "@/schemes/signUpFormSchema";
 
-import { auth } from "@/lib/firebase/auth";
+// import { auth } from "@/lib/firebase/auth";
 
 import { createUser } from "@/lib/actions";
 import { toast } from "react-toastify";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { CircularProgress } from "@mui/material";
+
+import * as admin from "firebase-admin";
+import { auth } from "@/lib/firebase/auth";
+import { signOut } from "firebase/auth";
 
 export default function SignUpForm() {
   const {
@@ -48,8 +52,11 @@ export default function SignUpForm() {
       data.email,
       data.password
     );
+
     if (user) {
+      signOut(auth);
       const response = await createUser(data, user.user.uid);
+
       if (response.ok) {
         toast.success("You registered successfully!");
         reset();

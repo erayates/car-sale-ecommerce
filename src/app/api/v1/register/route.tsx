@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/firebase/auth";
-import {
-  Timestamp,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { Timestamp, setDoc, doc } from "firebase/firestore";
+import { auth } from "@/lib/firebase/firebase-admin";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, firstName, lastName, uid } = await req.json();
+    const { email, firstName, lastName, uid, role } = await req.json();
+    await auth.setCustomUserClaims(uid, { role: role });
+
     const docRef = doc(db, "users", uid);
     const docData = {
       email: email,
@@ -24,6 +23,7 @@ export async function POST(req: NextRequest) {
       avatar: `https://ui-avatars.com/api/?name=${firstName}+${lastName}`,
       phone: "",
       onlineStatus: false,
+      role: role,
     };
 
     await setDoc(docRef, docData, { merge: true });
@@ -32,7 +32,10 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "Internal Error." }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Error.", error: error },
+      { status: 500 }
+    );
   }
 
   //   const querySnapshot = await getDocs(

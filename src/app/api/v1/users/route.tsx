@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const advertsCollection = collection(db, "users");
+    const usersCollection = collection(db, "users");
 
-    const adverts = await getDocs(advertsCollection);
+    const adverts = await getDocs(usersCollection);
     const data = adverts.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,

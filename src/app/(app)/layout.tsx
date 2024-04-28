@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Goldman, Lato, Poppins } from "next/font/google";
-import "@/styles/globals.css";
+import { Goldman } from "next/font/google";
 
 import ThemeProvider from "@/theme";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Toastify from "@/components/ui/toast";
-import { UserStoreProvider } from "@/providers/userProvider";
-import HydrationZustand from "@/providers/hydrationZustand";
+import AppLayout from "@/layouts/app-layout";
 
 const goldman = Goldman({
   subsets: ["latin"],
@@ -29,14 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <body className={goldman.className}>
-          <UserStoreProvider>
-            <HydrationZustand>
-              <Header />
-              {children}
-              <Footer />
-              <Toastify />
-            </HydrationZustand>
-          </UserStoreProvider>
+          <AppLayout>{children}</AppLayout>
         </body>
       </ThemeProvider>
     </html>

@@ -1,24 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { MdSell, MdFavorite, MdSearch, MdStar } from "react-icons/md";
+import {
+  MdSell,
+  MdFavorite,
+  MdSearch,
+  MdStar,
+  MdOutlineFavorite,
+} from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
 
 import { auth } from "@/lib/firebase/auth";
 
-import {
-  useAuthState,
-  useSignOut,
-  useUpdateEmail,
-} from "react-firebase-hooks/auth";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import MobileNavigation from "./mobile-nav";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useUserStore } from "@/providers/userProvider";
-import { UserType } from "@/types/user";
-import { toast } from "react-toastify";
+import { useState } from "react";
 
 export default function Header() {
   const [user, loading, error] = useAuthState(auth);
@@ -26,40 +25,6 @@ export default function Header() {
   const [openMobileNav, setOpenMobileNav] = useState(false);
 
   const router = useRouter();
-  const currentUser = useUserStore((state) => state.currentUser as UserType);
-  const fetchCurrentUser = useUserStore(
-    (state) => state.fetchCurrentUser as (uid: string) => void
-  );
-
-  const [updateEmail, updateError] = useUpdateEmail(auth);
-
-  const updateUserEmail = async () => {
-    const isUpdated = await updateEmail(auth.currentUser.email);
-    if (isUpdated) {
-      const response = await fetch(`/api/v1/users/${currentUser.uid}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          email: auth.currentUser.email,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      if (response.ok && response.status === 200) {
-        toast.success("Your email updated successfully.");
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (user) {
-      fetchCurrentUser(user.uid);
-      if (auth.currentUser.email !== currentUser.email) {
-        updateUserEmail();
-      }
-    }
-  }, [user]);
-
   async function onLogout() {
     try {
       await signOut();
@@ -125,17 +90,10 @@ export default function Header() {
             >
               <FaBars />
             </button>
-            {!user ? (
-              <Link
-                href="/sign-in"
-                className="text-white text-xl bg-blue-600 p-2 rounded-md"
-              >
-                <IoIosLogIn />
-              </Link>
-            ) : (
+            {user && !loading ? (
               <>
                 <Link href="/account/favorites" className="text-white text-xl">
-                  <MdFavorite />
+                  <MdOutlineFavorite />
                 </Link>
 
                 <Link href="/account" className="text-white">
@@ -148,6 +106,13 @@ export default function Header() {
                   <IoIosLogOut className="text-xl" />
                 </button>
               </>
+            ) : (
+              <Link
+                href="/sign-in"
+                className="text-white text-xl bg-blue-600 p-2 rounded-md"
+              >
+                <IoIosLogIn />
+              </Link>
             )}
           </div>
         </div>

@@ -5,11 +5,8 @@ import {
   Timestamp,
   addDoc,
   collection,
-  doc,
-  documentId,
   getDocs,
   query,
-  setDoc,
   where,
 } from "firebase/firestore";
 
@@ -27,10 +24,7 @@ export async function GET(req: NextRequest) {
       const querySnapshot = await getDocs(query(advertsCollection, q));
 
       if (querySnapshot.empty) {
-        return NextResponse.json(
-          { message: "No data found." },
-          { status: 404 }
-        );
+        return NextResponse.json([], { status: 200 });
       }
 
       const userFavorites = querySnapshot.docs.map((doc) => ({
@@ -45,16 +39,14 @@ export async function GET(req: NextRequest) {
       ...doc.data(),
       id: doc.id,
     }));
+
     if (data) {
       return NextResponse.json(data, { status: 200 });
     }
 
-    return NextResponse.json(
-      { message: "No adverts found." },
-      {
-        status: 404,
-      }
-    );
+    return NextResponse.json([], {
+      status: 200,
+    });
   } catch (err) {
     return NextResponse.json(
       { message: "Internal Server Error" },

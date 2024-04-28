@@ -10,6 +10,7 @@ import { UserStoreProvider } from "@/providers/userProvider";
 import HydrationZustand from "@/providers/hydrationZustand";
 import Toastify from "@/components/ui/toast";
 import ThemeProvider from "@/theme";
+import AccountLayout from "@/layouts/account-layout";
 
 const roboto = Poppins({
   subsets: ["latin"],
@@ -29,21 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeProvider>
-        <UserStoreProvider>
-          <body className={roboto.className}>
-            <HydrationZustand>
-              <Header />
-              <PageHero title="Account" />
-              <main className="container grid grid-cols-1 md:grid-cols-3 md:gap-16 space-y-16 md:space-y-0 relative my-16">
-                <AccountSidebar />
-                {children}
-              </main>
-              <Toastify />
-              <Footer />
-            </HydrationZustand>
-          </body>
-        </UserStoreProvider>
-      </Theme>
+        <body className={roboto.className}>
+          <AccountLayout>{children}</AccountLayout>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }

@@ -39,11 +39,30 @@ const steps = [
   },
 ];
 
-export default function AdvertMultiStepForm() {
+export default function AdvertMultiStepForm({
+  advert,
+  advertId,
+}: {
+  advert?: AdvertInterface;
+  advertId?: string;
+}) {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
 
+  console.log(advert);
   const methods = useForm<FormData>({
     resolver: zodResolver(AdvertFormSchema),
+    defaultValues:
+      advert &&
+      AdvertFormSchema.parse({
+        ...advert,
+        title: advert.title,
+        yearOfModel: advert.yearOfModel.toString(),
+        enginePower: advert.enginePower.toString(),
+        engineSize: advert.engineSize.toString(),
+        mileage: advert.mileage.toString(),
+        photos: advert.photos ?? [],
+        price: advert.price.toString(),
+      }),
   });
 
   const {
@@ -70,8 +89,28 @@ export default function AdvertMultiStepForm() {
         const photoURL = await upload(photos[i], "gallery");
         images.push(photoURL);
       }
-      
+
       delete data.photos;
+
+      if (advert) {
+        const response = await fetch(`/api/v1/adverts/${advertId}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            ...data,
+            images: images,
+            uid: currentUser.uid,
+          }),
+        });
+
+        handleNext();
+
+        if (response.ok && response.status === 200) {
+          toast.success("Your advert updated successfully.");
+          return;
+        }
+        toast.error("Update process failed. Something went wrong!");
+        return;
+      }
 
       const response = await fetch(`/api/v1/adverts`, {
         method: "POST",

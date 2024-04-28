@@ -70,10 +70,9 @@ export default function UpdateEmail() {
                 autoClose: 3000,
               }
             );
-            await signOut();
-            await fetch(`/api/v1/logout`);
-
             router.push("/sign-in");
+            await fetch(`/api/v1/logout`);
+            await signOut();
           }
         })
         .catch((err) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AdvertSingleItem from "./advert-single-item";
 import Pagination from "@/components/ui/pagination";
 
@@ -9,7 +9,7 @@ export default function AdvertsList({
   type,
 }: {
   adverts: any;
-  type: string;
+  type?: string;
 }) {
   const [items, setItems] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);

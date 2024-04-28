@@ -7,19 +7,37 @@ import {
 } from "@mui/material";
 import CustomTableToolbar from "./table-toolbar";
 import CustomTableHead from "./table-head";
-import CustomTableRow from "./user-table-row";
 import CustomTableNoData from "./table-no-data";
 import CustomTableEmptyRows from "./table-empty-rows";
 import { useState } from "react";
 import { applyFilter, emptyRows, getComparator } from "./utils";
 import CustomUserTableRow from "./user-table-row";
+import CustomAdvertTableRow from "./advert-table-row";
 
-const tableHeads = {
+interface TableHeadItem {
+  id: string;
+  label?: string;
+  align?: string;
+}
+
+interface TableHeads {
+  [key: string]: TableHeadItem[];
+}
+
+const tableHeads: TableHeads = {
   users: [
     { id: "name", label: "Name" },
     { id: "email", label: "Email" },
     { id: "role", label: "Role" },
     { id: "status", label: "Status", align: "center" },
+    { id: "" },
+  ],
+  adverts: [
+    { id: "title", label: "Title" },
+    { id: "description", label: "Description" },
+    { id: "slug", label: "Slug" },
+    { id: "uid", label: "UID" },
+    { id: "status", label: "Status" },
     { id: "" },
   ],
 };
@@ -49,6 +67,23 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
           status={row.status}
           lastName={row.lastName}
           avatar={row.avatar}
+          selected={selected.indexOf(row.name) !== -1}
+          handleClick={(event) => handleClick(event, row.name)}
+        />
+      ));
+  };
+
+  const renderAdvertsTableBody = () => {
+    return dataFiltered
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      .map((row: any, idx: number) => (
+        <CustomAdvertTableRow
+          key={idx}
+          title={row.title}
+          description={row.description}
+          status={row.status}
+          uid={row.uid}
+          slug={row.slug}
           selected={selected.indexOf(row.name) !== -1}
           handleClick={(event) => handleClick(event, row.name)}
         />
@@ -115,6 +150,7 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
   const dataFiltered = applyFilter({
     inputData: data,
     comparator: getComparator(order, orderBy),
+    type: type,
     filterName,
   });
 
@@ -141,6 +177,7 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
           />
           <TableBody>
             {type === "users" && renderUsersTableBody()}
+            {type === "adverts" && renderAdvertsTableBody()}
 
             <CustomTableEmptyRows
               height={77}

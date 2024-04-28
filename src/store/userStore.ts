@@ -29,11 +29,11 @@ export const createUserStore = (initState: UserState = defaultInitState) => {
             set({ currentUser: null, isLoading: true });
             const userDocRef = doc(db, "users", uid);
             const user = (await getDoc(userDocRef)).data();
+
             if (user) {
               set({ currentUser: { ...user, uid: uid }, isLoading: false });
             }
           } catch (err) {
-            console.log(err);
             set({ currentUser: null, isLoading: false });
           } finally {
             set((state) => ({

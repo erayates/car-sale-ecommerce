@@ -60,8 +60,6 @@ export default function AdvertOwnerInfo({
     isLoading,
   } = useSWR(`/api/v1/users/${advertOwnerId}`, fetcher);
 
-  console.log(adOwner)
-
 
   if (isLoading) {
     return (

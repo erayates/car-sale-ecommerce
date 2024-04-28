@@ -13,6 +13,8 @@ import dayjs from "dayjs";
 import { auth } from "@/lib/firebase/auth";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { deleteAdvert } from "@/lib/actions";
+import { Divider, Popover } from "@mui/material";
 
 interface AdvertSingleItemProps {
   item: any;
@@ -25,31 +27,26 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({
   index,
   type,
 }) => {
-  const [openActions, setOpenActions] = useState(false);
-  const actionsDiv = useRef<HTMLDivElement>(null);
-  const unfavoriteButton = useRef<HTMLButtonElement>();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (actionsDiv.current) {
-        setOpenActions(false);
-      }
-    };
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    document.body.addEventListener("click", handleClickOutside);
-    return () => {
-      document.body.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  useEffect(() => {
-    if (openActions) {
-      unfavoriteButton.current.addEventListener("click", handleUnfavorite);
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const handleDeleteAdvert = async () => {
+    const response = await deleteAdvert(item.id);
+    if (response.ok && response.status === 200) {
+      toast.success("You successfully delete an advert.");
+      return;
     }
-  }, [openActions]);
-
-  const onActionsButtonClick = () => {
-    setOpenActions((prev) => !prev);
+    toast.error("Something went wrong!");
   };
 
   const handleUnfavorite = async () => {
@@ -90,37 +87,62 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({
           <h3 className="font-semibold">
             {item.title} {index}
           </h3>
-          <div className="relative" ref={actionsDiv}>
-            <button className="text-slate-500" onClick={onActionsButtonClick}>
+          <div className="relative">
+            <button
+              className="text-slate-500"
+              aria-describedby={id}
+              onClick={handleClick}
+            >
               <HiOutlineDotsVertical />
             </button>
-            {openActions && (
-              <div className="shadow-md absolute text-sm p-4 bg-white z-30 left-[-100px] md:left-0 rounded-lg min-w-[140px] transition-all">
-                <ul className="flex flex-col gap-2">
-                  <li className="cursor-pointer">
-                    <Link href={`/advert`}>Show Ad Page</Link>
-                  </li>
-                  {type === "favorites" ? (
-                    <button
-                      className="text-red-500 cursor-pointer flex gap-2 items-center"
-                      ref={unfavoriteButton}
+
+            <Popover
+              id={id}
+              open={open}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+              sx={{
+                fontSize: 14,
+                padding: 2,
+              }}
+            >
+              <div className="flex flex-col text-[14px] ">
+                <Link
+                  href={`/advert/${item.slug}`}
+                  target="_blank"
+                  className="p-3"
+                >
+                  Show Ad Page
+                </Link>
+                <Divider />
+                {type === "favorites" ? (
+                  <button
+                    className="text-red-500 cursor-pointer flex gap-2 items-center"
+                    onClick={handleUnfavorite}
+                  >
+                    <FaHeart />
+                    Unfavorite
+                  </button>
+                ) : (
+                  <>
+                    <Link
+                      className="text-blue-500 cursor-pointer p-3"
+                      href={`/update-advert/${item.id}`}
                     >
-                      <FaHeart />
-                      Unfavorite
+                      Update Advert
+                    </Link>
+                    <Divider />
+                    <button
+                      className="text-red-700 cursor-pointer p-3"
+                      onClick={handleDeleteAdvert}
+                    >
+                      Delete Advert
                     </button>
-                  ) : (
-                    <>
-                      <li className="text-blue-500 cursor-pointer">
-                        Update Advert
-                      </li>
-                      <li className="text-red-700 cursor-pointer">
-                        Delete Advert
-                      </li>
-                    </>
-                  )}
-                </ul>
+                  </>
+                )}
               </div>
-            )}
+            </Popover>
           </div>
         </div>
         <div className="flex gap-2 items-center">

@@ -7,6 +7,7 @@ export const createUser = async (data: any, uid: string) => {
         firstName: data.firstName,
         lastName: data.lastName,
         uid: uid,
+        role: "user",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +24,10 @@ export const createUser = async (data: any, uid: string) => {
   }
 };
 
+export const deleteAdvert = async (advertId: string) => {
+  const response = await fetch(`/api/v1/adverts/${advertId}`, {
+    method: "DELETE",
+  });
 
-export const deleteAdvert = async() => {
-
-}
+  return response;
+};

@@ -1,4 +1,6 @@
 import AdvertDetailContainer from "@/containers/app/advert-detail-container";
+import AdvertDenied from "@/containers/app/advert-detail-container/advert-denied";
+import AdvertPending from "@/containers/app/advert-detail-container/advert-pending";
 import { notFound } from "next/navigation";
 
 async function getAdvert(slug: string) {
@@ -21,5 +23,14 @@ export default async function AdvertDetail({
   }
 
   const advert = await response.json();
-  return <AdvertDetailContainer advert={advert}/>;
+
+  if (advert.status === "denied") {
+    return <AdvertDenied />;
+  }
+  
+  if (advert.status === "pending") {
+    return <AdvertPending />;
+  }
+
+  return <AdvertDetailContainer advert={advert} />;
 }

@@ -1,14 +1,18 @@
 import UsersContainer from "@/containers/dashboard/users-container";
-import { UserType } from "@/types/user";
 
 async function getUsers() {
-  const response = await fetch(`http://localhost:3000/api/v1/users`);
-  return response;
-}
-export default async function Users() {
-  const response = await getUsers();
-  if (response.ok) {
-    const users = await response.json();
-    return <UsersContainer users={users} />;
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/users`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error("Failed to fetch data");
   }
+}
+
+export default async function Users() {
+  const users = await getUsers();
+  return <UsersContainer users={users} />;
 }

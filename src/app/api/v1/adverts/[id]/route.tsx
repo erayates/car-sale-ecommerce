@@ -10,7 +10,11 @@ import {
   getDoc,
   doc,
   setDoc,
+  deleteDoc,
+  Timestamp,
+  updateDoc,
 } from "firebase/firestore";
+import slugify from "slugify";
 
 export async function GET(
   req: NextRequest,
@@ -25,9 +29,6 @@ export async function GET(
     if (isSlug) {
       const q = query(advertsRef, where("slug", "==", advertId));
       const querySnapshot = await getDocs(q);
-
-      console.log("test");
-
       if (querySnapshot.empty) {
         return NextResponse.json(
           {
@@ -114,16 +115,82 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // const reqBody = await req.json();
+
+    // const advertsRef = collection(db, "adverts");
+    // const q = query(advertsRef, where(documentId(), "==", advertId));
+    // const querySnapshot = await getDocs(q);
+
+    // const advert = querySnapshot.docs[0].data();
+    // if (querySnapshot.empty) {
+    //   return NextResponse.json({ message: "No data found." }, { status: 404 });
+    // }
+  } catch (err) {
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const advertId = params.id;
+    const advertsRef = doc(db, "adverts", advertId);
+    await deleteDoc(advertsRef);
+
+    return NextResponse.json(
+      { message: "You deleted an item successfully!" },
+      { status: 200 }
+    );
+    // const advert = (await getDoc(advertsRef)).data();
+  } catch (err) {
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
     const reqBody = await req.json();
+    const advertId = params.id;
 
-    const advertsRef = collection(db, "adverts");
-    const q = query(advertsRef, where(documentId(), "==", advertId));
-    const querySnapshot = await getDocs(q);
+    console.log(params.id);
 
-    if (querySnapshot.empty) {
-      return NextResponse.json({ message: "No data found." }, { status: 404 });
-    }
-  } catch (err) {}
+    const advertDocRef = doc(db, "adverts", advertId);
+    const docData = {
+      ...reqBody,
+      status: "pending",
+      updatedAt: Timestamp.fromDate(new Date()),
+      enginePower: Number(reqBody.enginePower),
+      engineSize: Number(reqBody.engineSize),
+      mileage: Number(reqBody.mileage),
+      price: Number(reqBody.price),
+      yearOfModel: Number(reqBody.yearOfModel),
+      favorites: [],
+      slug: slugify(reqBody.title),
+    };
 
-  const advert = querySnapshot.docs[0].data();
+    await updateDoc(advertDocRef, docData);
+
+    return NextResponse.json(
+      { message: "Advert updated. successfully." },
+      { status: 200 }
+    );
+  } catch (err) {
+    return NextResponse.json(
+      { message: "Internal Error.", error: err },
+      { status: 500 }
+    );
+  }
 }

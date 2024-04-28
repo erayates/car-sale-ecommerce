@@ -4,7 +4,6 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GoClockFill } from "react-icons/go";
 import { IoMdMail } from "react-icons/io";
 import { FaPhone, FaLongArrowAltRight, FaSearch } from "react-icons/fa";
-import { Input } from "./ui/input";
 
 const contacts = [
   {
