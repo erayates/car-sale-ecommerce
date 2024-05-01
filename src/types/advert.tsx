@@ -19,4 +19,5 @@ interface AdvertInterface {
   multimedia: string[];
   photos: string[];
   color: string;
+  favorites: string[];
 }

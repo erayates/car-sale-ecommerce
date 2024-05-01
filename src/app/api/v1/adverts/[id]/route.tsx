@@ -40,7 +40,10 @@ export async function GET(
         );
       }
 
-      const advert = querySnapshot.docs[0].data();
+      const advert = {
+        ...querySnapshot.docs[0].data(),
+        id: querySnapshot.docs[0].id,
+      };
       return NextResponse.json(advert, { status: 200 });
     }
 
@@ -52,7 +55,10 @@ export async function GET(
       return NextResponse.json({ message: "No data found." }, { status: 404 });
     }
 
-    const advert = querySnapshot.docs[0].data();
+    const advert = {
+      ...querySnapshot.docs[0].data(),
+      id: querySnapshot.docs[0].id,
+    };
 
     return NextResponse.json(advert, { status: 200 });
   } catch (err) {

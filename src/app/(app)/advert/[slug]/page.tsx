@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 
 async function getAdvert(slug: string) {
   const response = await fetch(
-    `http://localhost:3000/api/v1/adverts/${slug}?isSlug=true`
+    `http://localhost:3000/api/v1/adverts/${slug}?isSlug=true`,
+    { cache: "no-store" }
   );
 
   return response;
@@ -27,7 +28,7 @@ export default async function AdvertDetail({
   if (advert.status === "denied") {
     return <AdvertDenied />;
   }
-  
+
   if (advert.status === "pending") {
     return <AdvertPending />;
   }

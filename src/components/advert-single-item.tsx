@@ -50,7 +50,6 @@ const AdvertSingleItem: React.FC<AdvertSingleItemProps> = ({
   };
 
   const handleUnfavorite = async () => {
-    console.log("test");
     const response = await fetch(`/api/v1/adverts/${item.id}`, {
       method: "POST",
       body: JSON.stringify({

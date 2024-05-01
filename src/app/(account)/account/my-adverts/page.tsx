@@ -3,7 +3,9 @@ import { getCurrentUser } from "@/lib/firebase/firebase-admin";
 
 async function getAdverts() {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/adverts`);
+    const response = await fetch(`http://localhost:3000/api/v1/adverts`, {
+      cache: "no-store",
+    });
     return await response.json();
   } catch (err) {
     console.log(err);
