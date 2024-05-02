@@ -17,7 +17,7 @@ export const ContactFormSchema: ZodType<FormData> = z.object({
     .min(1, { message: "Required field." }),
   email: z.string().email(),
   phone: z.string().min(11).max(14).regex(phoneRegex, "Invalid phone number."),
-  message: z.string({ required_error: "Required field." }).min(50, {
+  content: z.string({ required_error: "Required field." }).min(50, {
     message: "Your message should be include at least 50 characters.",
   }),
 });

@@ -154,7 +154,6 @@ export async function DELETE(
       { message: "You deleted an item successfully!" },
       { status: 200 }
     );
-    // const advert = (await getDoc(advertsRef)).data();
   } catch (err) {
     return NextResponse.json(
       { message: "Internal Server Error" },
@@ -170,9 +169,6 @@ export async function PUT(
   try {
     const reqBody = await req.json();
     const advertId = params.id;
-
-    console.log(params.id);
-
     const advertDocRef = doc(db, "adverts", advertId);
     const docData = {
       ...reqBody,

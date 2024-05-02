@@ -2,7 +2,9 @@ import AdvertsContainer from "@/containers/dashboard/adverts-container";
 
 async function getAdverts() {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/adverts`);
+    const response = await fetch(`http://localhost:3000/api/v1/adverts`, {
+      cache: "no-store",
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }

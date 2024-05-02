@@ -10,6 +10,7 @@ import Main from "@/components/dashboard/main";
 import { UserStoreProvider } from "@/providers/userProvider";
 import HydrationZustand from "@/providers/hydrationZustand";
 import "@/styles/dashboard-globals.css";
+import Toastify from "@/components/ui/toast";
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +24,7 @@ export default function DashboardLayout({
   return (
     <>
       <Header onOpenNav={() => setOpenNav(true)} />
-
+      <Toastify />
       <Box
         sx={{
           minHeight: 1,

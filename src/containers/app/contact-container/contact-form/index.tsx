@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactFormSchema } from "@/schemes/contactFormSchema";
+import { toast } from "react-toastify";
 
 export default function ContactForm() {
   const {
@@ -16,12 +17,24 @@ export default function ContactForm() {
     handleSubmit,
     formState: { errors },
     setError,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(ContactFormSchema),
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("success!", data);
+    const response = await fetch(`/api/v1/messages`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok && response.status === 201) {
+      toast.success("Your contact message sent successfully!");
+      reset();
+      return;
+    }
+
+    toast.error("Something went wrong!");
   };
 
   return (
@@ -71,9 +84,9 @@ export default function ContactForm() {
 
           <Textarea
             placeholder="Leave Your Message"
-            name="message"
+            name="content"
             register={register}
-            error={errors.message}
+            error={errors.content}
           />
 
           <button

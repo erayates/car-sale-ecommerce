@@ -1,10 +1,13 @@
-type Message = {
+export type MessageType = {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: {
+    seconds: number;
+    nanoseconds: number;
+  };
   status: string;
 };
