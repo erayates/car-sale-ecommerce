@@ -12,6 +12,7 @@ import CardHeader from "@mui/material/CardHeader";
 import { IoIosArrowForward } from "react-icons/io";
 import { fToNow } from "@/lib/format-time";
 import Link from "next/link";
+import dayjs from "dayjs";
 
 interface DashboardLatestMessagesProps {
   title: string;
@@ -72,7 +73,7 @@ function LatestMessagesItem({ message }: { message: Message }) {
         variant="caption"
         sx={{ pr: 3, flexShrink: 0, color: "text.secondary" }}
       >
-        {fToNow(createdAt)}
+        {dayjs.unix(createdAt.seconds).format("DD MMM YYYY")}
       </Typography>
     </Stack>
   );

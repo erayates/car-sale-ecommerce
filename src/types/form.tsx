@@ -35,6 +35,7 @@ export type FormFieldProps = {
   rows?: number;
   className?: string;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 export type CheckboxProps = {

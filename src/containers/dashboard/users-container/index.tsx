@@ -8,8 +8,6 @@ import { GoPlus } from "react-icons/go";
 import CustomTable from "@/components/dashboard/ui/table";
 import { UserType } from "@/types/user";
 
-// ----------------------------------------------------------------------
-
 export default function UsersContainer({ users }: { users: UserType[] }) {
   return (
     <Container>
@@ -17,13 +15,10 @@ export default function UsersContainer({ users }: { users: UserType[] }) {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        mb={5}
+        mt={2}
+        mb={2}
       >
         <Typography variant="h4">Users</Typography>
-
-        <Button variant="contained" color="inherit" startIcon={<GoPlus />}>
-          New User
-        </Button>
       </Stack>
 
       <CustomTable data={users} type="users" />

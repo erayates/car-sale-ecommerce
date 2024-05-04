@@ -1,4 +1,5 @@
 export type UserType = {
+  id: string;
   address: UserAddressType | null;
   avatar: string | null;
   createdAt: Date | null;
@@ -8,7 +9,7 @@ export type UserType = {
   onlineStatus: boolean | null;
   phone: string | null;
   updatedAt: Date | null;
-  uid: string | null; 
+  uid: string | null;
 };
 
 type UserAddressType = {

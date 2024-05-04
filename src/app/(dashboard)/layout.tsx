@@ -1,5 +1,6 @@
 import ThemeProvider from "@/theme";
 import DashboardLayout from "@/layouts/dashboard-layout";
+import { isUserAdmin } from "@/lib/firebase/firebase-admin";
 
 export const metadata = {
   title: "Next.js",
@@ -11,6 +12,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <ThemeProvider>

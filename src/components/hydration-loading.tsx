@@ -1,11 +1,22 @@
 "use client";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 export default function HydrationLoading() {
   return (
-    <div className="w-screen h-screen flex items-center justify-center flex-col">
-      <h1 className="text-[72px] font-semibold">carify.</h1>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
+        flexDirection: "column",
+      }}
+    >
+      <Typography sx={{ fontWeight: "700", fontSize: "72px" }}>
+        carify.
+      </Typography>
       <CircularProgress />
-    </div>
+    </Box>
   );
 }

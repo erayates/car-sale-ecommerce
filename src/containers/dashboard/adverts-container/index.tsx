@@ -18,13 +18,10 @@ export default function AdvertsContainer({
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        mb={5}
+        mb={2}
+        mt={2}
       >
         <Typography variant="h4">Adverts</Typography>
-
-        <Button variant="contained" color="inherit" startIcon={<GoPlus />}>
-          New Advert
-        </Button>
       </Stack>
 
       <CustomTable data={adverts} type="adverts" />

@@ -6,10 +6,12 @@ export const Textarea: React.FC<FormFieldProps> = ({
   register,
   error,
   valueAsNumber,
+  style,
 }) => (
   <div className="flex flex-col gap-2">
     <textarea
       className="border border-slate-200 p-4 rounded-md resize-none"
+      style={style}
       placeholder={placeholder}
       rows={10}
       {...register(name, { valueAsNumber })}

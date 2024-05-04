@@ -13,6 +13,7 @@ import { alpha, useTheme } from "@mui/material/styles";
 import { bgGradient } from "@/theme/css";
 import { indigo, neutral } from "@/theme/colors";
 import { Divider } from "@mui/material";
+import SignInForm from "@/containers/app/sign-in-container/sign-in-form";
 
 // ----------------------------------------------------------------------
 
@@ -21,44 +22,11 @@ export default function LoginContainer() {
 
   const handleClick = () => {};
 
-  const renderForm = (
-    <>
-      <Stack spacing={3}>
-        <TextField name="email" label="Email address" sx={{ fontSize: 14 }} />
-
-        <TextField name="password" label="Password" type="password" />
-      </Stack>
-
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="flex-end"
-        sx={{ my: 3 }}
-      >
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
-      </Stack>
-
-      <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        color="inherit"
-        onClick={handleClick}
-      >
-        Login
-      </LoadingButton>
-    </>
-  );
-
   return (
     <Box
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: "/assets/background/overlay_4.jpg",
         }),
         height: 1,
       }}
@@ -66,11 +34,12 @@ export default function LoginContainer() {
       <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
         <Card
           sx={{
-            p: 5,
+            p: { xs: 2, md: 5 },
             width: 1,
             maxWidth: "fit-content",
             display: "flex",
-            gap: 8,
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 4, md: 8 },
           }}
         >
           <Box
@@ -94,7 +63,11 @@ export default function LoginContainer() {
               carify.
             </Typography>
           </Box>
-          <Box>{renderForm}</Box>
+          <Box>
+            <Typography variant="h5">Sign in to Dashboard.</Typography>
+            <Divider sx={{ mt: 1, mb: 2 }} />
+            <SignInForm type="dashboard" />
+          </Box>
         </Card>
       </Stack>
     </Box>

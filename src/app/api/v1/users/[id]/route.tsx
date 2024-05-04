@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/auth";
+import { auth } from "@/lib/firebase/firebase-admin";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -86,6 +87,31 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       {
         status: 404,
       }
+    );
+  }
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const userId = params.id;
+    const userRef = doc(db, "users", userId);
+
+    await auth.deleteUser(userId);
+    await deleteDoc(userRef);
+
+    return NextResponse.json(
+      {
+        message: "User deleted successfully!",
+      },
+      { status: 200 }
+    );
+  } catch (err) {
+    return NextResponse.json(
+      { message: "Internal Server Error", error: err },
+      { status: 500 }
     );
   }
 }

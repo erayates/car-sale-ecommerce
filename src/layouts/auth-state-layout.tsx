@@ -7,7 +7,6 @@ import { useUserStore } from "@/providers/userProvider";
 import { toast } from "react-toastify";
 
 import { UserType } from "@/types/user";
-import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
 const AuthStateLayout = ({ children }: { children: ReactNode }) => {

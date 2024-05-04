@@ -19,8 +19,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useResponsive } from "@/hooks/use-responsive";
 import { account } from "@/mocks/account";
-
-// ----------------------------------------------------------------------
+import { UserType } from "@/types/user";
+import { useUserStore } from "@/providers/userProvider";
 
 export default function Nav({
   openNav,
@@ -31,6 +31,8 @@ export default function Nav({
 }) {
   const pathname = usePathname();
 
+  const currentUser = useUserStore((state) => state.currentUser as UserType);
+
   const upLg = useResponsive("up", "lg");
 
   useEffect(() => {
@@ -38,6 +40,12 @@ export default function Nav({
       onCloseNav();
     }
   }, [pathname]);
+
+  const renderLogo = (
+    <Typography variant="h2" sx={{ px: 2, mt:3, }}>
+      carify.
+    </Typography>
+  );
 
   const renderAccount = (
     <Box
@@ -52,13 +60,15 @@ export default function Nav({
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      <Avatar src={currentUser?.avatar} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">
+          {currentUser?.firstName} {currentUser?.lastName}
+        </Typography>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {account.role}
+          {currentUser?.email}
         </Typography>
       </Box>
     </Box>
@@ -83,6 +93,8 @@ export default function Nav({
         },
       }}
     >
+      {renderLogo}
+
       {renderAccount}
 
       {renderMenu}
@@ -172,7 +184,3 @@ function NavItem({
     </ListItemButton>
   );
 }
-
-NavItem.propTypes = {
-  item: PropTypes.object,
-};

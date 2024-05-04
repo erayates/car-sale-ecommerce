@@ -27,19 +27,20 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    // if (reqURL.includes("dashboard")) {
-    //   if (reqURL.split("/").pop() !== "login") {
-    //     const checkUserAdmin = await fetch("http:localhost:3000/api/v1/login", {
-    //       method: "PUT",
-    //     });
+    if (reqURL.includes("dashboard")) {
+      if (reqURL.split("/").pop() !== "login") {
+        const checkUserAdmin = await fetch("http:localhost:3000/api/v1/login", {
+          method: "PUT",
+          headers: {
+            Cookie: `__session=${sessionToken}`,
+          },
+        });
 
-    //     if (checkUserAdmin.status === 403) {
-    //       return NextResponse.redirect(
-    //         new URL("/dashboard/", request.url)
-    //       );
-    //     }
-    //   }
-    // }
+        if (checkUserAdmin.status === 403) {
+          return NextResponse.redirect(new URL("/", request.url));
+        }
+      }
+    }
   }
 
   return NextResponse.next();

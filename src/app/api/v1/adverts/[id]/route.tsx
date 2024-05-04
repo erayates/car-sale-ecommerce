@@ -167,29 +167,46 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const reqBody = await req.json();
+    const searchParams = req.nextUrl.searchParams;
+    const status = searchParams.get("status");
+
     const advertId = params.id;
     const advertDocRef = doc(db, "adverts", advertId);
-    const docData = {
-      ...reqBody,
-      status: "pending",
-      updatedAt: Timestamp.fromDate(new Date()),
-      enginePower: Number(reqBody.enginePower),
-      engineSize: Number(reqBody.engineSize),
-      mileage: Number(reqBody.mileage),
-      price: Number(reqBody.price),
-      yearOfModel: Number(reqBody.yearOfModel),
-      favorites: [],
-      slug: slugify(reqBody.title),
-    };
 
-    await updateDoc(advertDocRef, docData);
+    if (status) {
+      await setDoc(advertDocRef, { status: status }, { merge: true });
+      return NextResponse.json(
+        {
+          message: "Advert status changed successfully!",
+        },
+        { status: 200 }
+      );
+    }
 
-    return NextResponse.json(
-      { message: "Advert updated. successfully." },
-      { status: 200 }
-    );
+    if (req.bodyUsed) {
+      const reqBody = await req.json();
+      const docData = {
+        ...reqBody,
+        status: "pending",
+        updatedAt: Timestamp.fromDate(new Date()),
+        enginePower: Number(reqBody.enginePower),
+        engineSize: Number(reqBody.engineSize),
+        mileage: Number(reqBody.mileage),
+        price: Number(reqBody.price),
+        yearOfModel: Number(reqBody.yearOfModel),
+        favorites: [],
+        slug: slugify(reqBody.title),
+      };
+
+      await updateDoc(advertDocRef, docData);
+
+      return NextResponse.json(
+        { message: "Advert updated. successfully." },
+        { status: 200 }
+      );
+    }
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       { message: "Internal Error.", error: err },
       { status: 500 }

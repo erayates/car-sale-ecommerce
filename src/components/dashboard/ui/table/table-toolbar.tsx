@@ -7,17 +7,47 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 import { IoIosSearch } from "react-icons/io";
 import { GoTrash } from "react-icons/go";
-import { FaFilter } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export default function CustomTableToolbar({
   numSelected,
   filterName,
   onFilterName,
+  type,
+  selectedItems,
 }: {
   numSelected: number;
   filterName: string;
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  type: string;
+  selectedItems: string[];
 }) {
+  const handleDeleteItems = async () => {
+    let deleteSuccessCount = 0;
+    for (const itemId of selectedItems) {
+      console.log(itemId);
+      const response = await fetch(`/api/v1/${type}/${itemId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok && response.status === 200) {
+        deleteSuccessCount += 1;
+      }
+    }
+
+    toast.success(
+      `${deleteSuccessCount} / ${selectedItems.length} ${type} deleted successfully.`
+    );
+
+    if (deleteSuccessCount !== selectedItems.length) {
+      toast.error(
+        `${
+          selectedItems.length - deleteSuccessCount
+        } items failed when try to delete.`
+      );
+    }
+  };
+
   return (
     <Toolbar
       sx={{
@@ -50,16 +80,10 @@ export default function CustomTableToolbar({
         />
       )}
 
-      {numSelected > 0 ? (
+      {numSelected > 0 && (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={handleDeleteItems}>
             <GoTrash />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FaFilter />
           </IconButton>
         </Tooltip>
       )}

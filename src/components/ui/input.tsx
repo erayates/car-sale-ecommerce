@@ -8,6 +8,7 @@ export const Input: React.FC<FormFieldProps> = ({
   error,
   valueAsNumber,
   className,
+  style,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ export const Input: React.FC<FormFieldProps> = ({
         type={type}
         className={className ? className : `border border-gray p-4 rounded-md`}
         placeholder={placeholder}
+        style={style}
         {...register(name, { valueAsNumber })}
       />
       {error && <span className="text-red-700 text-sm">{error.message}</span>}

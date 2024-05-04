@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
-
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import AccountSidebar from "@/containers/app/account-container/account-sidebar";
-import PageHero from "@/components/page-hero";
-import { UserStoreProvider } from "@/providers/userProvider";
-import HydrationZustand from "@/providers/hydrationZustand";
-import Toastify from "@/components/ui/toast";
 import ThemeProvider from "@/theme";
 import AccountLayout from "@/layouts/account-layout";
 

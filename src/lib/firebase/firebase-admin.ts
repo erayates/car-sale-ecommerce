@@ -37,10 +37,11 @@ export async function isUserAdmin(session: string | undefined = undefined) {
   const currentUser = await getCurrentUser();
   if (currentUser) {
     const claims = currentUser.customClaims;
-    claims && (claims["role"] === "admin" ? true : false);
+    if (claims && claims.role === "admin") {
+      return true;
+    }
     return false;
   }
-
 }
 
 export async function getCurrentUser() {

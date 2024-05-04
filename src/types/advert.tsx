@@ -20,4 +20,5 @@ interface AdvertInterface {
   photos: string[];
   color: string;
   favorites: string[];
+  status: string;
 }

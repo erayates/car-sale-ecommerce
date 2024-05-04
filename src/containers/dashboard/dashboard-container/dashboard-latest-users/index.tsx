@@ -14,6 +14,7 @@ import { fToNow } from "@/lib/format-time";
 import Link from "next/link";
 import { UserType } from "@/types/user";
 import { Chip } from "@mui/material";
+import dayjs from "dayjs";
 
 interface DashboardLatestMessagesProps {
   title: string;
@@ -80,7 +81,7 @@ function LatestMessagesItem({ user }: { user: UserType }) {
           flexDirection: "column",
         }}
       >
-        {fToNow(createdAt)}
+        {dayjs.unix(createdAt.seconds).format("DD MMM")}
         {onlineStatus ? (
           <Chip label="Online" color="success" size="small" />
         ) : (

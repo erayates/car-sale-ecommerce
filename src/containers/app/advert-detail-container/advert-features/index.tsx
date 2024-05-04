@@ -17,7 +17,7 @@ export default function AdvertFeatures({ advert }: { advert: any }) {
       <div className="flex items-center gap-1 w-full justify-between">
         <p className="w-full">Ad Date:</p>
         <span className="text-gray-400 text-right min-w-max">
-          {dayjs(advert.createdAt.miliseconds).format("DD MMM YYYY")}
+          {dayjs.unix(advert.createdAt.seconds).format("DD MMM YYYY")}
         </span>
       </div>
       <hr />

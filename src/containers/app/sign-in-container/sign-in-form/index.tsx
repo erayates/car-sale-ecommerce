@@ -16,7 +16,7 @@ import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/providers/userProvider";
 
-export default function SignInForm() {
+export default function SignInForm({ type }: { type?: string }) {
   const {
     register,
     handleSubmit,
@@ -43,6 +43,11 @@ export default function SignInForm() {
         },
         body: JSON.stringify({ idToken }),
       });
+
+      if (type === "dashboard") {
+        router.push("/dashboard");
+        return;
+      }
 
       router.push("/");
     }

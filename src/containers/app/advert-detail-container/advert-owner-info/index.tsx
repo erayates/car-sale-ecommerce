@@ -60,7 +60,6 @@ export default function AdvertOwnerInfo({
     isLoading,
   } = useSWR(`/api/v1/users/${advertOwnerId}`, fetcher);
 
-
   if (isLoading) {
     return (
       <div className="mt-16 flex items-center justify-center">
@@ -76,8 +75,8 @@ export default function AdvertOwnerInfo({
           <FaUser /> {adOwner.firstName} {adOwner.lastName}
         </p>
         <p className="text-gray-400 text-sm">
-          
-          Account Creation Date: {dayjs(adOwner.createdAt.miliseconds).format("DD MMM YYYY")}
+          Account Creation Date:{" "}
+          {dayjs.unix(adOwner.createdAt.seconds).format("DD MMM YYYY")}
         </p>
       </div>
       <div className="flex items-center gap-4">

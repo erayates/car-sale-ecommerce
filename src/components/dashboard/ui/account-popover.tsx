@@ -9,28 +9,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import { account } from "@/mocks/account";
+import { useUserStore } from "@/providers/userProvider";
+import { UserType } from "@/types/user";
+import Link from "next/link";
 // -----------------------a-----------------------------------------------
 
 const MENU_OPTIONS = [
-  {
-    label: "Home",
-    icon: "eva:home-fill",
-  },
-  {
-    label: "Profile",
-    icon: "eva:person-fill",
-  },
-  {
-    label: "Settings",
-    icon: "eva:settings-2-fill",
-  },
+  { label: "Home", href: "/dashboard" },
+  { label: "Profile", href: "/dashboard/profile" },
+  { label: "Settings", href: "/dashboard/settings" },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const currentUser = useUserStore((store) => store.currentUser as UserType);
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
@@ -55,15 +47,16 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={account.displayName}
+          src={currentUser?.avatar}
+          alt={currentUser?.firstName + " " + currentUser?.lastName}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {currentUser?.firstName.charAt(0).toUpperCase() +
+            currentUser?.lastName.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -84,19 +77,23 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {currentUser?.firstName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {currentUser?.email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
-            {option.label}
-          </MenuItem>
+        {MENU_OPTIONS.map((option, idx) => (
+          <Link
+            href={option.href}
+            key={idx}
+            style={{ color: "#000", textDecoration: "none" }}
+          >
+            <MenuItem>{option.label}</MenuItem>
+          </Link>
         ))}
 
         <Divider sx={{ borderStyle: "dashed", m: 0 }} />

@@ -1,4 +1,9 @@
-import { revokeAllSessions } from "@/lib/firebase/firebase-admin";
+import { db } from "@/lib/firebase/auth";
+import {
+  getCurrentUser,
+  revokeAllSessions,
+} from "@/lib/firebase/firebase-admin";
+import { doc, setDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,6 +15,12 @@ export async function GET(request: NextRequest) {
       { success: false, error: "Session not found." },
       { status: 400 }
     );
+
+  const user = await getCurrentUser();
+  if (user) {
+    const userDocRef = doc(db, "users", user.uid);
+    await setDoc(userDocRef, { onlineStatus: false }, { merge: true });
+  }
 
   cookies().delete("__session");
 

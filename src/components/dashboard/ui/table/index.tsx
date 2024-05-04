@@ -60,15 +60,17 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
       .map((row: any, idx: number) => (
         <CustomUserTableRow
+          user={row}
           key={idx}
           firstName={row.firstName}
+          id={row.id}
           email={row.email}
           role={row.role}
-          status={row.status}
+          onlineStatus={row.onlineStatus}
           lastName={row.lastName}
           avatar={row.avatar}
-          selected={selected.indexOf(row.name) !== -1}
-          handleClick={(event) => handleClick(event, row.name)}
+          selected={selected.indexOf(row.id) !== -1}
+          handleClick={(event) => handleClick(event, row.id)}
         />
       ));
   };
@@ -79,13 +81,14 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
       .map((row: any, idx: number) => (
         <CustomAdvertTableRow
           key={idx}
+          id={row.id}
           title={row.title}
           description={row.description}
           status={row.status}
           uid={row.uid}
           slug={row.slug}
-          selected={selected.indexOf(row.name) !== -1}
-          handleClick={(event) => handleClick(event, row.name)}
+          selected={selected.indexOf(row.id) !== -1}
+          handleClick={(event) => handleClick(event, row.id)}
         />
       ));
   };
@@ -162,10 +165,12 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
         numSelected={selected.length}
         filterName={filterName}
         onFilterName={handleFilterByName}
+        selectedItems={selected}
+        type={type}
       />
 
       <TableContainer sx={{ overflow: "unset" }}>
-        <Table sx={{ minWidth: 800 }}>
+        <Table sx={{ minWidth: 800, overflowX: "scroll" }}>
           <CustomTableHead
             order={order}
             orderBy={orderBy}

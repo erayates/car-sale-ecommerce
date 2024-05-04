@@ -9,14 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { SignUpFormSchema } from "@/schemes/signUpFormSchema";
 
-// import { auth } from "@/lib/firebase/auth";
-
 import { createUser } from "@/lib/actions";
 import { toast } from "react-toastify";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { CircularProgress } from "@mui/material";
 
-import * as admin from "firebase-admin";
 import { auth } from "@/lib/firebase/auth";
 import { signOut } from "firebase/auth";
 
@@ -28,11 +25,6 @@ export default function SignUpForm() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(SignUpFormSchema),
-    defaultValues: {
-      interior: [],
-      multimedia: [],
-      safety: [],
-    },
   });
 
   const [createUserWithEmailAndPassword, user, loading, error] =
