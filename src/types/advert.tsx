@@ -21,4 +21,5 @@ interface AdvertInterface {
   color: string;
   favorites: string[];
   status: string;
+  uid: string;
 }

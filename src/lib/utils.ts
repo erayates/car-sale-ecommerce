@@ -31,6 +31,20 @@ export const mockImages = [
   "https://via.placeholder.com/500x500?text=Image",
 ];
 
+export const compareByFavorites = (a: AdvertInterface, b: AdvertInterface) => {
+  return a.favorites.length - b.favorites.length;
+};
+
+export const getQueryString = (searchParams: object) => {
+  let queryString = "";
+  Object.entries(searchParams).map((params) => {
+    queryString += params[0] + "=" + params[1] + "&";
+  });
+
+  queryString = queryString.slice(0, -1);
+  return queryString;
+};
+
 export const safetyFeatureOptions = [
   "ABC",
   "ABS",

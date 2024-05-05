@@ -47,8 +47,6 @@ export default function AdvertMultiStepForm({
   advertId?: string;
 }) {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
-
-  console.log(advert);
   const methods = useForm<FormData>({
     resolver: zodResolver(AdvertFormSchema),
     defaultValues:
@@ -146,25 +144,35 @@ export default function AdvertMultiStepForm({
                   {step.component}
 
                   <Box sx={{ mb: 2 }}>
-                    <div>
-                      {index < steps.length - 1 ? (
-                        <Button
-                          variant="contained"
-                          onClick={handleNext}
-                          sx={{ mt: 1, mr: 1 }}
-                          type="button"
-                        >
-                          Continue
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          sx={{ mt: 1, mr: 1 }}
-                          type="submit"
-                        >
-                          Finish
-                        </Button>
-                      )}
+                    <div style={{ display: "flex" }}>
+                      <Box
+                        sx={{
+                          backgroundColor: "primary.main",
+                          display: "flex",
+                          width: "fit-content",
+                          borderRadius: "8px",
+                          mt: 1,
+                          mr: 1,
+                        }}
+                      >
+                        {index < steps.length - 1 ? (
+                          <Button
+                            variant="contained"
+                            onClick={handleNext}
+                            type="button"
+                          >
+                            Continue
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            sx={{ mt: 1, mr: 1 }}
+                            type="submit"
+                          >
+                            Finish
+                          </Button>
+                        )}
+                      </Box>
 
                       <Button
                         disabled={index === 0}

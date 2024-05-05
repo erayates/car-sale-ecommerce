@@ -1,7 +1,41 @@
 import SearchContainer from "@/containers/app/search-container";
+import { getQueryString } from "@/lib/utils";
 
-export default function Search() {
-  const items = [{ test: "test" }];
+async function getAdverts() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/adverts`, {
+      cache: "no-store",
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch data.");
+  }
+}
 
-  return <SearchContainer items={items} />;
+async function getSearchResults(q: string) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/search?${q}`, {
+      cache: "no-store",
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch data.");
+  }
+}
+
+export default async function Search({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  if (Object.entries(searchParams).length > 0) {
+    const q = getQueryString(searchParams);
+    const searchResults = await getSearchResults(q);
+    return <SearchContainer items={searchResults} />;
+  }
+
+  const adverts = await getAdverts();
+  return <SearchContainer items={adverts} />;
 }

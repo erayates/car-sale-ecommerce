@@ -1,7 +1,6 @@
 import { z, ZodType } from "zod";
 import { FormData } from "@/types/form";
 
-// Contact form schema
 export const AdvertFormSchema: ZodType<FormData> = z.object({
   title: z
     .string()

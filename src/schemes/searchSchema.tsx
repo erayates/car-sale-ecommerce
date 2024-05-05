@@ -5,13 +5,10 @@ import { FormData } from "@/types/form";
 export const SearchSchema: ZodType<FormData> = z.object({
   minYear: z.string(),
   maxYear: z.string(),
-  locationProvince: z.string(),
   minPrice: z.string(),
   maxPrice: z.string(),
-  gearbox: z.string(),
-  carStatus: z.string(),
-  minKm: z.string(),
-  maxKm: z.string(),
-  bodyType: z.string(),
-  color: z.string(),
+  minMileage: z.string(),
+  maxMileage: z.string(),
+  brand: z.string().min(1, { message: "You must select a brand." }),
+  model: z.string().min(1, { message: "You must select a model." }),
 });

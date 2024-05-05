@@ -7,12 +7,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 
-export default function AccountContainer() {
+export default function AccountContainer({
+  adverts,
+}: {
+  adverts: AdvertInterface[];
+}) {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
   const loading = useUserStore((state) => state.isLoading as boolean);
   if (loading) {
     return <CircularProgress />;
   }
+
+  const userActiveAds = adverts?.filter(
+    (ad) => ad.uid === currentUser.uid && ad.status === "approved"
+  ).length;
+
+  const userPassiveAds = adverts?.filter(
+    (ad) =>
+      ad.uid === currentUser.uid &&
+      (ad.status === "denied" || ad.status === "pending")
+  ).length;
 
   return (
     <>
@@ -79,19 +93,23 @@ export default function AccountContainer() {
         <div className="flex flex-col gap-4">
           <h3 className="text-3xl font-semibold">Advert History:</h3>
           <div className="flex gap-10 w-full">
-            <div className="flex flex-col gap-6">
-              <div className="flex gap-2">
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-2 items-center">
                 <p className="text-slate-500 font-semibold">
                   Your Active Adverts:
                 </p>
-                <p className="font-semibold">12</p>
+                <p className="font-semibold bg-blue-500 px-4 rounded-md py-1 text-white font-semibold">
+                  {userActiveAds}
+                </p>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <p className="text-slate-500 font-semibold">
                   Your Passive Adverts:
                 </p>
-                <p className="font-semibold">2</p>
+                <p className="font-semibold bg-red-500 px-4 rounded-md py-1 text-white font-semibold">
+                  {userPassiveAds}
+                </p>
               </div>
             </div>
           </div>

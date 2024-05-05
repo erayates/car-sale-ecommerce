@@ -53,8 +53,8 @@ export default function GeneralInfoStep() {
   const { register } = useFormContext();
 
   return (
-    <div className="grid grid-cols-5 gap-24">
-      <div className="flex flex-col col-span-5 lg:col-span-2 gap-2">
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-24">
+      <div className="flex flex-col col-span-1 lg:col-span-2 gap-2">
         <h3 className="text-2xl">Advert Information:</h3>
         <p className="text-md text-blue-500">
           Each field is required in this step, so you need to fill all field.
@@ -108,7 +108,7 @@ export default function GeneralInfoStep() {
         </div>
       </div>
 
-      <div className="flex flex-col col-span-5 lg:col-span-3 gap-2 w-full">
+      <div className="flex flex-col col-span-1 lg:col-span-3 gap-2 w-full">
         <div className="flex flex-col gap-2 w-full">
           <h3 className="text-2xl">Car Information:</h3>{" "}
           <div className="gap-12">
@@ -122,6 +122,7 @@ export default function GeneralInfoStep() {
                   <select
                     name="brand"
                     className="border border-slate-200 p-2 rounded-md col-span-2"
+                    defaultValue="default"
                     {...register("brand")}
                     onChange={(e) => setBrand(e.target.value)}
                   >
