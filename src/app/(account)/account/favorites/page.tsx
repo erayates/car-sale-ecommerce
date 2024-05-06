@@ -15,7 +15,7 @@ async function getUserFavorites(uid: string) {
 }
 
 export default async function Favorites() {
-  const { uid } = await getCurrentUser();
-  const adverts = await getUserFavorites(uid);
+  const currentUser = await getCurrentUser();
+  const adverts = await getUserFavorites(currentUser.uid);
   return <FavoritesContainer adverts={adverts} />;
 }

@@ -12,6 +12,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     ) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
+
+    if (reqURL.includes("dashboard") && reqURL.split("/").pop() !== "login") {
+      return NextResponse.redirect(new URL("/dashboard/login", request.url));
+    }
   } else {
     if (reqURL === "/sign-in" || reqURL === "/sign-out") {
       return NextResponse.redirect(new URL("/", request.url));
