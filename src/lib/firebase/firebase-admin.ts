@@ -11,15 +11,15 @@ import * as firebaseAdmin from "firebase-admin";
 
 // var serviceAccount = require("./serviceAccountKey.json");
 
+const serviceAccount = JSON.parse(
+  process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT as string
+);
+
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
   initializeApp(
     {
-      credential: admin.credential.cert({
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        privateKey: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PRIVATE_KEY,
-        clientEmail: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_CLIENT_EMAIL,
-      }),
+      credential: admin.credential.cert(serviceAccount),
     },
     "firebase-admin-app"
   );
