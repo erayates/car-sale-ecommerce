@@ -37,7 +37,9 @@ const SearchSingleItem: React.FC<SearchSingleItemProps> = ({ item, index }) => {
           </div>
           <div className="flex gap-2 items-center">
             <FaCar />
-            <p className="text-slate-500 text-sm"> Renault, Clio</p>
+            <p className="text-slate-500 text-sm">
+              {item.brand}, {item.model}
+            </p>
           </div>
 
           <div className="flex gap-2 items-center">

@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     }
 
     const adverts = querySnapshot.docs.map((doc) => doc.data());
-    const activeAds = adverts.filter((ad) => ad.status === "active");
+    const activeAds = adverts.filter((ad) => ad.status === "approved");
 
     return NextResponse.json(activeAds, { status: 201 });
   } catch (err) {

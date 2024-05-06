@@ -43,8 +43,9 @@ export default async function Search({
   }
 
   const adverts = await getAdverts();
+
   const activeAds = adverts?.filter(
-    (ad: AdvertInterface) => ad.status === "active"
+    (ad: AdvertInterface) => ad.status === "approved"
   );
   return <SearchContainer items={activeAds} />;
 }
