@@ -17,11 +17,14 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
-    const isUserAuth = await fetch("http://localhost:3000/api/v1/login", {
-      headers: {
-        Cookie: `__session=${sessionToken}`,
-      },
-    });
+    const isUserAuth = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/login`,
+      {
+        headers: {
+          Cookie: `__session=${sessionToken}`,
+        },
+      }
+    );
 
     if (isUserAuth.status !== 200) {
       return NextResponse.redirect(new URL("/sign-in", request.url));

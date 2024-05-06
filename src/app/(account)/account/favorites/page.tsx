@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/lib/firebase/firebase-admin";
 async function getUserFavorites(uid: string) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/adverts?favorites=${uid}`,
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/adverts?favorites=${uid}`,
       { cache: "no-store" }
     );
     return await response.json();

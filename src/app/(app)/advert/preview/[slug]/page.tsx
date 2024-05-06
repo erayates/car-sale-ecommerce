@@ -2,7 +2,7 @@ import AdvertDetailContainer from "@/containers/app/advert-detail-container";
 
 async function getAdvert(slug: string) {
   const response = await fetch(
-    `http://localhost:3000/api/v1/adverts/${slug}?isSlug=true`,
+    `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/adverts/${slug}?isSlug=true`,
     { cache: "no-store" }
   );
 

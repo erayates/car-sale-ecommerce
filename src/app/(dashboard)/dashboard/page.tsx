@@ -2,9 +2,12 @@ import DashboardContainer from "@/containers/dashboard/dashboard-container";
 
 async function getAdverts() {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/adverts`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/adverts`,
+      {
+        cache: "no-store",
+      }
+    );
     return response.json();
   } catch (err) {
     console.log(err);
@@ -14,9 +17,12 @@ async function getAdverts() {
 
 async function getMessages() {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/messages`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/messages`,
+      {
+        cache: "no-store",
+      }
+    );
     return response.json();
   } catch (err) {
     console.log(err);
@@ -26,9 +32,12 @@ async function getMessages() {
 
 async function getUsers() {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/users`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/users`,
+      {
+        cache: "no-store",
+      }
+    );
     return response.json();
   } catch (err) {
     console.log(err);

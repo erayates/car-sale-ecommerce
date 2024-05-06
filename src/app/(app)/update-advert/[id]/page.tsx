@@ -3,9 +3,12 @@ import NotFound from "../../not-found";
 
 async function getRelatedAdvert(id: string) {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/adverts/${id}`, {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/adverts/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
     return await response.json();
   } catch (err) {
     console.log(err);

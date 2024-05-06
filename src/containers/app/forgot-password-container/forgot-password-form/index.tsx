@@ -15,7 +15,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { ForgotPasswordSchema } from "@/schemes/forgotPasswordSchema";
 
 const actionCodeSettings = {
-  url: "http://localhost:3000/sign-in",
+  url: `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/sign-in`,
 };
 
 export default function ForgotPasswordForm() {
