@@ -36,12 +36,15 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
     if (reqURL.includes("dashboard")) {
       if (reqURL.split("/").pop() !== "login") {
-        const checkUserAdmin = await fetch("http:localhost:3000/api/v1/login", {
-          method: "PUT",
-          headers: {
-            Cookie: `__session=${sessionToken}`,
-          },
-        });
+        const checkUserAdmin = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/login`,
+          {
+            method: "PUT",
+            headers: {
+              Cookie: `__session=${sessionToken}`,
+            },
+          }
+        );
 
         if (checkUserAdmin.status === 403) {
           return NextResponse.redirect(new URL("/", request.url));
