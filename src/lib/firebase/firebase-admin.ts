@@ -9,7 +9,8 @@ import admin from "firebase-admin";
 
 import * as firebaseAdmin from "firebase-admin";
 
-var serviceAccount = require("./serviceAccountKey.json");
+// var serviceAccount = require("./serviceAccountKey.json");
+
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
   initializeApp(
