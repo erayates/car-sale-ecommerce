@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import CardHeader from "@mui/material/CardHeader";
 
 import { IoIosArrowForward } from "react-icons/io";
-import { fToNow } from "@/lib/format-time";
 import Link from "next/link";
 import { UserType } from "@/types/user";
 import { Chip } from "@mui/material";

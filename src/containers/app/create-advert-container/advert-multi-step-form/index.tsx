@@ -78,7 +78,7 @@ export default function AdvertMultiStepForm({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData | any) => {
     try {
       const photos = data.photos;
       let images = [];

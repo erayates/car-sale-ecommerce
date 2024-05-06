@@ -18,10 +18,6 @@ const inputStyle = {
 };
 
 export default function UpdateUserForm({ user }: { user: UserType }) {
-  const fetchCurrentUser = useUserStore(
-    (state) => state.fetchCurrentUser as (uid: string) => void
-  );
-
   const {
     register,
     handleSubmit,
@@ -30,9 +26,14 @@ export default function UpdateUserForm({ user }: { user: UserType }) {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(UserInfoSchema),
-    defaultValues: useMemo(() => {
-      return user;
-    }, [user]),
+    defaultValues: UserInfoSchema.parse({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      addressLine: user.address.addressLine,
+      province: user.address.province,
+      country: user.address.country,
+      phone: user.phone,
+    }),
   });
 
   const onSubmit = async (data: FormData) => {

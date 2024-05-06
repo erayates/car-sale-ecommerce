@@ -53,12 +53,12 @@ export default function NotificationsPopover() {
   useEffect(() => {
     if (messages && ads) {
       const filteredAds = ads
-        .filter((ad) => ad.status === "pending")
-        .map((ad) => ({ ...ad, isUnRead: true }));
+        .filter((ad: AdvertInterface) => ad.status === "pending")
+        .map((ad: AdvertInterface) => ({ ...ad, isUnRead: true }));
 
       const filteredMessages = messages
-        .filter((message) => message.status === "unread")
-        .map((message) => ({ ...message, isUnRead: true }));
+        .filter((message: MessageType) => message.status === "unread")
+        .map((message: MessageType) => ({ ...message, isUnRead: true }));
 
       setNotifications({
         adsNotifications: filteredAds,
@@ -75,7 +75,7 @@ export default function NotificationsPopover() {
 
   const [open, setOpen] = useState(null);
 
-  const handleOpen = (event) => {
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
   };
 

@@ -7,7 +7,7 @@ export const AdvertFormSchema: ZodType<FormData> = z.object({
     .min(5, { message: "Title should be at least 50 characters." }),
   description: z
     .string()
-    .min(50, { message: "Descripton should be at least 150 characters." }),
+    .min(20, { message: "Descripton should be at least 20 characters." }),
 
   city: z.string().trim().min(1, { message: "Required." }),
   addressLine: z.string().trim().min(1, { message: "Required." }),

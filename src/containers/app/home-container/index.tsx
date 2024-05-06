@@ -24,7 +24,6 @@ export default async function HomeContainer() {
   return (
     <main className="w-full h-full items-center justify-between mt-[-112px]">
       <Hero />
-      {/* <HeroSearch /> */}
       <FeaturedVehicles featuredAds={featuredAds} />
       <WhyUs color="dark" />
       <Testimonial />

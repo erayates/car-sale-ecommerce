@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useMemo } from "react";
-import PropTypes from "prop-types";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import {
@@ -18,7 +17,7 @@ import { customShadows } from "./custom-shadows";
 // ----------------------------------------------------------------------
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const memoizedValue = useMemo(
+  const memoizedValue: any = useMemo(
     () => ({
       palette: palette(),
       typography,
@@ -29,7 +28,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  const theme = createTheme(memoizedValue);
+  const theme: any = createTheme(memoizedValue);
 
   theme.components = overrides(theme);
 

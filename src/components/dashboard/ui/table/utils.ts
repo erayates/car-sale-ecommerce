@@ -18,7 +18,7 @@ export function emptyRows(
   return page ? Math.max(0, (1 + page) * rowsPerPage - arrayLength) : 0;
 }
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator(a: any, b: any, orderBy: string) {
   if (a[orderBy] === null) {
     return 1;
   }
@@ -33,27 +33,37 @@ function descendingComparator(a, b, orderBy) {
   }
   return 0;
 }
-export function getComparator(order, orderBy) {
+export function getComparator(order: string, orderBy: string) {
   return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    ? (a: any, b: any) => descendingComparator(a, b, orderBy)
+    : (a: any, b: any) => -descendingComparator(a, b, orderBy);
 }
 
-export function applyFilter({ inputData, comparator, filterName, type }) {
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
+export function applyFilter({
+  inputData,
+  comparator,
+  filterName,
+  type,
+}: {
+  inputData: any;
+  comparator: any;
+  filterName: string;
+  type: string;
+}) {
+  const stabilizedThis = inputData.map((el: any, index: string) => [el, index]);
 
-  stabilizedThis.sort((a, b) => {
+  stabilizedThis.sort((a: any, b: any) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
 
-  inputData = stabilizedThis.map((el) => el[0]);
+  inputData = stabilizedThis.map((el: any) => el[0]);
 
   if (filterName) {
     if (type === "users") {
       inputData = inputData.filter(
-        (user) =>
+        (user: any) =>
           user.firstName.toLowerCase().indexOf(filterName.toLowerCase()) !==
             -1 ||
           user.lastName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
@@ -62,7 +72,8 @@ export function applyFilter({ inputData, comparator, filterName, type }) {
 
     if (type === "adverts") {
       inputData = inputData.filter(
-        (ad) => ad.title.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+        (ad: any) =>
+          ad.title.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
       );
     }
   }

@@ -45,7 +45,7 @@ const tableHeads: TableHeads = {
 const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
   const [page, setPage] = useState(0);
 
-  const [order, setOrder] = useState("asc");
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
 
   const [selected, setSelected] = useState([]);
 

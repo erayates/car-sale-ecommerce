@@ -25,7 +25,6 @@ export default function CustomTableToolbar({
   const handleDeleteItems = async () => {
     let deleteSuccessCount = 0;
     for (const itemId of selectedItems) {
-      console.log(itemId);
       const response = await fetch(`/api/v1/${type}/${itemId}`, {
         method: "DELETE",
       });

@@ -32,7 +32,10 @@ export default function SignInForm({ type }: { type?: string }) {
     useSignInWithEmailAndPassword(auth);
 
   const onSubmit = async (data: FormData) => {
-    const user = await signInWithEmailAndPassword(data.email, data.password);
+    const user = await signInWithEmailAndPassword(
+      data.email.toString(),
+      data.password.toString()
+    );
     if (user) {
       const idToken = await user.user.getIdToken();
 

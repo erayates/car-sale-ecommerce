@@ -2,7 +2,7 @@ export type UserType = {
   id: string;
   address: UserAddressType | null;
   avatar: string | null;
-  createdAt: Date | null;
+  createdAt: UserTimeDataType | Date | any;
   email: string | null;
   firstName: string | null;
   lastName: string | null;
@@ -10,6 +10,11 @@ export type UserType = {
   phone: string | null;
   updatedAt: Date | null;
   uid: string | null;
+};
+
+type UserTimeDataType = {
+  seconds: number;
+  nanoseconds: number;
 };
 
 type UserAddressType = {

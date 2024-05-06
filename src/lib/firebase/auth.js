@@ -9,12 +9,12 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAdc8VSaDF1bkXItnT0b4_pQyaHIoHhHcA",
-  authDomain: "car-sale-ecommerce-website.firebaseapp.com",
-  projectId: "car-sale-ecommerce-website",
-  storageBucket: "car-sale-ecommerce-website.appspot.com",
-  messagingSenderId: "345448386930",
-  appId: "1:345448386930:web:6f963fe059bac7c7da8deb",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDERID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID                                                                                                                      ,
 };
 
 // Initialize Firebase

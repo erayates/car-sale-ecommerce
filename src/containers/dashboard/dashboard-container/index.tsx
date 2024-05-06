@@ -61,14 +61,14 @@ export default function DashboardContainer({
         <Grid xs={12} md={6} lg={8}>
           <DashboardLatestMessages
             title="Latest Messages"
-            list={messages.slice(0, messages.length > 5 ? 5 : messages.length)}
+            list={messages?.slice(0, messages.length > 5 ? 5 : messages.length)}
           />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
           <DashboardLatestUsers
             title="Latest Users"
-            list={users.slice(0, users.length > 5 ? 5 : users.length)}
+            list={users?.slice(0, users.length > 5 ? 5 : users.length)}
           />
         </Grid>
       </Grid>

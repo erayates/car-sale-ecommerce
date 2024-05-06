@@ -7,8 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFormContext } from "react-hook-form";
 
 const headers = {
-  "X-RapidAPI-Key": "8eca1d2a66msh8c46c9a6b94076cp1d13f2jsn722a66acfb3c",
-  "X-RapidAPI-Host": "car-data.p.rapidapi.com",
+  "X-RapidAPI-Key": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_KEY,
+  "X-RapidAPI-Host": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_HOST,
 };
 
 const fetcher = (url: string) =>
@@ -18,8 +18,7 @@ export default function GeneralInfoStep() {
   const [brand, setBrand] =
     React.useState<React.SetStateAction<string | null>>(null);
 
-  const [models, setModels] =
-    React.useState<React.SetStateAction<string | null>>(null);
+  const [models, setModels] = React.useState<string[]>(null);
 
   React.useEffect(() => {
     if (brand) {
@@ -27,17 +26,13 @@ export default function GeneralInfoStep() {
         const response = await fetch(
           `https://car-data.p.rapidapi.com/cars?limit=50&page=0&make=${brand}`,
           {
-            headers: {
-              "X-RapidAPI-Key":
-                "8eca1d2a66msh8c46c9a6b94076cp1d13f2jsn722a66acfb3c",
-              "X-RapidAPI-Host": "car-data.p.rapidapi.com",
-            },
+            headers: headers,
           }
         );
 
         const data = await response.json();
-        const models = data.map((item: any) => item.model);
-        const uniqueModels = [...new Set(models)];
+        const models: string[] = data.map((item: any) => item.model);
+        const uniqueModels: any = [...new Set(models)];
         setModels(uniqueModels);
       };
       getSeries();

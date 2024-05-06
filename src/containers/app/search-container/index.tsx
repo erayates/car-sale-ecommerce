@@ -16,7 +16,7 @@ export default function SearchContainer({ items }: { items: any }) {
       <div className="container my-16 grid grid-cols-3 gap-12">
         <SearchFilter />
 
-        <div className="col-span-2">
+        <div className="col-span-3 md:col-span-2">
           <SearchInput setFilteredAds={setFilteredAds} adverts={items} />
           {filteredAds.length === 0 ? (
             <SearchNoResult />

@@ -10,7 +10,7 @@ import {
 } from "react-hook-form";
 
 export type FormData = {
-  [key: string]: string;
+  [key: string]: string | string[];
 };
 
 export type ContactFormData = {

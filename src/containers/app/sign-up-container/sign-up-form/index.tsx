@@ -41,8 +41,8 @@ export default function SignUpForm() {
 
   const onSubmit = async (data: FormData) => {
     const user = await createUserWithEmailAndPassword(
-      data.email,
-      data.password
+      data.email.toString(),
+      data.password.toString()
     );
 
     if (user) {

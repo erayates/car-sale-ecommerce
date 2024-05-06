@@ -25,7 +25,7 @@ const UploadPhotosStep: React.FC = () => {
       setValue("photos", [file, ...getValues("photos")]);
 
       reader.onload = (e) => {
-        const image = e.target?.result;
+        const image: any = e.target?.result;
         filesArray.push(image);
 
         if (filesArray.length === fileList.length) {

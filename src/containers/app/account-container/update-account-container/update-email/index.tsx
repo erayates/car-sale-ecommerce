@@ -61,7 +61,7 @@ export default function UpdateEmail() {
 
       reauthenticateWithCredential(auth.currentUser, credential)
         .then(async () => {
-          const verify = await verifyBeforeUpdateMail(email);
+          const verify = await verifyBeforeUpdateMail(email.toString(), null);
           if (verify) {
             toast.info(
               "We sent an email to change your email. Please check your new email address that you entered.",

@@ -37,10 +37,9 @@ export async function GET(req: NextRequest) {
     }
 
     const adverts = querySnapshot.docs.map((doc) => doc.data());
+    const activeAds = adverts.filter((ad) => ad.status === "active");
 
-    console.log(adverts);
-
-    return NextResponse.json(adverts, { status: 201 });
+    return NextResponse.json(activeAds, { status: 201 });
   } catch (err) {
     return NextResponse.json(
       { message: "Internal Server Error!", err: err },

@@ -35,7 +35,7 @@ export default function ForgotPasswordForm() {
 
   const onSubmit = async (data: FormData) => {
     const success = await sendPasswordResetEmail(
-      data.email,
+      data.email.toString(),
       actionCodeSettings
     );
 

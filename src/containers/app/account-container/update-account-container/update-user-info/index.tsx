@@ -23,9 +23,14 @@ export default function UpdateUserInfo() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(UserInfoSchema),
-    defaultValues: useMemo(() => {
-      return currentUser;
-    }, [currentUser]),
+    defaultValues: UserInfoSchema.parse({
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      province: currentUser.address.province,
+      addressLine: currentUser.address.addressLine,
+      country: currentUser.address.country,
+      phone: currentUser.phone,
+    }),
   });
 
   const onSubmit = async (data: FormData) => {

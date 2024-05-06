@@ -9,16 +9,23 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useResponsive } from "@/hooks/use-responsive";
+import { HiOutlineBars3 } from "react-icons/hi2";
 
 const headers = {
-  "X-RapidAPI-Key": "8eca1d2a66msh8c46c9a6b94076cp1d13f2jsn722a66acfb3c",
-  "X-RapidAPI-Host": "car-data.p.rapidapi.com",
+  "X-RapidAPI-Key": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_KEY,
+  "X-RapidAPI-Host": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_HOST,
 };
-
+  
 const fetcher = (url: string) =>
   fetch(url, { headers: headers }).then((res) => res.json());
 
 export default function SearchFilter() {
+  const [open, setOpen] = useState(true);
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
   const {
     register,
     handleSubmit,
@@ -30,8 +37,7 @@ export default function SearchFilter() {
 
   const [brand, setBrand] = useState<React.SetStateAction<string | null>>(null);
 
-  const [models, setModels] =
-    useState<React.SetStateAction<string | null>>(null);
+  const [models, setModels] = useState<string[]>([]);
 
   useEffect(() => {
     if (brand) {
@@ -49,7 +55,7 @@ export default function SearchFilter() {
 
         const data = await response.json();
         const models = data.map((item: any) => item.model);
-        const uniqueModels = [...new Set(models)];
+        const uniqueModels: any = [...new Set(models)];
         setModels(uniqueModels);
       };
       getSeries();
@@ -69,7 +75,7 @@ export default function SearchFilter() {
   const onSubmit = async (data: FormData) => {
     const params = new URLSearchParams(searchParams);
 
-    Object.entries(data).map((prop: string[]) => {
+    Object.entries(data).map((prop: any) => {
       if (prop[1]) {
         params.set(prop[0], prop[1]);
       }
@@ -78,132 +84,150 @@ export default function SearchFilter() {
     replace(`${pathname}?${params.toString()}`);
   };
 
+  const mdUp = useResponsive("up", "md");
+
+  useEffect(() => {
+    if (mdUp) {
+      setOpen(true);
+    }
+  }, [mdUp]);
+
   return (
-    <aside>
-      <div className="bg-dark-linear uppercase text-white p-4 font-semibold text-lg text-center">
+    <aside className="col-span-3 md:col-span-1">
+      <div className="bg-dark-linear uppercase text-white p-4 font-semibold text-lg text-center flex items-center justify-between md:block">
         Filters
+        {!mdUp && (
+          <button onClick={toggleDrawer(!open)}>
+            <HiOutlineBars3 className="text-white text-3xl md:hidden" />
+          </button>
+        )}
       </div>
-      <div className="bg-[#F2F2F2] flex flex-col p-4">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <p>Brand:</p>
-            <div className="grid grid-cols-2 gap-4">
-              {isLoading ? (
-                <CircularProgress />
-              ) : (
+      {open && (
+        <div className="bg-[#F2F2F2] flex flex-col p-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
+            <div className="flex flex-col gap-2">
+              <p>Brand:</p>
+              <div className="grid grid-cols-2 gap-4">
+                {isLoading ? (
+                  <CircularProgress />
+                ) : (
+                  <select
+                    name="brand"
+                    className="border border-slate-200 p-4 rounded-md col-span-2"
+                    {...register("brand")}
+                    onChange={(e) => setBrand(e.target.value)}
+                  >
+                    <option value="">Select a brand</option>
+
+                    {brands?.map((brand: string, idx: number) => (
+                      <option value={brand} key={idx}>
+                        {brand}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+              {errors.brand && (
+                <p className="text-red-500 text-sm">{errors.brand.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p>Model:</p>
+              <div className="grid grid-cols-2 gap-4">
                 <select
-                  name="brand"
+                  name="model"
+                  {...register("model")}
                   className="border border-slate-200 p-4 rounded-md col-span-2"
-                  {...register("brand")}
-                  onChange={(e) => setBrand(e.target.value)}
                 >
                   <option value="">Select a brand</option>
 
-                  {brands?.map((brand: string, idx: number) => (
-                    <option value={brand} key={idx}>
-                      {brand}
-                    </option>
-                  ))}
+                  {brand &&
+                    models?.map((model: string, idx: number) => (
+                      <option value={model} key={idx}>
+                        {model}
+                      </option>
+                    ))}
                 </select>
+              </div>
+              {errors.model && (
+                <p className="text-red-500 text-sm">{errors.model.message}</p>
               )}
             </div>
-            {errors.brand && (
-              <p className="text-red-500 text-sm">{errors.brand.message}</p>
-            )}
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <p>Model:</p>
-            <div className="grid grid-cols-2 gap-4">
-              <select
-                name="model"
-                {...register("model")}
-                className="border border-slate-200 p-4 rounded-md col-span-2"
-              >
-                <option value="">Select a brand</option>
-
-                {brand &&
-                  models?.map((model: string, idx: number) => (
-                    <option value={model} key={idx}>
-                      {model}
-                    </option>
-                  ))}
-              </select>
+            <div className="flex flex-col gap-2">
+              <p>Price:</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  type="number"
+                  placeholder="min. price"
+                  name="minPrice"
+                  min={0}
+                  register={register}
+                  error={errors.minPrice}
+                />
+                <Input
+                  type="number"
+                  placeholder="max. price"
+                  name="maxPrice"
+                  register={register}
+                  error={errors.maxPrice}
+                />
+              </div>
             </div>
-            {errors.model && (
-              <p className="text-red-500 text-sm">{errors.model.message}</p>
-            )}
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <p>Price:</p>
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                type="number"
-                placeholder="min. price"
-                name="minPrice"
-                min={0}
-                register={register}
-                error={errors.minPrice}
-              />
-              <Input
-                type="number"
-                placeholder="max. price"
-                name="maxPrice"
-                register={register}
-                error={errors.maxPrice}
-              />
+            <div className="flex flex-col gap-2">
+              <p>Date of Model:</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  type="number"
+                  placeholder="min. year"
+                  name="minYear"
+                  register={register}
+                  error={errors.minPrice}
+                />
+                <Input
+                  type="number"
+                  placeholder="max. year"
+                  name="maxYear"
+                  register={register}
+                  error={errors.maxPrice}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <p>Date of Model:</p>
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                type="number"
-                placeholder="min. year"
-                name="minYear"
-                register={register}
-                error={errors.minPrice}
-              />
-              <Input
-                type="number"
-                placeholder="max. year"
-                name="maxYear"
-                register={register}
-                error={errors.maxPrice}
-              />
+            <div className="flex flex-col gap-2">
+              <p>Mileage:</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  type="number"
+                  placeholder="min. mileage"
+                  name="minMileage"
+                  register={register}
+                  error={errors.minKM}
+                />
+                <Input
+                  type="number"
+                  placeholder="max. mileage"
+                  name="maxMileage"
+                  register={register}
+                  error={errors.maxKM}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <p>Mileage:</p>
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                type="number"
-                placeholder="min. mileage"
-                name="minMileage"
-                register={register}
-                error={errors.minKM}
-              />
-              <Input
-                type="number"
-                placeholder="max. mileage"
-                name="maxMileage"
-                register={register}
-                error={errors.maxKM}
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="bg-orange-500 text-white font-semibold py-4 rounded-md"
-          >
-            Search
-          </button>
-        </form>
-      </div>
+            <button
+              type="submit"
+              className="bg-orange-500 text-white font-semibold py-4 rounded-md"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      )}
     </aside>
   );
 }

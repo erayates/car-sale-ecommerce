@@ -34,7 +34,6 @@ const AuthStateLayout = ({ children }: { children: ReactNode }) => {
     onAuthStateChanged(auth, (user) => {
       fetchCurrentUser(user?.uid);
       if (user) {
-        console.log(currentUser);
         if (!isUserLoading && currentUser) {
           user.email !== currentUser.email && updateUserEmail();
         }
@@ -50,7 +49,6 @@ const AuthStateLayout = ({ children }: { children: ReactNode }) => {
   const [updateEmail] = useUpdateEmail(auth);
 
   const updateUserEmail = async () => {
-    console.log("test update email");
     const isUpdated = await updateEmail(auth.currentUser.email);
     if (isUpdated) {
       const response = await fetch(`/api/v1/users/${currentUser.uid}`, {

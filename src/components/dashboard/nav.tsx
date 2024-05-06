@@ -11,14 +11,11 @@ import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
 
-import { Scrollbar } from "./ui/scrollbar";
-
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useResponsive } from "@/hooks/use-responsive";
-import { account } from "@/mocks/account";
 import { UserType } from "@/types/user";
 import { useUserStore } from "@/providers/userProvider";
 
@@ -42,7 +39,7 @@ export default function Nav({
   }, [pathname]);
 
   const renderLogo = (
-    <Typography variant="h2" sx={{ px: 2, mt:3, }}>
+    <Typography variant="h2" sx={{ px: 2, mt: 3 }}>
       carify.
     </Typography>
   );
@@ -83,7 +80,7 @@ export default function Nav({
   );
 
   const renderContent = (
-    <Scrollbar
+    <Box
       sx={{
         height: 1,
         "& .simplebar-content": {
@@ -100,7 +97,7 @@ export default function Nav({
       {renderMenu}
 
       <Box sx={{ flexGrow: 1 }} />
-    </Scrollbar>
+    </Box>
   );
 
   return (

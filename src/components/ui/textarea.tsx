@@ -16,6 +16,6 @@ export const Textarea: React.FC<FormFieldProps> = ({
       rows={10}
       {...register(name, { valueAsNumber })}
     />
-    {error && <span className="text-red-700 text-sm">{error.message}</span>}
+    {error && <span className="text-red-700 text-sm">error.message</span>}
   </div>
 );

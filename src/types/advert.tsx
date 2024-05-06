@@ -22,4 +22,5 @@ interface AdvertInterface {
   favorites: string[];
   status: string;
   uid: string;
+  images?: string[];
 }

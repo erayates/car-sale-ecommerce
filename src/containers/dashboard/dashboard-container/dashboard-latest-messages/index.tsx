@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 import CardHeader from "@mui/material/CardHeader";
 
 import { IoIosArrowForward } from "react-icons/io";
-import { fToNow } from "@/lib/format-time";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { MessageType } from "@/types/message";
 
 interface DashboardLatestMessagesProps {
   title: string;
@@ -47,7 +47,7 @@ const DashboardLatestUsers: React.FC<DashboardLatestMessagesProps> = ({
   );
 };
 
-function LatestMessagesItem({ message }: { message: Message }) {
+function LatestMessagesItem({ message }: { message: MessageType }) {
   const { firstName, lastName, createdAt, content } = message;
 
   return (

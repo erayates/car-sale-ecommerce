@@ -7,7 +7,10 @@ import { toast } from "react-toastify";
 export default function UpdateAvatar() {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
 
-  const [avatar, setAvatar] = useState({
+  const [avatar, setAvatar] = useState<{
+    file: null | File;
+    url: string;
+  }>({
     file: null,
     url: "",
   });
@@ -36,7 +39,7 @@ export default function UpdateAvatar() {
         if (response.ok && response.status === 200) {
           toast.success("Your avatar updated successfully.");
           setAvatar({
-            url: imgUrl,
+            url: imgUrl as string,
             file: null,
           });
         }

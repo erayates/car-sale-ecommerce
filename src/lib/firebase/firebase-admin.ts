@@ -5,6 +5,8 @@ import { cookies } from "next/headers";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { SessionCookieOptions, getAuth } from "firebase-admin/auth";
 
+import admin from "firebase-admin";
+
 import * as firebaseAdmin from "firebase-admin";
 
 var serviceAccount = require("./serviceAccountKey.json");
@@ -12,7 +14,11 @@ export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
   initializeApp(
     {
-      credential: cert(serviceAccount),
+      credential: admin.credential.cert({
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        privateKey: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PRIVATE_KEY,
+        clientEmail: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_CLIENT_EMAIL,
+      }),
     },
     "firebase-admin-app"
   );

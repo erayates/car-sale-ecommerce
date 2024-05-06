@@ -3,20 +3,19 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function AdvertGallery({ images = [] }: { images: [] }) {
+export default function AdvertGallery({ images = [] }: { images: string[] }) {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   useEffect(() => {
-    setSelectedImage(images[0])
-  }, [images])
-  
+    setSelectedImage(images[0]);
+  }, [images]);
+
   const handleClickThumbnail = (image: string) => {
     setSelectedImage(image);
   };
 
   return (
     <div className="flex flex-col gap-2 col-span-3 relative">
-      {/* Big Thumbnail */}
       <div className="relative bg-slate-200 rounded-lg h-[512px] overflow-hidden shadow-md">
         <div className="absolute top-[-10px] left-0 right-0 font-semibold text-slate-300 text-5xl grid grid-cols-4 ">
           {Array(50)

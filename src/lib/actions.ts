@@ -14,11 +14,7 @@ export const createUser = async (data: any, uid: string) => {
       },
     });
 
-    if (res.status === 201) {
-      return res;
-    }
-
-    return res.statusText.toString();
+    return await res.json();
   } catch (err) {
     return { message: err };
   }
