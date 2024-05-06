@@ -18,9 +18,7 @@ async function getAdverts() {
 
 export default async function MyAdverts() {
   const { uid } = await getCurrentUser();
-  if (uid) {
-    const adverts = await getAdverts();
-    const userAds = adverts?.filter((ad: any) => ad.uid === uid) ?? [];
-    return <MyAdvertsContainer userAds={userAds} />;
-  }
+  const adverts = await getAdverts();
+  const userAds = adverts?.filter((ad: any) => ad.uid === uid) ?? [];
+  return <MyAdvertsContainer userAds={userAds} />;
 }
