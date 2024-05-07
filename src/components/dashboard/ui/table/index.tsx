@@ -169,8 +169,8 @@ const CustomTable = ({ data, type }: { data: any[]; type: string }) => {
         type={type}
       />
 
-      <TableContainer sx={{ overflow: "unset" }}>
-        <Table sx={{ minWidth: 800, overflowX: "scroll" }}>
+      <TableContainer sx={{ overflowX: "scroll" }}>
+        <Table sx={{ minWidth: 800 }}>
           <CustomTableHead
             order={order}
             orderBy={orderBy}

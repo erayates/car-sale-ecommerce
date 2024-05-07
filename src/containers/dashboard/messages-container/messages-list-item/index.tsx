@@ -102,7 +102,11 @@ export default function MessagesListItem({
       }
     >
       <Box
-        sx={{ display: "flex", alignItems: "center", gap: 2 }}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        }}
         component="div"
         onClick={handleSetSelectedMessage}
       >
@@ -127,7 +131,8 @@ export default function MessagesListItem({
         <Button
           aria-describedby={id}
           onClick={handleClick}
-          sx={{ height: "100%" }}
+          fullWidth
+          sx={status === "unread" && { color: "white" }}
         >
           <HiOutlineDotsVertical />
         </Button>

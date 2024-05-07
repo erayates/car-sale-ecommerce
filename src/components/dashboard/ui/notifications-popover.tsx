@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import { set, sub } from "date-fns";
-import { faker } from "@faker-js/faker";
-
 import {
   Box,
   List,
   Badge,
-  Button,
   Avatar,
   Divider,
   Tooltip,
@@ -18,6 +14,7 @@ import {
   ListItemAvatar,
   ListItemButton,
   CircularProgress,
+  Button,
 } from "@mui/material";
 
 import { FaMessage } from "react-icons/fa6";
@@ -126,7 +123,14 @@ export default function NotificationsPopover() {
           </Box>
         ) : (
           <>
-            <Box sx={{ display: "flex", alignItems: "center", py: 2, px: 2.5 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                py: 2,
+                px: 2.5,
+              }}
+            >
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="subtitle1">Notifications</Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
@@ -142,9 +146,7 @@ export default function NotificationsPopover() {
                 </Tooltip>
               )}
             </Box>
-
             <Divider sx={{ borderStyle: "dashed" }} />
-
             <List
               disablePadding
               subheader={
@@ -166,7 +168,6 @@ export default function NotificationsPopover() {
                   />
                 ))}
             </List>
-
             <List
               disablePadding
               subheader={
@@ -188,6 +189,17 @@ export default function NotificationsPopover() {
                   />
                 ))}
             </List>
+            <Divider sx={{ borderStyle: "dashed" }} />
+            <Box sx={{ p: 1 }}>
+              <Button
+                LinkComponent="a"
+                href="/dashboard/messages"
+                fullWidth
+                disableRipple
+              >
+                View All
+              </Button>
+            </Box>
           </>
         )}
       </Popover>

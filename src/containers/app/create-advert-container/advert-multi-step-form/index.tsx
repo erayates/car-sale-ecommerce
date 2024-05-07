@@ -164,11 +164,7 @@ export default function AdvertMultiStepForm({
                             Continue
                           </Button>
                         ) : (
-                          <Button
-                            variant="contained"
-                            sx={{ mt: 1, mr: 1 }}
-                            type="submit"
-                          >
+                          <Button variant="contained" type="submit">
                             Finish
                           </Button>
                         )}

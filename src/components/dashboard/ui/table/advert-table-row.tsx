@@ -83,6 +83,17 @@ const CustomAdvertTableRow: React.FC<CustomTableRowProps> = ({
     toast.error("Something went wrong!");
   };
 
+  const handleDeleteAdvert = async () => {
+    handleCloseMenu();
+    const response = await fetch(`/api/v1/adverts/${id}`, { method: "DELETE" });
+    if (response.ok && response.status === 200) {
+      toast.success("Advert deleted successfully!");
+      router.refresh();
+      return;
+    }
+    toast.error("Something went wrong!");
+  };
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -110,7 +121,7 @@ const CustomAdvertTableRow: React.FC<CustomTableRowProps> = ({
 
         <TableCell>{uid}</TableCell>
 
-        <TableCell align="left">
+        <TableCell align="left" sx={{ display: "flex" }}>
           <Button onClick={handleOpenStatusMenu} sx={{ mr: 1 }}>
             <MdPublishedWithChanges style={{ fontSize: 24 }} />
           </Button>
@@ -174,7 +185,7 @@ const CustomAdvertTableRow: React.FC<CustomTableRowProps> = ({
           Preview
         </MenuItem>
         <MenuItem
-          onClick={handleCloseMenu}
+          onClick={handleDeleteAdvert}
           sx={{ color: "error.main", gap: 1 }}
         >
           <GoTrash />

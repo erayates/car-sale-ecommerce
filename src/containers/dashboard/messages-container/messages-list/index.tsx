@@ -15,7 +15,7 @@ export default function MessagesList({
       spacing={3}
       sx={{
         p: 3,
-        pr: 0,
+        pr: { xs: 3, md: 1 },
         height: { xs: "285px", md: "675px" },
         overflowY: "scroll",
       }}

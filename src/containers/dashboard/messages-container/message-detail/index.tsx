@@ -7,7 +7,13 @@ export default function MessageDetail({ message }: { message: MessageType }) {
 
   return (
     <Card sx={{ height: "100%", p: 3 }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
+        }}
+      >
         <Box sx={{ display: "flex", gap: 2 }}>
           <Box
             component="img"
@@ -25,7 +31,14 @@ export default function MessageDetail({ message }: { message: MessageType }) {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            alignSelf: { xs: "flex-end", md: "auto" },
+            mt: { xs: 1, md: 0 },
+          }}
+        >
           <Box>
             <Typography color="inherit" variant="subtitle2" noWrap>
               Phone Number:
@@ -52,7 +65,6 @@ export default function MessageDetail({ message }: { message: MessageType }) {
       </Box>
 
       <Divider sx={{ borderStyle: "dashed", mt: 2 }} />
-
 
       <Box sx={{ mt: 2 }}>
         <Typography>{content}</Typography>
