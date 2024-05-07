@@ -12,7 +12,9 @@ import IconButton from "@mui/material/IconButton";
 import { useUserStore } from "@/providers/userProvider";
 import { UserType } from "@/types/user";
 import Link from "next/link";
-// -----------------------a-----------------------------------------------
+import { useRouter } from "next/navigation";
+import { useSignOut } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/auth";
 
 const MENU_OPTIONS = [
   { label: "Home", href: "/dashboard" },
@@ -23,6 +25,8 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const currentUser = useUserStore((store) => store.currentUser as UserType);
+  const [signOut] = useSignOut(auth);
+  const router = useRouter();
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
@@ -31,6 +35,22 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  async function handleLogout() {
+    try {
+      const response = await fetch("/api/v1/logout", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        await signOut();
+        router.push("/dashboard/login");
+      }
+    } catch (error) {
+      console.error("Error signing out with email.", error);
+    }
+  }
 
   return (
     <>
@@ -101,7 +121,7 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handleLogout}
           sx={{ typography: "body2", color: "error.main", py: 1.5 }}
         >
           Logout
