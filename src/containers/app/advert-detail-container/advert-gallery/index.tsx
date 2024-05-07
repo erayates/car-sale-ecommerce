@@ -15,7 +15,7 @@ export default function AdvertGallery({ images = [] }: { images: string[] }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 col-span-3 relative">
+    <div className="flex flex-col gap-2 col-span-1 md:col-span-3 relative">
       <div className="relative bg-slate-200 rounded-lg h-[512px] overflow-hidden shadow-md">
         <div className="absolute top-[-10px] left-0 right-0 font-semibold text-slate-300 text-5xl grid grid-cols-4 ">
           {Array(50)

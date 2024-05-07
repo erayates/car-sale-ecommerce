@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 export default function AdvertFeatures({ advert }: { advert: any }) {
   return (
-    <div className="flex flex-col col-span-2 gap-4 relative">
+    <div className="flex flex-col col-span-1 md:col-span-2 gap-4 relative">
       <div className="flex flex-col gap-2">
         <h3 className="text-2xl font-semibold">{advert.title}</h3>
         <div className="flex gap-2">

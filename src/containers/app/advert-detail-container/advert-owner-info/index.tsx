@@ -69,7 +69,7 @@ export default function AdvertOwnerInfo({
   }
 
   return (
-    <div className=" bg-[#f2f2f2] p-4 rounded-md sticky top-[10px] container bg-dark-linear mt-16 z-40 flex justify-between items-center">
+    <div className=" bg-[#f2f2f2] p-4 rounded-md sticky top-[10px] container bg-dark-linear mt-16 z-40 flex flex-col md:flex-row md:gap-0 gap-4 justify-between items-center">
       <div>
         <p className="text-xl text-white font-semibold flex gap-2 items-center">
           <FaUser /> {adOwner.firstName} {adOwner.lastName}
@@ -81,13 +81,15 @@ export default function AdvertOwnerInfo({
       </div>
       <div className="flex items-center gap-4">
         <a
-          href="tel:8882192787"
+          href={`tel:${adOwner.phone}`}
           className="text-white bg-green-500 p-2 rounded-md flex text-md items-center gap-2"
         >
           <FaSquarePhone className="text-2xl" />
           <p className="font-semibold flex flex-col items-start  text-sm leading-4">
             Call Now!
-            <span className="font-normal">{adOwner.phone}</span>
+            <span className="font-normal">
+              {adOwner.phone || "XXX-XXX-XX-XX"}
+            </span>
           </p>
         </a>
         <button
