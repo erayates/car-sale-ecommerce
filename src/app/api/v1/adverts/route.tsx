@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       price: Number(reqBody.price),
       yearOfModel: Number(reqBody.yearOfModel),
       favorites: [],
-      slug: slugify(reqBody.title),
+      slug: slugify(reqBody.title).toLowerCase(),
     };
 
     await addDoc(advertsCollection, docData);

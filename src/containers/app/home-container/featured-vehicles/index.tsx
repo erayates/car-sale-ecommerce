@@ -16,6 +16,7 @@ const items = [
     images: ["/assets/images/featured-cars/clio.jpg"],
     mileage: 100000,
     fuelType: "Diesel",
+    slug: "#",
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ const items = [
     images: ["/assets/images/featured-cars/ford-kuga.jpg"],
     mileage: 123456,
     fuelType: "Diesel",
+    slug: "#",
   },
   {
     id: 3,
@@ -38,6 +40,7 @@ const items = [
     images: ["/assets/images/featured-cars/cla-180.jpg"],
     mileage: 46897,
     fuelType: "Diesel",
+    slug: "#",
   },
   {
     id: 4,
@@ -49,6 +52,7 @@ const items = [
     images: ["/assets/images/featured-cars/golf-8.webp"],
     mileage: 56874,
     fuelType: "Diesel",
+    slug: "#",
   },
   {
     id: 5,
@@ -61,6 +65,7 @@ const items = [
     images: ["/assets/images/featured-cars/tiggo-8.jpg"],
     mileage: 63546,
     fuelType: "Diesel",
+    slug: "#",
   },
   {
     id: 6,
@@ -72,6 +77,7 @@ const items = [
     images: ["/assets/images/featured-cars/bmw-320.jpg"],
     mileage: 156896,
     fuelType: "Diesel",
+    slug: "#",
   },
 ];
 
@@ -101,59 +107,60 @@ export default function FeaturedVehicles({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         <div className="group row-span-1 col-span-1 lg:row-span-2 lg:col-span-2 shadow-lg h-64 lg:h-auto rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden">
-          <Image
-            src={firstItem.images[0]}
-            fill
-            alt="Renault Clio"
-            className="object-cover object-left opacity-40 group-hover:scale-105 transition-all"
-          />
-          <div className="absolute bottom-0 p-6 text-white flex flex-col gap-1">
-            <h4 className="text-lg lg:text-3xl font-semibold">
-              {firstItem.brand} {firstItem.model}
-            </h4>
-            <p className="flex gap-1 text-md items-center">
-              <MdLocationPin /> {firstItem.city + ", Turkey"}
-            </p>
-            <p className="flex gap-1 text-md items-center">
-              <BsSpeedometer2 /> {firstItem.mileage} km
-            </p>
-            <p className="flex gap-1 text-md items-center">
-              <FaGasPump /> {firstItem.fuelType}
-            </p>
-          </div>
-          <div className="bg-orange-600 text-white p-3 lg:px-4 lg:py-4 absolute right-2 bottom-2 rounded-md font-semibold text-sm lg:text-xl">
-            ₺ {convertNumberToCurrency(firstItem.price)}
-          </div>
+          <Link href={`/advert/${firstItem.slug}`}>
+            <Image
+              src={firstItem.images[0]}
+              fill
+              alt="Renault Clio"
+              className="object-cover object-left opacity-40 group-hover:scale-105 transition-all"
+            />
+            <div className="absolute bottom-0 p-6 text-white flex flex-col gap-1">
+              <h4 className="text-lg lg:text-3xl font-semibold">
+                {firstItem.brand} {firstItem.model}
+              </h4>
+              <p className="flex gap-1 text-md items-center">
+                <MdLocationPin /> {firstItem.city + ", Turkey"}
+              </p>
+              <p className="flex gap-1 text-md items-center">
+                <BsSpeedometer2 /> {firstItem.mileage} km
+              </p>
+              <p className="flex gap-1 text-md items-center">
+                <FaGasPump /> {firstItem.fuelType}
+              </p>
+            </div>
+            <div className="bg-orange-600 text-white p-3 lg:px-4 lg:py-4 absolute right-2 bottom-2 rounded-md font-semibold text-sm lg:text-xl">
+              ₺ {convertNumberToCurrency(firstItem.price)}
+            </div>
+          </Link>
         </div>
         {cars.map((car, idx) => (
-          <div
-            className="h-64 shadow-lg rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden group"
-            key={idx}
-          >
-            <Image
-              src={car.images[0]}
-              fill
-              alt="BMW 3.20"
-              className="object-cover object-center opacity-40 group-hover:scale-105 transition-all"
-            />
-            <div className="absolute bottom-0 p-6 text-white flex flex-col ">
-              <h4 className="text-lg font-semibold">
-                {car.brand} {car.model}
-              </h4>
-              <p className="flex gap-1 text-sm items-center">
-                <MdLocationPin /> {car.city + ", Turkey"}
-              </p>
-              <p className="flex gap-1 text-sm items-center">
-                <BsSpeedometer2 /> {car.mileage} km
-              </p>
-              <p className="flex gap-1 text-sm items-center">
-                <FaGasPump /> {car.fuelType}
-              </p>
+          <Link href={`/advert/${car.slug}`} key={idx}>
+            <div className="h-64 shadow-lg rounded-md relative bg-gradient-to-t from-blue-800 to-black overflow-hidden group">
+              <Image
+                src={car.images[0]}
+                fill
+                alt="BMW 3.20"
+                className="object-cover object-center opacity-40 group-hover:scale-105 transition-all"
+              />
+              <div className="absolute bottom-0 p-6 text-white flex flex-col ">
+                <h4 className="text-lg font-semibold">
+                  {car.brand} {car.model}
+                </h4>
+                <p className="flex gap-1 text-sm items-center">
+                  <MdLocationPin /> {car.city + ", Turkey"}
+                </p>
+                <p className="flex gap-1 text-sm items-center">
+                  <BsSpeedometer2 /> {car.mileage} km
+                </p>
+                <p className="flex gap-1 text-sm items-center">
+                  <FaGasPump /> {car.fuelType}
+                </p>
+              </div>
+              <div className="bg-orange-600 px-3 py-3 absolute right-2 bottom-2 text-white rounded-md font-semibold text-sm">
+                ${convertNumberToCurrency(car.price)}
+              </div>
             </div>
-            <div className="bg-orange-600 px-3 py-3 absolute right-2 bottom-2 text-white rounded-md font-semibold text-sm">
-              ${convertNumberToCurrency(car.price)}
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CgArrowLongRight } from "react-icons/cg";
 
 export default function Hero() {
@@ -13,9 +14,11 @@ export default function Hero() {
           <p className="text-white/50 italic text-sm md:text-md">
             Buy and sell car in the most trustworthy way.
           </p>
-          <button className="text-white bg-amber-500 py-4 px-8 w-fit rounded-md text-sm font-semibold flex items-center gap-4 hover:scale-105 transition-all">
-            Explore Right Now! <CgArrowLongRight className="text-2xl" />
-          </button>
+          <Link href="/search">
+            <button className="text-white bg-amber-500 py-4 px-8 w-fit rounded-md text-sm font-semibold flex items-center gap-4 hover:scale-105 transition-all">
+              Explore Right Now! <CgArrowLongRight className="text-2xl" />
+            </button>
+          </Link>
         </div>
       </div>
     </>

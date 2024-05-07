@@ -23,4 +23,5 @@ interface AdvertInterface {
   status: string;
   uid: string;
   images?: string[];
+  slug?: string;
 }
