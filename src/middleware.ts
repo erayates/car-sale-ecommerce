@@ -21,6 +21,10 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
+    if (reqURL === "/dashboard/login") {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
     const isUserAuth = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_DOMAIN}/api/v1/login`,
       {
