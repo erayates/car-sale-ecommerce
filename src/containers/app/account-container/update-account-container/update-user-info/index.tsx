@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 export default function UpdateUserInfo() {
   const currentUser = useUserStore((state) => state.currentUser as UserType);
+  const isLoading = useUserStore((state) => state.isLoading as boolean);
   const fetchCurrentUser = useUserStore(
     (state) => state.fetchCurrentUser as (uid: string) => void
   );
@@ -23,14 +24,15 @@ export default function UpdateUserInfo() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(UserInfoSchema),
-    defaultValues: UserInfoSchema.parse({
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      province: currentUser.address.province,
-      addressLine: currentUser.address.addressLine,
-      country: currentUser.address.country,
-      phone: currentUser.phone,
-    }),
+    defaultValues: isLoading
+      && UserInfoSchema.parse({
+          firstName: currentUser.firstName ?? "",
+          lastName: currentUser.lastName ?? "",
+          province: currentUser.address.province ?? "",
+          addressLine: currentUser.address.addressLine ?? "",
+          country: currentUser.address.country ?? "",
+          phone: currentUser.phone ?? "",
+        })
   });
 
   const onSubmit = async (data: FormData) => {
@@ -72,6 +74,7 @@ export default function UpdateUserInfo() {
           className="outline-none border-gray border rounded-md px-4 py-2 w-full"
           defaultValue={currentUser.firstName}
           register={register}
+          value={currentUser.firstName}
           error={errors.firstName}
         />
       </div>
@@ -82,6 +85,7 @@ export default function UpdateUserInfo() {
           type="text"
           name="lastName"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
+          value={currentUser.lastName}
           register={register}
           error={errors.lastName}
         />
@@ -92,6 +96,7 @@ export default function UpdateUserInfo() {
         <Input
           type="number"
           name="phone"
+          value={currentUser.phone}
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
           register={register}
           error={errors.phone}
@@ -105,6 +110,7 @@ export default function UpdateUserInfo() {
           name="country"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
           register={register}
+          value={currentUser.address.country}
           error={errors.country}
         />
       </div>
@@ -116,6 +122,7 @@ export default function UpdateUserInfo() {
           name="province"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full"
           register={register}
+          value={currentUser.address.province}
           error={errors.province}
         />
       </div>

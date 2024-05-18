@@ -7,7 +7,6 @@ const phoneRegex = new RegExp(
 
 // Contact form schema
 export const UserInfoSchema: ZodType<FormData> = z.object({
-  email: z.string().email(),
   firstName: z.string().min(1, { message: "Required field." }),
   lastName: z.string().min(1, { message: "Required field." }),
   country: z.string().min(1, { message: "Required field." }),

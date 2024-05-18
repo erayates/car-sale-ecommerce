@@ -9,17 +9,17 @@ import admin from "firebase-admin";
 
 import * as firebaseAdmin from "firebase-admin";
 
-// var serviceAccount = require("./serviceAccountKey.json");
+var serviceAccount = require("./serviceAccountKey.json");
 
-const serviceAccount = JSON.parse(
-  process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT as string
-);
+// const serviceAccount = JSON.parse(
+//   process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT as string
+// );
 
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
   initializeApp(
     {
-      credential: admin.credential.cert(serviceAccount),
+      credential: cert(serviceAccount),
     },
     "firebase-admin-app"
   );
