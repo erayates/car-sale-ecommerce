@@ -17,11 +17,11 @@ const sidebarItems = [
     icon: <FaUser />,
   },
 
-  {
-    href: "/account/messages",
-    title: "Messages",
-    icon: <BiMessageSquareDetail />,
-  },
+  // {
+  //   href: "/account/messages",
+  //   title: "Messages",
+  //   icon: <BiMessageSquareDetail />,
+  // },
   {
     href: "/account/my-adverts",
     title: "My Adverts",
