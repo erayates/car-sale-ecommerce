@@ -4,11 +4,15 @@ import PageHero from "@/components/page-hero";
 import SearchFilter from "./search-filter";
 import SearchItems from "./search-items";
 import SearchInput from "./search-input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchNoResult from "./search-no-result";
 
 export default function SearchContainer({ items }: { items: any }) {
   const [filteredAds, setFilteredAds] = useState(items);
+
+  useEffect(() => {
+    setFilteredAds(items);
+  }, [items]);
 
   return (
     <>

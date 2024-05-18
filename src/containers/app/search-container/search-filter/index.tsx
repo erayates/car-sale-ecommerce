@@ -16,7 +16,7 @@ const headers = {
   "X-RapidAPI-Key": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_KEY,
   "X-RapidAPI-Host": process.env.NEXT_PUBLIC_CARS_X_RAPIDAPI_HOST,
 };
-  
+
 const fetcher = (url: string) =>
   fetch(url, { headers: headers }).then((res) => res.json());
 
@@ -69,7 +69,7 @@ export default function SearchFilter() {
   } = useSWR("https://car-data.p.rapidapi.com/cars/makes", fetcher);
 
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
   const pathname = usePathname();
 
   const onSubmit = async (data: FormData) => {
