@@ -72,9 +72,8 @@ export default function UpdateUserInfo() {
           type="text"
           name="firstName"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full"
-          defaultValue={currentUser.firstName}
           register={register}
-          value={currentUser.firstName}
+          value={currentUser?.firstName}
           error={errors.firstName}
         />
       </div>
@@ -85,7 +84,7 @@ export default function UpdateUserInfo() {
           type="text"
           name="lastName"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
-          value={currentUser.lastName}
+          value={currentUser?.lastName}
           register={register}
           error={errors.lastName}
         />
@@ -96,7 +95,7 @@ export default function UpdateUserInfo() {
         <Input
           type="number"
           name="phone"
-          value={currentUser.phone}
+          value={currentUser?.phone}
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
           register={register}
           error={errors.phone}
@@ -110,7 +109,7 @@ export default function UpdateUserInfo() {
           name="country"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full "
           register={register}
-          value={currentUser.address.country}
+          value={currentUser?.address.country}
           error={errors.country}
         />
       </div>
@@ -122,7 +121,7 @@ export default function UpdateUserInfo() {
           name="province"
           className="outline-none border-gray border rounded-md px-4 py-2 w-full"
           register={register}
-          value={currentUser.address.province}
+          value={currentUser?.address.province}
           error={errors.province}
         />
       </div>

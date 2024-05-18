@@ -14,7 +14,7 @@ export const createUser = async (data: any, uid: string) => {
       },
     });
 
-    return await res.json();
+    return res;
   } catch (err) {
     return { message: err };
   }

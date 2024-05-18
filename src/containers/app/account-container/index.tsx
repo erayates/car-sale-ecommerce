@@ -98,7 +98,7 @@ export default function AccountContainer({
                 <p className="text-slate-500 font-semibold">
                   Your Active Adverts:
                 </p>
-                <p className="font-semibold bg-blue-500 px-4 rounded-md py-1 text-white font-semibold">
+                <p className="font-semibold bg-blue-500 px-4 rounded-md py-1 text-white ">
                   {userActiveAds}
                 </p>
               </div>
@@ -107,7 +107,7 @@ export default function AccountContainer({
                 <p className="text-slate-500 font-semibold">
                   Your Passive Adverts:
                 </p>
-                <p className="font-semibold bg-red-500 px-4 rounded-md py-1 text-white font-semibold">
+                <p className="font-semibold bg-red-500 px-4 rounded-md py-1 text-white">
                   {userPassiveAds}
                 </p>
               </div>

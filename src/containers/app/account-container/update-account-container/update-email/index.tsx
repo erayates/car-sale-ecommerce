@@ -63,16 +63,10 @@ export default function UpdateEmail() {
         .then(async () => {
           const verify = await verifyBeforeUpdateMail(email.toString(), null);
           if (verify) {
-            toast.info(
-              "We sent an email to change your email. Please check your new email address that you entered.",
-              {
-                position: "top-center",
-                autoClose: 3000,
-              }
-            );
-            router.push("/sign-in");
+           
             await fetch(`/api/v1/logout`);
             await signOut();
+            router.push("/sign-in?emailChange=true");
           }
         })
         .catch((err) => {

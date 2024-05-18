@@ -29,9 +29,9 @@ export default function UpdatePassword() {
           updatePassword(auth.currentUser, newPassword)
             .then(async () => {
               toast.success("Your password changed successfully!");
-              await signOut(auth);
               await fetch("/api/v1/logout");
-              router.push("/sign-in");
+              await signOut(auth);
+              router.refresh();
             })
             .catch((error) => {
               checkErrors(error.code);

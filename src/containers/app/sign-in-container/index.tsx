@@ -1,8 +1,29 @@
+"use client";
+
 import PageHero from "@/components/page-hero";
 import Link from "next/link";
 import SignInForm from "./sign-in-form";
+import { useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function SignInContainer() {
+  const searchParams = useSearchParams();
+  const emailChange = searchParams.get("emailChange");
+  const registerSuccess = searchParams.get("registerSuccess");
+
+  useEffect(() => {
+    if (emailChange) {
+      toast.info(
+        "We sent an email to change your email. Please check your new email address that you entered."
+      );
+    }
+
+    if (registerSuccess) {
+      toast.success("You registered successfully.");
+    }
+  }, [emailChange, registerSuccess]);
+
   return (
     <>
       <PageHero title="Sign In" />
@@ -32,7 +53,10 @@ export default function SignInContainer() {
 
           <SignInForm />
 
-          <Link href="/forgot-password" className="text-blue-500 font-semibold text-sm">
+          <Link
+            href="/forgot-password"
+            className="text-blue-500 font-semibold text-sm"
+          >
             Reset Your Password by E-mail?
           </Link>
         </div>

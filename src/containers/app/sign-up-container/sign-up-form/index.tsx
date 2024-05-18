@@ -16,6 +16,7 @@ import { CircularProgress } from "@mui/material";
 
 import { auth } from "@/lib/firebase/auth";
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const {
@@ -26,6 +27,8 @@ export default function SignUpForm() {
   } = useForm<FormData>({
     resolver: zodResolver(SignUpFormSchema),
   });
+
+  const router = useRouter();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -47,10 +50,9 @@ export default function SignUpForm() {
 
     if (user) {
       signOut(auth);
-      const response = await createUser(data, user.user.uid);
-
-      if (response.ok) {
-        toast.success("You registered successfully!");
+      const response: any = await createUser(data, user.user.uid);
+      if (response.ok && response.status === 201) {
+        router.push("/sign-in?registerSuccess=true");
         reset();
       }
     }
